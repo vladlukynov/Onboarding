@@ -47,6 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/send-code-for-confirmation-account*").permitAll()
                 .antMatchers("/user/check-email-exists*").permitAll()
                 .antMatchers("/user/image*").permitAll()
+                .antMatchers("/team/all").permitAll()
+                .antMatchers("/post/all").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling();
     }
