@@ -12,4 +12,8 @@
     <string name="continue_text">Продолжить</string>
     <string name="no_account">Нет аккаунта?</string>
     <string name="sign_in_2">Вход</string>
+    <string name="profile">Your Profile</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="complete_registration">Завершить регистрацию</string>
 </resources>

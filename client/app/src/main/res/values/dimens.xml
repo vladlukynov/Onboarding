@@ -18,6 +18,9 @@
     <dimen name="space_8x">32dp</dimen>
     <dimen name="space_9x">36dp</dimen>
     <dimen name="space_10x">40dp</dimen>
+    <dimen name="space_12x">48dp</dimen>
+    <dimen name="space_13x">52dp</dimen>
     <dimen name="space_14x">60dp</dimen>
     <dimen name="space_16.5x">70dp</dimen>
+    <dimen name="space_17x">68dp</dimen>
 </resources>
