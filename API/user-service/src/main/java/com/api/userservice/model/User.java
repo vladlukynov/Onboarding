@@ -46,6 +46,8 @@ public class User {
 
     private String name;
 
+    private String dateStartWork;
+
     private String linkPhoto;
 
     private boolean isEnabled;

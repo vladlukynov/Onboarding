@@ -21,6 +21,12 @@ public interface UserService {
 
     void update(User user, EditUserBean editUserBean);
 
+    void updateDate(String email, String date);
+
+    void updateTeam(String email, Long team);
+
+    void updatePost(String email, Long post);
+
     User findUserByEmail(String email);
 
     void setLinkPhoto(String linkPhoto, Long userId);

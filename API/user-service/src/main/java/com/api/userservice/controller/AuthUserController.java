@@ -3,9 +3,9 @@ package com.api.userservice.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +50,9 @@ public class AuthUserController {
 
     @Autowired
     private RefreshTokenService refreshTokenService;
+
+    String pattern = "MM/dd/yyyy";
+    DateFormat df = new SimpleDateFormat(pattern);
 
     @RequestMapping(path = "/check-password", method = RequestMethod.GET)
     public ResponseEntity<?> checkPassword(@RequestParam String password, HttpServletRequest request) {
@@ -119,6 +122,31 @@ public class AuthUserController {
                             "User with id " + id + " does not exist."), httpHeaders, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(userService.getInfoForUserPageWithoutEmail(user), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/add-worker", method = RequestMethod.GET)
+    public ResponseEntity<?> addWorker(@RequestParam(value = "email") String email,@RequestParam("newPost") Long post, @RequestParam("newCommand") Long command, HttpServletRequest request){
+        ResponseEntity<?> responseEntity = getUserByRequest(request);
+        if (!responseEntity.getStatusCode().equals(HttpStatus.OK)) {
+            return responseEntity;
+        }
+        User user = (User) responseEntity.getBody();
+        if((user != null)&&(user.getPost().getId() != 1)){
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            "not enough rights to execute"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        Date today = Calendar.getInstance().getTime();
+        String date = df.format(today);
+        try{
+            userService.updateDate(email, date);
+            userService.updatePost(email, post);
+            userService.updateTeam(email, command);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @RequestMapping(path = "/edit-profile", method = RequestMethod.POST, consumes = {"multipart/form-data"}, produces = "application/json")

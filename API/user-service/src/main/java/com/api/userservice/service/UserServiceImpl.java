@@ -40,6 +40,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateDate(String email, String date){
+        userRepository.updateDateStartWorkByEmailEquals(email, date);
+    }
+
+    @Override
+    public void updateTeam(String email, Long team){
+        userRepository.updateTeamIdByEmailEquals(team, email);
+    }
+
+    @Override
+    public void updatePost(String email, Long post){
+        userRepository.updatePostIdByEmailEquals(post, email);
+    }
+
+    @Override
     public void changePassword(String password, User user) {
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
