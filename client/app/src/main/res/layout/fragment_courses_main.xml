@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.courses.CoursesMainFragment">
+    tools:context=".presentation.courses.courses_main.CoursesMainFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"
@@ -190,13 +190,14 @@
         app:layout_constraintTop_toBottomOf="@id/rv_courses" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="@dimen/space_3x"
         android:id="@+id/rv_colleagues"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_3x"
         android:orientation="horizontal"
-        tools:listitem="@layout/view_holder_colleague"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tv_colleagues"
-        tools:itemCount="1" />
+        app:layout_constraintEnd_toStartOf="@id/gl_end"
+        tools:itemCount="1"
+        tools:listitem="@layout/view_holder_colleague" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_colleague_picture"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:cardCornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,28 +18,40 @@
             android:id="@+id/iv_colleague_picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@color/main_purple" />
+            android:scaleType="center"
+            tools:ignore="ContentDescription"
+            tools:src="@color/main_purple" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tv_colleague_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-30dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="-30dp"
+        android:ellipsize="end"
         android:fontFamily="@font/mulish_medium"
+        android:gravity="center"
+        android:maxLines="2"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cv_colleague_picture"
+        app:layout_constraintStart_toStartOf="@id/cv_colleague_picture"
         app:layout_constraintTop_toBottomOf="@id/cv_colleague_picture"
         tools:text="Алена Рыжова" />
 
     <TextView
+        android:id="@+id/tv_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:fontFamily="@font/mulish_light"
+        android:gravity="center"
+        android:maxLines="2"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cv_colleague_picture"
+        app:layout_constraintStart_toStartOf="@id/cv_colleague_picture"
         app:layout_constraintTop_toBottomOf="@id/tv_colleague_name"
         tools:text="Наставник" />
 
