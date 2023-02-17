@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.api.userservice.DTO.EditUserBean;
 import com.api.userservice.model.User;
 import com.api.userservice.security.jwt.JwtService;
+import com.api.userservice.service.NotificationService;
 import com.api.userservice.service.RefreshTokenService;
 import com.api.userservice.service.UserService;
 import com.api.userservice.service.UserTokenService;
@@ -54,6 +55,9 @@ public class AuthUserController {
 
     @Autowired
     private RefreshTokenService refreshTokenService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     String pattern = "MM/dd/yyyy";
     DateFormat df = new SimpleDateFormat(pattern);
@@ -107,23 +111,23 @@ public class AuthUserController {
 
     @RequestMapping(path = "/get-post-by-id", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getPostByUserId(@RequestParam("id") Long id){
-        try{
+    public ResponseEntity<?> getPostByUserId(@RequestParam("id") Long id) {
+        try {
             return new ResponseEntity<>(userService.findPostByUserId(id), HttpStatus.OK);
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
     @RequestMapping(path = "/colleagues", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<?> getColleagues(HttpServletRequest request){
+    public ResponseEntity<?> getColleagues(HttpServletRequest request) {
         ResponseEntity<?> responseEntity = getUserByRequest(request);
         if (!responseEntity.getStatusCode().equals(HttpStatus.OK)) {
             return responseEntity;
         }
         User user = (User) responseEntity.getBody();
-        if(user.getTeam() == null){
+        if (user.getTeam() == null) {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.CONFLICT.value(),
                             "You are not working"), HttpStatus.CONFLICT);
@@ -155,28 +159,32 @@ public class AuthUserController {
     }
 
     @RequestMapping(path = "/add-worker", method = RequestMethod.GET)
-    public ResponseEntity<?> addWorker(@RequestParam(value = "email") String email,@RequestParam("newPost") Long post, @RequestParam("newCommand") Long command, HttpServletRequest request){
+    public ResponseEntity<?> addWorker(@RequestParam(value = "email") String email,
+                                       @RequestParam("newPost") Long post,
+                                       @RequestParam("newCommand") Long command, HttpServletRequest request) {
         ResponseEntity<?> responseEntity = getUserByRequest(request);
         if (!responseEntity.getStatusCode().equals(HttpStatus.OK)) {
             return responseEntity;
         }
         User user = (User) responseEntity.getBody();
-        if((user != null)&&(user.getPost().getId() != 1)){
+        if ((user != null) && (user.getPost().getId() != 1)) {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                             "not enough rights to execute"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         Date today = Calendar.getInstance().getTime();
         String date = df.format(today);
-        try{
+        try {
             userService.updateDate(email, date);
             userService.updatePost(email, post);
             userService.updateTeam(email, command);
+            User worker = userService.findUserByEmail(email);
+            String content = "Вы были добавлены в команду \"" + worker.getTeam() + "\" на должность \"" + worker.getPost() + "\".";
+            notificationService.addNewNotification(content, worker);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @RequestMapping(path = "/edit-profile", method = RequestMethod.POST, consumes = {"multipart/form-data"}, produces = "application/json")
