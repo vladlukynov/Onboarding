@@ -22,5 +22,8 @@
     <string name="code">Код</string>
     <string name="wrong_code">Введенный код неверен.</string>
     <string name="new_password">Введите новый пароль.</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="fill_field">Заполните поле</string>
+    <string name="send_again">Отправить снова</string>
     <string name="chats">Чаты</string>
 </resources>

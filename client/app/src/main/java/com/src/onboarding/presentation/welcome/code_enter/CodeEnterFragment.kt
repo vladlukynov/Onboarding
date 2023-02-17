@@ -15,6 +15,7 @@ import com.src.onboarding.databinding.FragmentCodeEnterBinding
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.state.login.CodeState
+import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.welcome.registration.viewModel.RegistrationViewModel
 
@@ -31,7 +32,7 @@ class CodeEnterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCodeEnterBinding.inflate(inflater)
-        viewModel = (activity as MainActivity).getRegistrationViewModel()
+        viewModel = (activity as LoginActivity).getRegistrationViewModel()
         bindingLoading = binding.loading
         return binding.root
     }

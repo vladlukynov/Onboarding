@@ -6,10 +6,7 @@ import com.src.onboarding.data.remote.service.LoginService
 import com.src.onboarding.data.remote.session.SessionStorage
 import com.src.onboarding.data.remote.utils.ErrorMessage
 import com.src.onboarding.domain.model.login.Login
-import com.src.onboarding.domain.state.login.BasicState
-import com.src.onboarding.domain.state.login.CodeState
-import com.src.onboarding.domain.state.login.LoginState
-import com.src.onboarding.domain.state.login.RegistrationState
+import com.src.onboarding.domain.state.login.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -161,6 +158,26 @@ class LoginDataSourceImpl(
             }
         }
         return BasicState.ErrorState()
+    }
+
+    override suspend fun recoveryPassword(email: String, password: String): ChangePasswordState {
+        val response = loginService.recoveryPassword(email = email, password = password)
+        if (response.isSuccessful) {
+            val body = response.body()!!
+            sessionStorage.refresh(
+                refreshToken = body.email,
+                expireTimeRefreshToken = body.expireTimeRefreshToken,
+                accessToken = body.accessToken,
+                expireTimeAccessToken = body.expireTimeAccessToken,
+                id = body.id,
+                email = body.email
+            )
+            return ChangePasswordState.SuccessState
+        }
+        if (response.code() == 404) {
+            return ChangePasswordState.ErrorCodeState
+        }
+        return ChangePasswordState.ErrorState
     }
 
     private companion object {

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentNameRegistrationBinding
 import com.src.onboarding.domain.state.login.RegistrationState
+import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.utils.PhotoCompression
 import com.src.onboarding.presentation.utils.REGEX_SPACE
@@ -38,7 +39,7 @@ class NameRegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNameRegistrationBinding.inflate(inflater)
-        viewModel = (activity as MainActivity).getRegistrationViewModel()
+        viewModel = (activity as LoginActivity).getRegistrationViewModel()
         bindingLoading = binding.loginLoading
         return binding.root
     }

@@ -141,7 +141,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_5x"
         android:fontFamily="@font/mulish_semibold"
-        android:text="Отправить снова"
+        android:text="@string/send_again"
         android:textColor="@color/main_purple"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/gl_end"

@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentSignInBinding
 import com.src.onboarding.domain.state.login.LoginState
-import com.src.onboarding.presentation.MainActivity
+import com.src.onboarding.presentation.LoginActivity
+import com.src.onboarding.presentation.welcome.recovery.recovery_email.PasswordRecoveryEnterEmailFragment
 import com.src.onboarding.presentation.welcome.registration.RegistrationFragment
 import com.src.onboarding.presentation.welcome.sign_in.viewModel.SignInViewModel
 
@@ -23,7 +24,7 @@ class SignInFragment : Fragment() {
     ): View {
         this.binding = FragmentSignInBinding.inflate(inflater)
         this.bindingLoading = binding.loginLoading
-        viewModel = (activity as MainActivity).getSignInViewModel()
+        viewModel = (activity as LoginActivity).getSignInViewModel()
         return binding.root
     }
 
@@ -35,9 +36,13 @@ class SignInFragment : Fragment() {
         viewModel.liveDataLoginState.observe(
             this.viewLifecycleOwner, this::checkState
         )
-        setOnClickListenerForContinueButton()
+        setOnClickListeners()
+    }
 
+    private fun setOnClickListeners() {
+        setOnClickListenerForContinueButton()
         setOnClickListenerForRegisterButton()
+        setOnCLickListenerForForgotPassword()
     }
 
     private fun setOnClickListenerForContinueButton() {
@@ -89,8 +94,13 @@ class SignInFragment : Fragment() {
 
     private fun setOnClickListenerForRegisterButton() {
         binding.tvSignIn.setOnClickListener {
-            (activity as MainActivity).replaceFragment(RegistrationFragment())
+            (activity as LoginActivity).replaceFragment(RegistrationFragment())
         }
     }
 
+    private fun setOnCLickListenerForForgotPassword() {
+        binding.tvForgotPassword.setOnClickListener {
+            (activity as LoginActivity).replaceFragment(PasswordRecoveryEnterEmailFragment())
+        }
+    }
 }

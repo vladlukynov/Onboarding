@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentRegistrationBinding
 import com.src.onboarding.domain.state.login.BasicState
+import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.utils.REGEX_EMAIL
 import com.src.onboarding.presentation.welcome.name_registration.NameRegistrationFragment
@@ -27,7 +28,7 @@ class RegistrationFragment : Fragment() {
     ): View {
         binding = FragmentRegistrationBinding.inflate(inflater)
         bindingLoading = binding.loginLoading
-        viewModel = (activity as MainActivity).getRegistrationViewModel()
+        viewModel = (activity as LoginActivity).getRegistrationViewModel()
         return binding.root
     }
 

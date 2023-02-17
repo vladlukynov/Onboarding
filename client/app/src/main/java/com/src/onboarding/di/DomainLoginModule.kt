@@ -56,4 +56,10 @@ class DomainLoginModule {
     fun provideLoginAsGuestUseCase(loginRepository: LoginRepository): LoginAsGuestUseCase {
         return LoginAsGuestUseCase(loginRepository = loginRepository)
     }
+
+    @Singleton
+    @Provides
+    fun provideRecoveryPasswordUseCase(loginRepository: LoginRepository): RecoveryPasswordUseCase {
+        return RecoveryPasswordUseCase(loginRepository = loginRepository)
+    }
 }

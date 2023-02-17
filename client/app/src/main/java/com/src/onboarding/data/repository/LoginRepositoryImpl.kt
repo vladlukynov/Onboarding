@@ -5,6 +5,7 @@ import com.src.onboarding.data.remote.dataSource.login.LoginDataSource
 import com.src.onboarding.domain.model.login.Login
 import com.src.onboarding.domain.repository.LoginRepository
 import com.src.onboarding.domain.state.login.BasicState
+import com.src.onboarding.domain.state.login.ChangePasswordState
 import com.src.onboarding.domain.state.login.CodeState
 import com.src.onboarding.domain.state.login.RegistrationState
 import kotlinx.coroutines.Dispatchers
@@ -54,4 +55,9 @@ class LoginRepositoryImpl(
     override suspend fun setIsActiveAndClearSession() = withContext(Dispatchers.IO) {
         userLocalRepository.setIsActiveAndClearSession()
     }
+
+    override suspend fun recoveryCode(email: String, password: String): ChangePasswordState =
+        withContext(Dispatchers.IO) {
+            return@withContext loginDataSource.recoveryPassword(email = email, password = password)
+        }
 }

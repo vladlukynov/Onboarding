@@ -1,10 +1,7 @@
 package com.src.onboarding.data.remote.dataSource.login
 
 import com.src.onboarding.domain.model.login.Login
-import com.src.onboarding.domain.state.login.BasicState
-import com.src.onboarding.domain.state.login.CodeState
-import com.src.onboarding.domain.state.login.LoginState
-import com.src.onboarding.domain.state.login.RegistrationState
+import com.src.onboarding.domain.state.login.*
 import java.io.File
 
 interface LoginDataSource {
@@ -15,4 +12,5 @@ interface LoginDataSource {
     suspend fun registration(data: String, file: File?): RegistrationState
     suspend fun checkRecoveryCodeForAccountConfirmations(code: String, email: String): CodeState
     suspend fun sendCodeForAccountConfirmations(): BasicState<Unit>
+    suspend fun recoveryPassword(email: String, password: String): ChangePasswordState
 }
