@@ -15,4 +15,5 @@
     <color name="main_tint">#CC2C2C2C</color>
     <color name="neutral_line">#EDEDED</color>
     <color name="main_tint">#CC2C2C2C</color>
+    <color name="light_stroke">#EFF0F1</color>
 </resources>
