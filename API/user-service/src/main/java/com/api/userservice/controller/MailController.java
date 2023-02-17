@@ -20,7 +20,7 @@ public class MailController {
     @Autowired
     private MailService mailService;
 
-    @RequestMapping(path = "/send-code-for-confirmation-account", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+    @RequestMapping(path = "/send-code-for-confirmation-account", method = RequestMethod.GET)
     public ResponseEntity<?> sendConfirmationAccountCode(@RequestParam Long id) {
         try {
             mailService.sendConfirmationCode(id);
