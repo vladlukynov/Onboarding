@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentPasswordRecoveryEnterEmailBinding
 import com.src.onboarding.domain.state.login.CodeState
@@ -12,7 +13,6 @@ import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.utils.REGEX_EMAIL
 import com.src.onboarding.presentation.welcome.recovery.recovery_code.PasswordRecoveryEnterCodeFragment
 import com.src.onboarding.presentation.welcome.recovery.recovery_email.viewModel.PasswordRecoveryEnterEmailViewModel
-import com.src.onboarding.presentation.welcome.registration.viewModel.RegistrationViewModel
 import java.util.regex.Pattern
 
 class PasswordRecoveryEnterEmailFragment : Fragment() {
@@ -54,7 +54,7 @@ class PasswordRecoveryEnterEmailFragment : Fragment() {
                     viewModel.sendCode(email)
                     onClickNext = true
                 } else {
-                    //TODO сообщить об некорректном имейле
+                    (activity as LoginActivity).showSnackBar(getString(R.string.invalid_email))
                 }
             }
         }
@@ -75,7 +75,7 @@ class PasswordRecoveryEnterEmailFragment : Fragment() {
                     (activity as LoginActivity).replaceFragment(fragment)
                 }
                 is CodeState.WrongEmailState -> {
-                    //TODo такой пароль не существует ошибка
+                    (activity as LoginActivity).showSnackBar(getString(R.string.email_does_not_exist))
                     onClickNext = false
                 }
                 else -> {

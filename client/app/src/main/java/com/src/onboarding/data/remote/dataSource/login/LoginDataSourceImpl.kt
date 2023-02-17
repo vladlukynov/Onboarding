@@ -128,7 +128,6 @@ class LoginDataSourceImpl(
                 if (message == EMAIL_ALREADY_IN_USE) {
                     return RegistrationState.EmailAlreadyExistsState
                 }
-                return RegistrationState.LoginAlreadyExistsState
             }
         }
         return RegistrationState.ErrorState

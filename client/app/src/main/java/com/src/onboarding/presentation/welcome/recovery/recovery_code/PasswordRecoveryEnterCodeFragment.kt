@@ -22,9 +22,11 @@ class PasswordRecoveryEnterCodeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val args = this.arguments
-        //TODO обработка ошибки если имейл не получен
-        if (args?.getString(BUNDLE_EMAIL) != null) {
-            email = args.getString(BUNDLE_EMAIL) as String
+        val emailArgs = args?.getString(BUNDLE_EMAIL)
+        if (emailArgs != null && emailArgs.isNotEmpty()) {
+            email = emailArgs
+        } else {
+            (activity as LoginActivity).showSnackBar(null)
         }
     }
 
@@ -78,7 +80,6 @@ class PasswordRecoveryEnterCodeFragment : Fragment() {
         }
     }
 
-    //TODO обработать ошибки (подверждение кода)
     private fun checkState(state: CodeState) {
         when (state) {
             is CodeState.SuccessState -> {
@@ -89,27 +90,22 @@ class PasswordRecoveryEnterCodeFragment : Fragment() {
                 (activity as LoginActivity).replaceFragment(fragment)
             }
             is CodeState.WrongCodeState -> {
+                (activity as LoginActivity).showSnackBar(getString(R.string.invalid_code))
                 viewModel.setDefaultValueForCodeState()
                 binding.tvWrongCode.visibility = View.VISIBLE
             }
             is CodeState.ErrorState -> {
+                (activity as LoginActivity).showSnackBar(null)
                 viewModel.setDefaultValueForCodeState()
-                println("error")
                 binding.tvWrongCode.visibility = View.VISIBLE
             }
             else -> {}
         }
     }
 
-    //TODO обработать ошибки (повторная отправка кода)
     private fun checkSendRepeatingCodeState(state: CodeState) {
-        when (state) {
-            is CodeState.SuccessState -> {
-                println("код отправлен")
-            }
-            else -> {
-                println("ошибка")
-            }
+        if (state is CodeState.ErrorState) {
+            (activity as LoginActivity).showSnackBar(null)
         }
     }
 

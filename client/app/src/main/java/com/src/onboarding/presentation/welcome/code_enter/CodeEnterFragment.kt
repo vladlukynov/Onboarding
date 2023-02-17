@@ -3,7 +3,6 @@ package com.src.onboarding.presentation.welcome.code_enter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.state.login.CodeState
 import com.src.onboarding.presentation.LoginActivity
-import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.welcome.registration.viewModel.RegistrationViewModel
 
 class CodeEnterFragment : Fragment() {
@@ -68,7 +66,6 @@ class CodeEnterFragment : Fragment() {
                 for (i in editTextList) {
                     code += i.text.toString()
                 }
-                Log.d("TEST", "Confirmation code is $code")
                 editTextList[0].text.toString()
                 viewModel.checkRecoveryCode(code = code)
             }
@@ -129,34 +126,30 @@ class CodeEnterFragment : Fragment() {
         }
     }
 
-    //TODO обработать ошибки (подверждение кода)
     private fun checkState(state: CodeState) {
         when (state) {
             is CodeState.SuccessState -> {
                 //TODO перейти на новый фрагмент
-//                val fragment = CongratulationRegistrationFragment()
-//                (activity as MainActivity).replaceFragment(fragment)
             }
             is CodeState.WrongCodeState -> {
                 viewModel.setDefaultValueForCodeState()
-                println("wrong code")
+                (activity as LoginActivity).showSnackBar(getString(R.string.invalid_code))
             }
             is CodeState.ErrorState -> {
                 viewModel.setDefaultValueForCodeState()
-                println("error")
+                (activity as LoginActivity).showSnackBar(null)
             }
             else -> {}
         }
     }
 
-    //TODO обработать ошибки (повторная отправка кода)
     private fun checkSendRepeatingCodeState(state: BasicState<Unit>) {
         when (state) {
             is BasicState.SuccessState -> {
                 println("код отправлен")
             }
             is BasicState.ErrorState -> {
-                println("ошибка")
+                (activity as LoginActivity).showSnackBar(null)
             }
             else -> {}
         }
@@ -164,7 +157,6 @@ class CodeEnterFragment : Fragment() {
 
     private fun setOnClickListenerForRepeatingCode() {
         binding.tvRepeatingCode.setOnClickListener {
-            Log.d("EnterCode","onClickRepear")
             viewModel.sendRepeatingCode()
         }
     }

@@ -1,9 +1,17 @@
 package com.src.onboarding.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.src.onboarding.R
 import com.src.onboarding.app.App
 import com.src.onboarding.presentation.welcome.recovery.recovery.viewModel.PasswordRecoveryViewModel
@@ -37,13 +45,42 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (applicationContext as App).appComponent.inject(this)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         replaceFragment(SignInFragment())
     }
 
     fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment)
             .addToBackStack(null).commit()
+    }
+
+    @SuppressLint("ShowToast", "RestrictedApi")
+    fun showSnackBar(text: String?) {
+        val customView = layoutInflater.inflate(
+            R.layout.snackbar_error,
+            findViewById(R.id.cl_toast)
+        )
+        if (text != null) {
+            val textView = customView.findViewById<TextView>(R.id.tv_text_error)
+            textView.text = text
+        }
+        val snackBar = Snackbar.make(
+            findViewById(R.id.fragment_container),
+            "",
+            Snackbar.LENGTH_LONG
+        )
+        snackBar.view.setBackgroundColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.transparent
+            )
+        )
+        val layout = snackBar.view as Snackbar.SnackbarLayout
+        layout.addView(customView)
+        val params = layout.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        layout.layoutParams = params
+        snackBar.show()
     }
 
     fun getSignInViewModel(): SignInViewModel =

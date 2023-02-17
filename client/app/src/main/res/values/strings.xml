@@ -22,8 +22,17 @@
     <string name="code">Код</string>
     <string name="wrong_code">Введенный код неверен.</string>
     <string name="new_password">Введите новый пароль.</string>
+    <string name="chats">Чаты</string>
     <string name="forgot_password">Забыли пароль?</string>
     <string name="fill_field">Заполните поле</string>
     <string name="send_again">Отправить снова</string>
-    <string name="chats">Чаты</string>
+    <string name="toast_error_text">Ошибка. Попробуйте позже.</string>
+    <string name="email_error">Неверный email</string>
+    <string name="password_error">Неверный пароль</string>
+    <string name="invalid_email">Введите корректный email</string>
+    <string name="email_already_exists">Такая почта уже существует</string>
+    <string name="fill_all_fields">Заполните все поля</string>
+    <string name="password_mismatch">Пароли не совпадают</string>
+    <string name="email_does_not_exist">Такой почты не существует</string>
+    <string name="invalid_code">Неверный код</string>
 </resources>

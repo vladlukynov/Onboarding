@@ -1,11 +1,11 @@
 package com.src.onboarding.presentation.welcome.registration
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentRegistrationBinding
 import com.src.onboarding.domain.state.login.BasicState
@@ -46,7 +46,7 @@ class RegistrationFragment : Fragment() {
                 if (emailWithoutSpace == null ||
                     !Pattern.matches(REGEX_EMAIL, emailWithoutSpace.toString())
                 ) {
-                    //TODO сообщить  некорректная почта
+                    (activity as LoginActivity).showSnackBar(getString(R.string.invalid_email))
                 } else {
                     viewModel.setEmail(emailWithoutSpace)
                     viewModel.checkEmailExists(emailWithoutSpace)
@@ -61,21 +61,18 @@ class RegistrationFragment : Fragment() {
     private fun checkEmailExists(state: BasicState<Boolean>) {
         if (onClickNext) {
             onClickNext = false
-            Log.d("onClickNext", "onClick")
             if (state is BasicState.SuccessState<*>) {
                 val isExists = state.data as Boolean
                 if (isExists) {
-                    //TODO уже существует почта
+                    (activity as LoginActivity).showSnackBar(getString(R.string.email_already_exists))
                 } else {
                     val password1 = removeAllSpaces(binding.etPassword.text.toString())
                     val password2 = removeAllSpaces(binding.etPasswordRepeat.text.toString())
-                    //TODO сообщить что поле пустое
-                    if (password1 == null || password1.isEmpty()) {
-                    }
-                    if (password2 == null || password2.isEmpty()) {
+                    if (password1 == null || password1.isEmpty() || password2 == null || password2.isEmpty()) {
+                        (activity as LoginActivity).showSnackBar(getString(R.string.fill_all_fields))
                     }
                     if (password1 != password2) {
-                        //TODO сообщить пользователю, что пароли не совпадают
+                        (activity as LoginActivity).showSnackBar(getString(R.string.password_mismatch))
                     }
                     if (password1 != null && password2 != null && password1.isNotEmpty() && password2.isNotEmpty() && password1 == password2) {
                         viewModel.setPassword(password1)
@@ -83,7 +80,7 @@ class RegistrationFragment : Fragment() {
                     }
                 }
             } else {
-                //TODo обработать ошибку сервера
+                (activity as LoginActivity).showSnackBar(null)
             }
         }
     }

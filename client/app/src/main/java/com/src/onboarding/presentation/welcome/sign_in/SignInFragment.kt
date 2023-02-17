@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentSignInBinding
 import com.src.onboarding.domain.state.login.LoginState
 import com.src.onboarding.presentation.LoginActivity
+import com.src.onboarding.presentation.utils.REGEX_EMAIL
 import com.src.onboarding.presentation.welcome.recovery.recovery_email.PasswordRecoveryEnterEmailFragment
 import com.src.onboarding.presentation.welcome.registration.RegistrationFragment
 import com.src.onboarding.presentation.welcome.sign_in.viewModel.SignInViewModel
+import java.util.regex.Pattern
 
 class SignInFragment : Fragment() {
     private lateinit var binding: FragmentSignInBinding
@@ -48,15 +51,18 @@ class SignInFragment : Fragment() {
     private fun setOnClickListenerForContinueButton() {
         binding.tvContinueButton.setOnClickListener {
             if (!isClickNext) {
-                //TODO проверить на то что это имейл (в MainConfig в utils есть уже regex) и как-то сообщить
                 val emailWithoutSpace = removeAllSpaces(binding.etEmail.text.toString())
                 val passwordWithoutSpace = removeAllSpaces(binding.etPassword.text.toString())
-                binding.etEmail.text
-                isClickNext = true
-                viewModel.signIn(
-                    emailWithoutSpace!!,
-                    passwordWithoutSpace!!,
-                )
+                if (!Pattern.matches(REGEX_EMAIL, emailWithoutSpace.toString())) {
+                    (activity as LoginActivity).showSnackBar(getString(R.string.invalid_email))
+                } else {
+                    binding.etEmail.text
+                    isClickNext = true
+                    viewModel.signIn(
+                        emailWithoutSpace!!,
+                        passwordWithoutSpace!!,
+                    )
+                }
             }
         }
     }
@@ -76,15 +82,14 @@ class SignInFragment : Fragment() {
                     //TODO перейти дальше
                 }
             }
-            //TODO как-то сообщить об ошибке в имейле
             is LoginState.ErrorEmailState -> {
+                (activity as LoginActivity).showSnackBar(getString(R.string.email_error))
             }
-            //TODO как-то сообщить об ошибке в пароле
             is LoginState.ErrorPasswordState -> {
+                (activity as LoginActivity).showSnackBar(getString(R.string.password_error))
             }
-            //TODO как-то сообщить об ошибке
             is LoginState.ErrorState -> {
-
+                (activity as LoginActivity).showSnackBar(null)
             }
         }
         isClickNext = false

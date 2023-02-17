@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentNameRegistrationBinding
 import com.src.onboarding.domain.state.login.RegistrationState
@@ -112,7 +113,6 @@ class NameRegistrationFragment : Fragment() {
             .start(requireContext(), this)
     }
 
-    //TODO обработка ошибок
     private fun checkRegistration(state: RegistrationState) {
         if (isClickNext) {
             isClickNext = false
@@ -120,9 +120,12 @@ class NameRegistrationFragment : Fragment() {
                 is RegistrationState.SuccessState -> {
                     (activity as MainActivity).replaceFragment(CodeEnterFragment())
                 }
-                is RegistrationState.EmailAlreadyExistsState -> println("такая почта уже существует")
-                is RegistrationState.LoginAlreadyExistsState -> println("такой логин уже существует")
-                is RegistrationState.ErrorState -> println("ошибка сервера")
+                is RegistrationState.EmailAlreadyExistsState -> {
+                    (activity as LoginActivity).showSnackBar(getString(R.string.email_already_exists))
+                }
+                is RegistrationState.ErrorState -> {
+                    (activity as LoginActivity).showSnackBar(null)
+                }
                 else -> {
 
                 }
@@ -132,7 +135,6 @@ class NameRegistrationFragment : Fragment() {
 
     private fun setOnClickListenerForNextButton() {
         binding.tvSaveButton.setOnClickListener {
-            Log.d("Listener", "click")
             val firstNameWithoutSpace = binding.etFirstName.text.toString()
                 .replace(REGEX_SPACE, " ")
                 .lowercase(Locale.getDefault())
@@ -145,8 +147,7 @@ class NameRegistrationFragment : Fragment() {
             ) {
                 viewModel.setName("$firstNameWithoutSpace $lastNameWithoutSpace")
                 if (viewModel.liveDataName.value == null || viewModel.liveDataEmail.value == null || viewModel.liveDataPassword.value == null) {
-                    Log.d("RegistrationNameFragmet", "data is empty")
-                    //TODO обработка ошибки (в клиенте что-то не сохранилось)
+                    (activity as LoginActivity).showSnackBar(null)
                 } else {
                     val photoCompression = PhotoCompression()
                     if (photo != null) {
@@ -156,7 +157,7 @@ class NameRegistrationFragment : Fragment() {
                     viewModel.registration(photo)
                 }
             } else {
-                //TODO field is empty
+                (activity as LoginActivity).showSnackBar(getString(R.string.fill_all_fields))
             }
 
             isClickNext = true

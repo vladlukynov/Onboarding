@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentPasswordRecoveryBinding
 import com.src.onboarding.domain.state.login.ChangePasswordState
@@ -23,9 +24,11 @@ class PasswordRecoveryFragment : Fragment() {
         binding = FragmentPasswordRecoveryBinding.inflate(inflater)
         bindingLoading = binding.loading
         val args = this.arguments
-        //TODO обработка ошибки если имейл не получен
-        if (args?.getString(BUNDLE_EMAIL) != null) {
-            email = args.getString(BUNDLE_EMAIL) as String
+        val emailArgs = args?.getString(BUNDLE_EMAIL)
+        if (emailArgs != null && emailArgs.isNotEmpty()) {
+            email = emailArgs
+        } else {
+            (activity as LoginActivity).showSnackBar(null)
         }
         viewModel = (activity as LoginActivity).getPasswordRecoveryViewModel()
         return binding.root
@@ -45,7 +48,11 @@ class PasswordRecoveryFragment : Fragment() {
             if (password1 == password2 && password1.isNotEmpty()) {
                 viewModel.changePassword(email = email, password = password1)
             } else {
-                //TODO обработать ошибку с несовпадением пароля/поля пустные
+                if (password1.isEmpty() || password2.isEmpty()) {
+                    (activity as LoginActivity).showSnackBar(getString(R.string.fill_all_fields))
+                } else if (password1 != password2) {
+                    (activity as LoginActivity).showSnackBar(getString(R.string.password_mismatch))
+                }
             }
         }
     }
@@ -58,18 +65,16 @@ class PasswordRecoveryFragment : Fragment() {
         }
     }
 
-    //TODO обработать ошибки (подверждение кода)
     private fun checkState(state: ChangePasswordState) {
         when (state) {
             is ChangePasswordState.SuccessState -> {
-                //TODO перейти на главный экран
-                println("password has changed")
             }
             is ChangePasswordState.WrongPasswordState -> {
+                (activity as LoginActivity).showSnackBar(getString(R.string.invalid_code))
 
             }
             else -> {
-                println("error")
+                (activity as LoginActivity).showSnackBar(null)
             }
         }
     }
