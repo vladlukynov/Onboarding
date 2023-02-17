@@ -83,7 +83,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.api.ServerconfigApplication</mainClass>
+                            <mainClass>com.api.serverconfig.ServerconfigApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

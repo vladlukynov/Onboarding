@@ -28,4 +28,4 @@ COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
 #execute the application
-ENTRYPOINT ["java", "-Dspring.profiles.active=native", "-cp","app:app/lib/*","com.friendbook.gatewayserver.GatewayServerApplication"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=native", "-cp","app:app/lib/*","com.api.gatewayserver.GatewayServerApplication"]
