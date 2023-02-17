@@ -1,0 +1,15 @@
+package com.src.onboarding.data.remote.model
+
+import com.google.gson.annotations.SerializedName
+
+@kotlinx.serialization.Serializable
+class RefreshTokenResponse(
+    @SerializedName("generateRefreshToken")
+    val generateRefreshToken: Boolean,
+    @SerializedName("email")
+    val email: String,
+    @SerializedName("refreshToken")
+    val refreshToken: String,
+    @SerializedName("accessToken")
+    val accessToken: String
+)
