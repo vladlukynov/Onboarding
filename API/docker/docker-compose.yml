@@ -1,0 +1,85 @@
+version: '2.1'
+services:
+  database:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
+      - ./database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: strongpassword
+    networks:
+      backend:
+        aliases:
+          - "database"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 60s
+      retries: 20
+  configserver:
+    image: prlwk/serverconfig:0.0.1-SNAPSHOT
+    ports:
+      - "8088:8080"
+    environment:
+      SPRING_CLOUD_CONFIG_URL: http://configserver:8088
+    networks:
+      backend:
+        aliases:
+          - "configserver"
+  eurekaserver:
+    image: prlwk/eurekaserver:0.0.1-SNAPSHOT
+    environment:
+      PROFILE: "dev"
+    ports:
+      - "8085:8080"
+    networks:
+       backend:
+         aliases:
+          - "eurekaserver"
+  gatewayserver:
+    image: prlwk/gatewayserver:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8072"
+    environment:
+      PROFILE: "default"
+    depends_on:
+      database:
+        condition: service_healthy
+      configserver:
+        condition: service_started
+      eurekaserver:
+        condition: service_started
+    networks:
+      backend:
+        aliases:
+          - "gateway"
+#  keycloak:
+#    image: jboss/keycloak
+#    restart: always
+#    environment:
+#      KEYCLOAK_USER: admin
+#      KEYCLOAK_PASSWORD: admin
+#    ports:
+#      - "8086:8080"
+#    networks:
+#      backend:
+#        aliases:
+#         - "keycloak"
+  userservice:
+    image: prlwk/user-service:0.0.1-SNAPSHOT
+    environment:
+      PROFILE: "dev"
+      DATABASESERVER_PORT: "3306"
+    depends_on:
+      database:
+        condition: service_healthy
+      configserver:
+        condition: service_started
+    ports:
+      - "8084:8084"
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
