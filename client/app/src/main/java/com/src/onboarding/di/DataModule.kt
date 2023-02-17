@@ -1,7 +1,10 @@
 package com.src.onboarding.di
 
+import com.src.onboarding.data.remote.dataSource.login.LoginDataSource
 import com.src.onboarding.data.remote.dataSource.user.UserDataSource
+import com.src.onboarding.data.repository.LoginRepositoryImpl
 import com.src.onboarding.data.repository.UserRepositoryImpl
+import com.src.onboarding.domain.repository.LoginRepository
 import com.src.onboarding.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -10,6 +13,11 @@ import dagger.Provides
 class DataModule {
     @Provides
     fun provideUserRepository(userDataSource: UserDataSource): UserRepository {
-        return UserRepositoryImpl(userDataSource)
+        return UserRepositoryImpl(userDataSource = userDataSource)
+    }
+
+    @Provides
+    fun provideLoginRepository(loginDataSource: LoginDataSource): LoginRepository {
+        return LoginRepositoryImpl(loginDataSource = loginDataSource)
     }
 }

@@ -1,6 +1,6 @@
 package com.src.onboarding.data.remote.interceptor
 
-import com.src.onboarding.data.remote.model.RefreshTokenResponse
+import com.src.onboarding.data.remote.model.token.RefreshTokenResponse
 import com.src.onboarding.data.remote.service.SessionService
 import com.src.onboarding.data.remote.session.SessionStorage
 import okhttp3.Interceptor

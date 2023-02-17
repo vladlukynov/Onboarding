@@ -6,6 +6,8 @@ import com.src.onboarding.data.remote.dataSource.login.LoginDataSourceImpl
 import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.data.remote.dataSource.user.UserDataSourceImpl
 import com.src.onboarding.data.remote.interceptor.TokenInterceptor
+import com.src.onboarding.data.remote.model.login.login.LoginMapper
+import com.src.onboarding.data.remote.service.LoginService
 import com.src.onboarding.data.remote.service.UserService
 import com.src.onboarding.data.remote.session.SessionStorage
 import com.src.onboarding.data.remote.session.SessionStorageImpl
@@ -82,6 +84,12 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    fun provideLoginService(@Named(NAME_RETROFIT_WITHOUT_TOKEN) retrofit: Retrofit): LoginService {
+        return retrofit.create(LoginService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideUserDataSource(
         userService: UserService
     ): UserDataSource {
@@ -91,10 +99,14 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideLoginDataSource(
+        loginService: LoginService,
         sessionStorage: SessionStorage,
+        loginMapper: LoginMapper
     ): LoginDataSource {
         return LoginDataSourceImpl(
+            loginService = loginService,
             sessionStorage = sessionStorage,
+            loginMapper = loginMapper
         )
     }
 
@@ -103,6 +115,7 @@ class NetworkModule {
         const val NAME_RETROFIT_WITHOUT_TOKEN = "retrofit_without_token"
         const val NAME_OKHTTP_WITH_TOKEN = "okhttp_with_token"
         const val NAME_OKHTTP_WITHOUT_TOKEN = "okhttp_without_token"
-        const val BASE_URL = "http://192.168.0.112:8080/"
+        const val BASE_URL = "http://192.168.0.101:8080/"
+        const val USER_SERVICE_BASE_URL = "user-service"
     }
 }

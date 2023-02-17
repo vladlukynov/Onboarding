@@ -5,20 +5,92 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.src.onboarding.R
+import com.src.onboarding.databinding.FragmentLoadingBinding
+import com.src.onboarding.databinding.FragmentSignInBinding
+import com.src.onboarding.domain.state.login.LoginState
+import com.src.onboarding.presentation.MainActivity
+import com.src.onboarding.presentation.welcome.registration.RegistrationFragment
+import com.src.onboarding.presentation.welcome.sign_in.viewModel.SignInViewModel
 
 class SignInFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
+    private lateinit var binding: FragmentSignInBinding
+    private lateinit var bindingLoading: FragmentLoadingBinding
+    private lateinit var viewModel: SignInViewModel
+    private var isClickNext = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+    ): View {
+        this.binding = FragmentSignInBinding.inflate(inflater)
+        this.bindingLoading = binding.loginLoading
+        viewModel = (activity as MainActivity).getSignInViewModel()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.liveDataIsLoading.observe(
+            this.viewLifecycleOwner, this::checkLoading
+        )
+        viewModel.liveDataLoginState.observe(
+            this.viewLifecycleOwner, this::checkState
+        )
+        setOnClickListenerForContinueButton()
+
+        setOnClickListenerForRegisterButton()
+    }
+
+    private fun setOnClickListenerForContinueButton() {
+        binding.tvContinueButton.setOnClickListener {
+            if (!isClickNext) {
+                //TODO проверить на то что это имейл (в MainConfig в utils есть уже regex) и как-то сообщить
+                val emailWithoutSpace = removeAllSpaces(binding.etEmail.text.toString())
+                val passwordWithoutSpace = removeAllSpaces(binding.etPassword.text.toString())
+                binding.etEmail.text
+                isClickNext = true
+                viewModel.signIn(
+                    emailWithoutSpace!!,
+                    passwordWithoutSpace!!,
+                )
+            }
+        }
+    }
+
+    private fun checkLoading(isLoading: Boolean) {
+        if (isLoading) {
+            bindingLoading.clLoadingPage.visibility = View.VISIBLE
+        } else {
+            bindingLoading.clLoadingPage.visibility = View.GONE
+        }
+    }
+
+    private fun checkState(state: LoginState) {
+        when (state) {
+            is LoginState.SuccessState -> {
+                if (isClickNext) {
+                    //TODO перейти дальше
+                }
+            }
+            //TODO как-то сообщить об ошибке в имейле
+            is LoginState.ErrorEmailState -> {
+            }
+            //TODO как-то сообщить об ошибке в пароле
+            is LoginState.ErrorPasswordState -> {
+            }
+            //TODO как-то сообщить об ошибке
+            is LoginState.ErrorState -> {
+
+            }
+        }
+        isClickNext = false
+    }
+
+    private fun removeAllSpaces(text: String?) = text?.replace("\\s".toRegex(), "")
+
+    private fun setOnClickListenerForRegisterButton() {
+        binding.tvSignIn.setOnClickListener {
+            (activity as MainActivity).replaceFragment(RegistrationFragment())
+        }
     }
 
 }

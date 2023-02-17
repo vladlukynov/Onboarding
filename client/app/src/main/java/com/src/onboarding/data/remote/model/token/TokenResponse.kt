@@ -1,4 +1,4 @@
-package com.src.onboarding.data.remote.model
+package com.src.onboarding.data.remote.model.token
 
 import com.google.gson.annotations.SerializedName
 
