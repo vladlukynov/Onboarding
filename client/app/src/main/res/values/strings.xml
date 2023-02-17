@@ -16,4 +16,10 @@
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
     <string name="complete_registration">Завершить регистрацию</string>
+    <string name="password_recovery">Восстановление пароля</string>
+    <string name="password_recovery_text">Для восстановления доступа на ваш\nEmail будет выслан код для\nподтверждения.</string>
+    <string name="password_recovery_text2">Проверьте почту.\n\nВведите код для подверждения.</string>
+    <string name="code">Код</string>
+    <string name="wrong_code">Введенный код неверен.</string>
+    <string name="new_password">Введите новый пароль.</string>
 </resources>
