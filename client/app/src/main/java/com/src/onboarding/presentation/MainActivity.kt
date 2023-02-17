@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.src.onboarding.R
 import com.src.onboarding.app.App
+import com.src.onboarding.presentation.courses.CoursesMainFragment
 import com.src.onboarding.presentation.welcome.registration.viewModel.RegistrationViewModelFactory
 import com.src.onboarding.presentation.welcome.sign_in.SignInFragment
 import com.src.onboarding.presentation.welcome.sign_in.viewModel.SignInViewModelFactory
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         (applicationContext as App).appComponent.inject(this)
         setContentView(R.layout.activity_main)
-        replaceFragment(SignInFragment())
+        replaceFragment(CoursesMainFragment())
     }
 
     fun replaceFragment(fragment: Fragment) {

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.courses.CoursesMainFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="30dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/gl_start" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/gl_end" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_user_picture"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:cardCornerRadius="100dp"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toTopOf="@id/gl_top">
+
+        <ImageView
+            android:id="@+id/iv_user_picture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/main_purple" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_3x"
+        android:fontFamily="@font/mulish_medium"
+        android:text="Добро пожаловать"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/cv_user_picture"
+        app:layout_constraintTop_toTopOf="@id/cv_user_picture" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_3x"
+        android:fontFamily="@font/mulish_bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/cv_user_picture"
+        app:layout_constraintStart_toEndOf="@id/cv_user_picture"
+        tools:text="Аленка Рыжова" />
+
+    <ImageView
+        android:id="@+id/iv_notifications"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="@dimen/space_1x"
+        android:src="@drawable/ic_bell"
+        app:layout_constraintBottom_toBottomOf="@id/cv_user_picture"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintTop_toTopOf="@id/cv_user_picture" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-4dp"
+        android:layout_marginBottom="-4dp"
+        android:background="@drawable/red_circle_background"
+        android:ems="1"
+        android:text="7"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/iv_notifications"
+        app:layout_constraintEnd_toEndOf="@id/iv_notifications" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main_course_progress_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/main_progress_bar_card_background"
+        android:padding="@dimen/space_5x"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/cv_user_picture">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_main_course"
+            android:layout_width="88dp"
+            android:layout_height="82dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_main_course"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/main_purple" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_main_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_3x"
+            android:fontFamily="@font/mulish_bold"
+            android:text="Введение"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/pb_progress_bar"
+            app:layout_constraintStart_toEndOf="@id/cv_main_course"
+            app:layout_constraintTop_toTopOf="@+id/cv_main_course" />
+
+        <ProgressBar
+            android:id="@+id/pb_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="@dimen/space_3x"
+            android:max="100"
+            android:progress="40"
+            android:progressDrawable="@drawable/progress_bar"
+            app:layout_constraintBottom_toBottomOf="@id/cv_main_course"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cv_main_course"
+            app:layout_constraintTop_toBottomOf="@id/tv_main_course" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_your_courses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:fontFamily="@font/mulish_medium"
+        android:text="Ваши курсы"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/cl_main_course_progress_card" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:fontFamily="@font/mulish_medium"
+        android:text="Все"
+        android:textColor="@color/main_purple"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintTop_toBottomOf="@id/cl_main_course_progress_card" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_courses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_3x"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/tv_your_courses"
+        tools:itemCount="1"
+        tools:listitem="@layout/view_holder_course_card" />
+
+    <TextView
+        android:id="@+id/tv_colleagues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:fontFamily="@font/mulish_medium"
+        android:text="Ваши коллеги"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/rv_courses" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/space_3x"
+        android:id="@+id/rv_colleagues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:listitem="@layout/view_holder_colleague"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/tv_colleagues"
+        tools:itemCount="1" />
+</androidx.constraintlayout.widget.ConstraintLayout>
