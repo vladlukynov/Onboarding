@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gl_top">20dp</dimen>
+    <dimen name="gl_start">20dp</dimen>
+    <dimen name="gl_end">20dp</dimen>
+
+    <dimen name="space_05x">2dp</dimen>
+    <dimen name="space_1x">4dp</dimen>
+    <dimen name="space_2x">8dp</dimen>
+    <dimen name="space_2.5x">10dp</dimen>
+    <dimen name="space_3x">12dp</dimen>
+    <dimen name="space_4x">16dp</dimen>
+    <dimen name="space_5x">20dp</dimen>
+    <dimen name="space_6x">24dp</dimen>
+    <dimen name="space_7x">28dp</dimen>
+    <dimen name="space_7.5x">30dp</dimen>
+    <dimen name="space_8x">32dp</dimen>
+    <dimen name="space_9x">36dp</dimen>
+    <dimen name="space_10x">40dp</dimen>
+    <dimen name="space_14x">60dp</dimen>
+    <dimen name="space_16.5x">70dp</dimen>
+</resources>
