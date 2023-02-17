@@ -47,74 +47,70 @@
         android:text="@string/sign_in_2"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/ll_email"
+        app:layout_constraintBottom_toTopOf="@id/til_email"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start" />
 
-    <LinearLayout
-        android:id="@+id/ll_email"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_4x"
         android:background="@drawable/input_field_background"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/space_2x"
-        android:paddingVertical="@dimen/space_3x"
-        app:layout_constraintBottom_toTopOf="@id/ll_password"
+        android:textColorHint="@color/neutral_disabled"
+        app:boxStrokeWidth="0dp"
+        android:layout_marginBottom="@dimen/space_4x"
+        app:endIconMode="clear_text"
+        app:hintEnabled="false"
+        app:layout_constraintBottom_toTopOf="@id/til_password"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
-        app:layout_constraintStart_toStartOf="@id/gl_start">
+        app:prefixTextColor="@color/white">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:autofillHints="emailAddress"
-            android:background="@null"
-            android:fontFamily="@font/mulish_semibold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"
             android:hint="@string/e_mail"
             android:inputType="textEmailAddress"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="@dimen/space_3x"
             android:textColor="@color/black"
             android:textColorHint="@color/neutral_disabled"
+            android:textCursorDrawable="@null"
             android:textSize="16sp" />
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_password"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/input_field_background"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/space_2x"
-        android:paddingVertical="@dimen/space_3x"
-        app:layout_constraintBottom_toTopOf="@id/tv_continue_button"
+        android:textColorHint="@color/neutral_disabled"
+        app:boxStrokeWidth="0dp"
+        app:endIconMode="password_toggle"
+        app:hintEnabled="false"
+        app:layout_constraintBottom_toBottomOf="@id/tv_continue_button"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@id/iv_mr_logo">
+        app:layout_constraintTop_toBottomOf="@id/iv_mr_logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:prefixTextColor="@color/white">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:autofillHints="password"
-            android:background="@null"
-            android:fontFamily="@font/mulish_semibold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="@dimen/space_3x"
             android:textColor="@color/black"
             android:textColorHint="@color/neutral_disabled"
+            android:textCursorDrawable="@null"
             android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/iv_show_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="18dp"
-            android:src="@drawable/ic_open_eye" />
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_already_have_account"
@@ -127,7 +123,7 @@
         app:layout_constraintEnd_toStartOf="@id/tv_sign_in"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@id/ll_password" />
+        app:layout_constraintTop_toBottomOf="@id/til_password" />
 
     <TextView
         android:id="@+id/tv_sign_in"
@@ -139,7 +135,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/gl_end"
         app:layout_constraintStart_toEndOf="@id/tv_already_have_account"
-        app:layout_constraintTop_toBottomOf="@id/ll_password" />
+        app:layout_constraintTop_toBottomOf="@id/til_password" />
 
     <TextView
         android:id="@+id/tv_continue_button"
@@ -156,6 +152,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start" />
+
     <include
         android:id="@+id/login_loading"
         layout="@layout/fragment_loading"
