@@ -10,4 +10,6 @@
     <string name="registration">Регистрация</string>
     <string name="sign_in">Войти</string>
     <string name="continue_text">Продолжить</string>
+    <string name="no_account">Нет аккаунта?</string>
+    <string name="sign_in_2">Вход</string>
 </resources>
