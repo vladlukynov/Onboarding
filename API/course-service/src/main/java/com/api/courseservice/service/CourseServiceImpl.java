@@ -18,4 +18,9 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseDTO> getCoursesForPost(Long postId) {
         return courseRepository.getCoursesByPostId(postId);
     }
+
+    @Override
+    public void deleteById(Long id){
+        courseRepository.deleteById(id);
+    }
 }

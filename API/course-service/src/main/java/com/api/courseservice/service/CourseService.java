@@ -6,4 +6,5 @@ import com.api.courseservice.DTO.CourseDTO;
 
 public interface CourseService {
     List<CourseDTO> getCoursesForPost(Long postId);
+    void deleteById(Long id);
 }

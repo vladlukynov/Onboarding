@@ -13,10 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.api.courseservice.service.CourseService;
 import com.api.courseservice.service.client.UserRestTemplateClient;
 import com.api.courseservice.utils.AppError;
+
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/course")
@@ -42,5 +47,17 @@ public class CourseController {
             }
         }
     }
+
+    @RequestMapping(path = "/delete-by-id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getPostByUserId(@PathVariable Long id){
+        try{
+            courseService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }
