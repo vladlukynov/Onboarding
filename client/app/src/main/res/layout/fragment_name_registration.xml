@@ -51,50 +51,55 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/space_9x"
         android:layout_marginTop="@dimen/space_12x"
-        app:layout_constraintTop_toBottomOf="@id/iv_change_avatar"
-        app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintEnd_toEndOf="@id/gl_end"
         android:autofillHints="name"
         android:background="@drawable/input_field_background"
         android:fontFamily="@font/mulish_semibold"
         android:hint="@string/first_name"
-        android:paddingHorizontal="@dimen/space_2x"
         android:inputType="text"
+        android:paddingHorizontal="@dimen/space_2x"
         android:textColor="@color/black"
         android:textColorHint="@color/neutral_disabled"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/iv_change_avatar" />
 
     <EditText
         android:id="@+id/et_last_name"
         android:layout_width="0dp"
         android:layout_height="@dimen/space_9x"
-        app:layout_constraintTop_toBottomOf="@id/et_first_name"
-        app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintEnd_toEndOf="@id/gl_end"
         android:layout_marginTop="@dimen/space_3x"
         android:autofillHints="name"
         android:background="@drawable/input_field_background"
         android:fontFamily="@font/mulish_semibold"
         android:hint="@string/last_name"
-        android:paddingHorizontal="@dimen/space_2x"
         android:inputType="text"
+        android:paddingHorizontal="@dimen/space_2x"
         android:textColor="@color/black"
         android:textColorHint="@color/neutral_disabled"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/et_first_name" />
 
     <TextView
         android:id="@+id/tv_save_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/space_13x"
-        app:layout_constraintEnd_toEndOf="@id/gl_end"
-        app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@id/et_last_name"
         android:layout_marginTop="@dimen/space_17x"
         android:background="@drawable/welcome_button_background"
         android:fontFamily="@font/mulish_semibold"
         android:gravity="center"
-        android:text="@string/complete_registration"
+        android:text="@string/continue_text"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/et_last_name" />
+
+    <include
+        android:id="@+id/login_loading"
+        layout="@layout/fragment_loading"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

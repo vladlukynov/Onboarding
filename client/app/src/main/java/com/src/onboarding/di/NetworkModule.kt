@@ -114,7 +114,7 @@ class NetworkModule {
         const val NAME_RETROFIT_WITHOUT_TOKEN = "retrofit_without_token"
         const val NAME_OKHTTP_WITH_TOKEN = "okhttp_with_token"
         const val NAME_OKHTTP_WITHOUT_TOKEN = "okhttp_without_token"
-        const val BASE_URL = "http://192.168.0.101:8080/"
+        const val BASE_URL = "http://192.168.0.115:8080/"
         const val USER_SERVICE_BASE_URL = "user-service"
     }
 }

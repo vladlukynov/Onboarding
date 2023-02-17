@@ -1,6 +1,7 @@
 package com.src.onboarding.presentation.welcome.registration.viewModel
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,7 +30,7 @@ class RegistrationViewModel(
     private val _mutableLiveDataEmail = MutableLiveData<String?>(null)
     private val _mutableLiveDataPassword = MutableLiveData<String?>(null)
     private val _mutableLiveDataName = MutableLiveData<String?>(null)
-    private val _mutableLiveDataLogin = MutableLiveData<String?>(null)
+    private val _mutableLiveDataLastName = MutableLiveData<String?>(null)
 
     private val _mutableLiveDataCodeState = MutableLiveData<CodeState>(CodeState.DefaultState)
     private val _mutableLiveDataRepeatingCodeState =
@@ -42,7 +43,7 @@ class RegistrationViewModel(
     val liveDataImage get() = _mutableLiveDataImage
     val liveDataEmail get() = _mutableLiveDataEmail
     val liveDataPassword get() = _mutableLiveDataPassword
-    val liveDataLogin get() = _mutableLiveDataLogin
+    val liveDataLogin get() = _mutableLiveDataLastName
     val liveDataName get() = _mutableLiveDataName
 
     val liveDataCodeState get() = _mutableLiveDataCodeState
@@ -60,15 +61,16 @@ class RegistrationViewModel(
         viewModelScope.launch {
             _mutableLiveDataIsLoading.value = true
             _mutableLiveDataRegistration.value = RegistrationState.DefaultState
-            if (_mutableLiveDataEmail.value != null && _mutableLiveDataPassword.value != null && _mutableLiveDataLogin.value != null && _mutableLiveDataName.value != null) {
+            if (_mutableLiveDataEmail.value != null && _mutableLiveDataPassword.value != null  && _mutableLiveDataName.value != null) {
+              Log.d("ViewModel","ok")
                 _mutableLiveDataRegistration.value = registrationUseCase.execute(
                     email = _mutableLiveDataEmail.value!!,
                     password = _mutableLiveDataPassword.value!!,
-                    login = _mutableLiveDataLogin.value!!,
                     name = _mutableLiveDataName.value!!,
                     uri = uri
                 )
             } else {
+                Log.d("ViewModel","error")
                 _mutableLiveDataRegistration.value = RegistrationState.ErrorState
             }
             _mutableLiveDataIsLoading.value = false
@@ -85,10 +87,6 @@ class RegistrationViewModel(
 
     fun setEmail(email: String) {
         _mutableLiveDataEmail.value = email
-    }
-
-    fun setLogin(login: String) {
-        _mutableLiveDataLogin.value = login
     }
 
     fun setPassword(password: String) {

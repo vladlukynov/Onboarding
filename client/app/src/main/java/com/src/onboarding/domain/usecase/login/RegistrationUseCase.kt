@@ -12,13 +12,11 @@ class RegistrationUseCase(private val loginRepository: LoginRepository) {
     suspend fun execute(
         email: String,
         password: String,
-        login: String,
         name: String,
         uri: Uri?
     ): RegistrationState = withContext(Dispatchers.IO) {
         val json = JSONObject(
             mapOf(
-                "login" to login,
                 "name" to name,
                 "email" to email,
                 "password" to password

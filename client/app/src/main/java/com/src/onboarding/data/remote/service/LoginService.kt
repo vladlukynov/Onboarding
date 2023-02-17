@@ -31,7 +31,7 @@ interface LoginService {
     ): Response<Unit>
 
     @Multipart
-    @POST("${NetworkModule.USER_SERVICE_BASE_URL}L/user/registration")
+    @POST("${NetworkModule.USER_SERVICE_BASE_URL}/user/registration")
     suspend fun signUp(
         @Part("registerBeanString") data: RequestBody,
         @Part file: MultipartBody.Part?
