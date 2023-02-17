@@ -18,7 +18,7 @@ services:
       timeout: 60s
       retries: 20
   configserver:
-    image: prlwk/serverconfig:0.0.1-SNAPSHOT
+    image: prlwk/serverconfig-onboarding:0.0.1-SNAPSHOT
     ports:
       - "8088:8080"
     environment:
@@ -28,7 +28,7 @@ services:
         aliases:
           - "configserver"
   eurekaserver:
-    image: prlwk/eurekaserver:0.0.1-SNAPSHOT
+    image: prlwk/eurekaserver-onboarding:0.0.1-SNAPSHOT
     environment:
       PROFILE: "dev"
     ports:
@@ -38,7 +38,7 @@ services:
          aliases:
           - "eurekaserver"
   gatewayserver:
-    image: prlwk/gatewayserver:0.0.1-SNAPSHOT
+    image: prlwk/gatewayserver-onboarding:0.0.1-SNAPSHOT
     ports:
       - "8080:8072"
     environment:
@@ -67,7 +67,7 @@ services:
 #        aliases:
 #         - "keycloak"
   userservice:
-    image: prlwk/user-service:0.0.1-SNAPSHOT
+    image: prlwk/user-service-onboarding:0.0.1-SNAPSHOT
     environment:
       PROFILE: "dev"
       DATABASESERVER_PORT: "3306"

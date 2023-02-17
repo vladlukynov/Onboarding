@@ -13,7 +13,7 @@
     <groupId>com.api</groupId>
     <artifactId>gatewayserver</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gatewayserver</name>
+    <name>onboarding-gatewayserver</name>
     <description>gatewayserver</description>
 
     <properties>
@@ -85,7 +85,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.friendbook.gatewayserver.GatewayserverApplication</mainClass>
+                            <mainClass>com.api.gatewayserver.GatewayserverApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -107,7 +107,7 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.13</version>
                 <configuration>
-                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <repository>${docker.image.prefix}/${project.artifactId}-onboarding</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
