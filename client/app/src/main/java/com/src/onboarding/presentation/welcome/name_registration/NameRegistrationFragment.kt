@@ -49,9 +49,8 @@ class NameRegistrationFragment : Fragment() {
             Glide.with(this)
                 .load(image)
                 .into(binding.ivChangeAvatar)
-
         }
-        binding.ivChangeAvatar.setOnClickListener {
+        binding.cdAddPicture.setOnClickListener {
             pickFromGallery()
         }
         viewModel.liveDataRegistration.observe(this.viewLifecycleOwner, this::checkRegistration)

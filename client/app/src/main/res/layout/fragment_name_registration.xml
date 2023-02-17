@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,17 +35,44 @@
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toTopOf="@id/gl_top" />
 
-    <ImageView
-        android:id="@+id/iv_change_avatar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/gl_end"
-        app:layout_constraintHeight_percent="0.15"
-        app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toTopOf="@id/gl_top"
-        app:layout_constraintVertical_bias="0.15"
-        app:srcCompat="@drawable/ic_change_avatar" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cd_add_picture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="250dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="250dp">
+
+                <ImageView
+                    android:id="@+id/iv_change_avatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="@dimen/space_2.5x"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_change_avatar"
+                    tools:ignore="ContentDescription" />
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/et_first_name"
@@ -62,7 +90,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@id/iv_change_avatar" />
+        app:layout_constraintTop_toBottomOf="@id/cl_photo" />
 
     <EditText
         android:id="@+id/et_last_name"
@@ -100,6 +128,6 @@
     <include
         android:id="@+id/login_loading"
         layout="@layout/fragment_loading"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
