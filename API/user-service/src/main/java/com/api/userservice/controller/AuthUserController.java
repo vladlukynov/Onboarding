@@ -111,7 +111,23 @@ public class AuthUserController {
         }
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/colleagues", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getColleagues(HttpServletRequest request){
+        ResponseEntity<?> responseEntity = getUserByRequest(request);
+        if (!responseEntity.getStatusCode().equals(HttpStatus.OK)) {
+            return responseEntity;
+        }
+        User user = (User) responseEntity.getBody();
+        if(user.getTeam() == null){
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.CONFLICT.value(),
+                            "You are not working"), HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(userService.getColleagues(user.getId(), user.getTeam().getId()), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         User user;

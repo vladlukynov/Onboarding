@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.api.userservice.DTO.ColleagueDTO;
 import com.api.userservice.DTO.EditUserBean;
 import com.api.userservice.DTO.RegisterBean;
 import com.api.userservice.DTO.UserPageWithoutEmail;
@@ -142,5 +143,10 @@ public class UserServiceImpl implements UserService {
         UserPageWithoutEmail userPageWithoutEmail = new UserPageWithoutEmail(user);
         userPageWithoutEmail.setImage("/user/image?id=" + user.getId());
         return userPageWithoutEmail;
+    }
+
+    @Override
+    public List<ColleagueDTO> getColleagues(Long userId, Long teamId) {
+        return userRepository.getColleagues(userId, teamId);
     }
 }

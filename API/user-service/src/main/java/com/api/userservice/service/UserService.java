@@ -1,5 +1,8 @@
 package com.api.userservice.service;
 
+import java.util.List;
+
+import com.api.userservice.DTO.ColleagueDTO;
 import com.api.userservice.DTO.EditUserBean;
 import com.api.userservice.DTO.RegisterBean;
 import com.api.userservice.DTO.UserPageWithoutEmail;
@@ -40,4 +43,6 @@ public interface UserService {
     UserProfile getInfoForProfile(User user);
 
     UserPageWithoutEmail getInfoForUserPageWithoutEmail(User user);
+
+    List<ColleagueDTO> getColleagues(Long userId, Long teamId);
 }

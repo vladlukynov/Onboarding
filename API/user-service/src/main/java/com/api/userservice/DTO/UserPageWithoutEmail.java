@@ -23,5 +23,6 @@ public class UserPageWithoutEmail {
         this.description = user.getDescription();
         this.post = user.getPost() == null ? null : user.getPost().getName();
         this.team = user.getTeam() == null ? null :user.getTeam().getName();
+        this.image = "/user/image?id=" + user.getId();
     }
 }
