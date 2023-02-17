@@ -48,6 +48,22 @@ public class CourseController {
         }
     }
 
+    @RequestMapping(path = "/next-task", method = RequestMethod.GET)
+    public ResponseEntity<?> getTask(@RequestParam("CourseId") Long courseId,HttpServletRequest request) {
+        try {
+            Long userId = userRestTemplateClient.getUserId(request);
+            boolean flag = courseService.isNextTest(courseId, userId);
+            if(flag){
+                return new ResponseEntity<>(courseService.findNextTestInCourseById(courseId, userId), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(courseService.findNextFeedbackInCourseById(courseId, userId), HttpStatus.OK);
+        } catch (Exception exception) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+    }
+
+
+
     @RequestMapping(path = "/delete-by-id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<?> getPostByUserId(@PathVariable Long id){

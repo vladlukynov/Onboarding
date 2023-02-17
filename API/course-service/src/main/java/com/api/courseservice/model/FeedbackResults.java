@@ -23,6 +23,10 @@ public class FeedbackResults {
     @JoinColumn(name = "question_id")
     private Question question;
 
+    @ManyToOne
+    @JoinColumn(name = "feedback_id")
+    private Feedback feedback;
+
     private String userAnswer;
 
     private Long userId;

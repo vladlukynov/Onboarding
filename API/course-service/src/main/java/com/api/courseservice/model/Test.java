@@ -27,4 +27,9 @@ public class Test {
 
     @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Question> questions;
+
+    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<TestResults> results;
+
+    private Integer numberInCourse;
 }

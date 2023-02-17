@@ -1,11 +1,6 @@
 package com.api.courseservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +22,9 @@ public class TestResults {
 
     private Long userId;
 
-    private Long testId;
+    @ManyToOne
+    @JoinColumn(name = "test_id")
+    private Test test;
 
     private Integer percents;
 }

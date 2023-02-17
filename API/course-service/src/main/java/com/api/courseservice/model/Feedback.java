@@ -27,4 +27,9 @@ public class Feedback {
 
     @OneToMany(mappedBy = "feedback", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Question> questions;
+
+    @OneToMany(mappedBy = "feedback", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<FeedbackResults> results;
+
+    private Integer numberInCourse;
 }

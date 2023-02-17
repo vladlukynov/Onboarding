@@ -1,6 +1,7 @@
 package com.api.courseservice.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
@@ -12,8 +13,8 @@ import com.api.courseservice.model.Course;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
-
-    void deleteByIdEquals(@NonNull Long id);
+    @Query("select c from Course c where c.id = ?1")
+    Optional<Course> findNextTestInCourseById(@NonNull Long id);
 
     @Query("SELECT new com.api.courseservice.DTO.CourseDTO(c.id, c.name, c.photoSrc) FROM Course c " +
             "WHERE c.accessPostId =: postId")
