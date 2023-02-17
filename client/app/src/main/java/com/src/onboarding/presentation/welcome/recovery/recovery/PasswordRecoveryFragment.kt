@@ -16,20 +16,12 @@ class PasswordRecoveryFragment : Fragment() {
     private lateinit var binding: FragmentPasswordRecoveryBinding
     private lateinit var bindingLoading: FragmentLoadingBinding
     private lateinit var viewModel: PasswordRecoveryViewModel
-    private var email: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPasswordRecoveryBinding.inflate(inflater)
         bindingLoading = binding.loading
-        val args = this.arguments
-        val emailArgs = args?.getString(BUNDLE_EMAIL)
-        if (emailArgs != null && emailArgs.isNotEmpty()) {
-            email = emailArgs
-        } else {
-            (activity as LoginActivity).showSnackBar(null)
-        }
         viewModel = (activity as LoginActivity).getPasswordRecoveryViewModel()
         return binding.root
     }
@@ -46,7 +38,7 @@ class PasswordRecoveryFragment : Fragment() {
             val password1 = binding.etPassword.text.toString().replace("\\s".toRegex(), "")
             val password2 = binding.etPasswordRepeat.text.toString().replace("\\s".toRegex(), "")
             if (password1 == password2 && password1.isNotEmpty()) {
-                viewModel.changePassword(email = email, password = password1)
+                viewModel.changePassword(password = password1)
             } else {
                 if (password1.isEmpty() || password2.isEmpty()) {
                     (activity as LoginActivity).showSnackBar(getString(R.string.fill_all_fields))
@@ -68,6 +60,7 @@ class PasswordRecoveryFragment : Fragment() {
     private fun checkState(state: ChangePasswordState) {
         when (state) {
             is ChangePasswordState.SuccessState -> {
+                //TODO перейти на новый экран
             }
             is ChangePasswordState.WrongPasswordState -> {
                 (activity as LoginActivity).showSnackBar(getString(R.string.invalid_code))
@@ -77,9 +70,5 @@ class PasswordRecoveryFragment : Fragment() {
                 (activity as LoginActivity).showSnackBar(null)
             }
         }
-    }
-
-    companion object {
-        const val BUNDLE_EMAIL = "email"
     }
 }

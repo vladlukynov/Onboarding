@@ -2,8 +2,11 @@ package com.src.onboarding.data.remote.dataSource.login
 
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
 import com.src.onboarding.data.remote.model.login.loginAnswer.LoginAnswerResponse
+import com.src.onboarding.data.remote.model.token.RefreshTokenResponse
 import com.src.onboarding.data.remote.service.LoginService
+import com.src.onboarding.data.remote.service.SessionService
 import com.src.onboarding.data.remote.session.SessionStorage
+import com.src.onboarding.data.remote.session.SessionStorageImpl
 import com.src.onboarding.data.remote.utils.ErrorMessage
 import com.src.onboarding.domain.model.login.Login
 import com.src.onboarding.domain.state.login.*
@@ -16,7 +19,8 @@ import java.io.File
 class LoginDataSourceImpl(
     private val loginService: LoginService,
     private val sessionStorage: SessionStorage,
-    private val loginMapper: LoginMapper
+    private val loginMapper: LoginMapper,
+    private val sessionService: SessionService
 ) : LoginDataSource {
     override suspend fun signIn(data: Login): LoginState {
         val registrationAnswerResponse =
@@ -159,24 +163,53 @@ class LoginDataSourceImpl(
         return BasicState.ErrorState()
     }
 
-    override suspend fun recoveryPassword(email: String, password: String): ChangePasswordState {
-        val response = loginService.recoveryPassword(email = email, password = password)
+    override suspend fun recoverPassword(newPassword: String): ChangePasswordState {
+
+        val response = loginService.recoverPassword(
+            refreshToken = sessionStorage.getRefreshToken(),
+            newPassword = newPassword,
+            token = getToken()
+        )
         if (response.isSuccessful) {
-            val body = response.body()!!
-            sessionStorage.refresh(
-                refreshToken = body.email,
-                expireTimeRefreshToken = body.expireTimeRefreshToken,
-                accessToken = body.accessToken,
-                expireTimeAccessToken = body.expireTimeAccessToken,
-                id = body.id,
-                email = body.email
-            )
             return ChangePasswordState.SuccessState
         }
         if (response.code() == 404) {
-            return ChangePasswordState.ErrorCodeState
+            return ChangePasswordState.WrongPasswordState
         }
         return ChangePasswordState.ErrorState
+    }
+
+    private fun getToken(): String? {
+        if (sessionStorage.getAccessToken().isEmpty()) {
+            return null
+        } else {
+            if (!sessionStorage.accessTokenIsValid()) {
+                val needToRefreshToken = !sessionStorage.refreshTokenIsValid()
+                val sessionResponse = sessionService.refreshTokens(
+                    RefreshTokenResponse(
+                        generateRefreshToken = needToRefreshToken,
+                        email = sessionStorage.getEmail(),
+                        accessToken = sessionStorage.getAccessToken(),
+                        refreshToken = sessionStorage.getRefreshToken()
+                    )
+                ).execute().body()
+                sessionResponse?.let {
+                    sessionStorage.refreshAccessToken(
+                        sessionResponse.accessToken,
+                        it.expireTimeAccessToken
+                    )
+                    sessionResponse.refreshToken?.let { it1 ->
+                        sessionResponse.expireTimeRefreshToken?.let { it2 ->
+                            sessionStorage.refreshRefreshToken(
+                                it1,
+                                it2
+                            )
+                        }
+                    }
+                }
+            }
+            return "${SessionStorageImpl.TOKEN_TYPE} ${sessionStorage.getAccessToken()}"
+        }
     }
 
     private companion object {

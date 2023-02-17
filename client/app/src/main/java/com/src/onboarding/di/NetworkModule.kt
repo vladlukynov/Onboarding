@@ -8,6 +8,7 @@ import com.src.onboarding.data.remote.dataSource.user.UserDataSourceImpl
 import com.src.onboarding.data.remote.interceptor.TokenInterceptor
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
 import com.src.onboarding.data.remote.service.LoginService
+import com.src.onboarding.data.remote.service.SessionService
 import com.src.onboarding.data.remote.service.UserService
 import com.src.onboarding.data.remote.session.SessionStorage
 import com.src.onboarding.data.remote.session.SessionStorageImpl
@@ -89,6 +90,12 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    fun provideSessionService(@Named(NAME_RETROFIT_WITH_TOKEN) retrofit: Retrofit): SessionService {
+        return retrofit.create(SessionService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideUserDataSource(
         userService: UserService
     ): UserDataSource {
@@ -100,11 +107,13 @@ class NetworkModule {
     fun provideLoginDataSource(
         loginService: LoginService,
         sessionStorage: SessionStorage,
+        sessionService: SessionService,
         loginMapper: LoginMapper
     ): LoginDataSource {
         return LoginDataSourceImpl(
             loginService = loginService,
             sessionStorage = sessionStorage,
+            sessionService = sessionService,
             loginMapper = loginMapper
         )
     }

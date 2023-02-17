@@ -12,5 +12,5 @@ interface LoginDataSource {
     suspend fun registration(data: String, file: File?): RegistrationState
     suspend fun checkRecoveryCodeForAccountConfirmations(code: String, email: String): CodeState
     suspend fun sendCodeForAccountConfirmations(): BasicState<Unit>
-    suspend fun recoveryPassword(email: String, password: String): ChangePasswordState
+    suspend fun recoverPassword(newPassword: String): ChangePasswordState
 }

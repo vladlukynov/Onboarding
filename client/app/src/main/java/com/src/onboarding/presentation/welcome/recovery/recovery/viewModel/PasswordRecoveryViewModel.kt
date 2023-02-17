@@ -4,10 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.src.onboarding.domain.state.login.ChangePasswordState
-import com.src.onboarding.domain.usecase.login.RecoveryPasswordUseCase
+import com.src.onboarding.domain.usecase.login.RecoverPasswordUseCase
 import kotlinx.coroutines.launch
 
-class PasswordRecoveryViewModel(private val changePasswordUseCase: RecoveryPasswordUseCase) :
+class PasswordRecoveryViewModel(private val changePasswordUseCase: RecoverPasswordUseCase) :
     ViewModel() {
     private val _mutableLiveDataIsLoading = MutableLiveData<Boolean>(false)
     private val _mutableLiveDataChangePasswordState =
@@ -16,11 +16,11 @@ class PasswordRecoveryViewModel(private val changePasswordUseCase: RecoveryPassw
     val liveDataIsLoading get() = _mutableLiveDataIsLoading
     val liveDataChangePasswordState get() = _mutableLiveDataChangePasswordState
 
-    fun changePassword(email: String, password: String) {
+    fun changePassword(password: String) {
         viewModelScope.launch {
             _mutableLiveDataIsLoading.value = true
             _mutableLiveDataChangePasswordState.value =
-                changePasswordUseCase.execute(email = email, password = password)
+                changePasswordUseCase.execute(password = password)
             _mutableLiveDataIsLoading.value = false
         }
     }

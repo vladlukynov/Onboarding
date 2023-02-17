@@ -56,8 +56,8 @@ class LoginRepositoryImpl(
         userLocalRepository.setIsActiveAndClearSession()
     }
 
-    override suspend fun recoveryCode(email: String, password: String): ChangePasswordState =
+    override suspend fun recoverPassword(password: String): ChangePasswordState =
         withContext(Dispatchers.IO) {
-            return@withContext loginDataSource.recoveryPassword(email = email, password = password)
+            return@withContext loginDataSource.recoverPassword(newPassword = password)
         }
 }

@@ -46,10 +46,11 @@ interface LoginService {
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/send-code-for-confirmation-account")
     suspend fun sendCodeForAccountConfirmations(@Query("id") userId: Long): Response<Unit>
 
-    @GET("${NetworkModule.USER_SERVICE_BASE_URL}/password-recovery")
-    suspend fun recoveryPassword(
-        @Query("email") email: String,
-        @Query("password") password: String
-    ): Response<LoginAnswerResponse>
+    @GET("${NetworkModule.USER_SERVICE_BASE_URL}/user/change-password")
+    suspend fun recoverPassword(
+        @Query("newPassword") newPassword: String,
+        @Query("refreshToken", encoded = true) refreshToken: String,
+        @Header("Authorization") token: String?
+    ): Response<Unit>
 
 }

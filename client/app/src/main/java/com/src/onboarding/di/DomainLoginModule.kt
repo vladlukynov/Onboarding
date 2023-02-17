@@ -59,7 +59,7 @@ class DomainLoginModule {
 
     @Singleton
     @Provides
-    fun provideRecoveryPasswordUseCase(loginRepository: LoginRepository): RecoveryPasswordUseCase {
-        return RecoveryPasswordUseCase(loginRepository = loginRepository)
+    fun provideRecoverPasswordUseCase(loginRepository: LoginRepository): RecoverPasswordUseCase {
+        return RecoverPasswordUseCase(loginRepository = loginRepository)
     }
 }

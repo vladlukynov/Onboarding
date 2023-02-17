@@ -83,11 +83,7 @@ class PasswordRecoveryEnterCodeFragment : Fragment() {
     private fun checkState(state: CodeState) {
         when (state) {
             is CodeState.SuccessState -> {
-                val bundle = Bundle()
-                bundle.putString(PasswordRecoveryFragment.BUNDLE_EMAIL, email)
-                val fragment = PasswordRecoveryFragment()
-                fragment.arguments = bundle
-                (activity as LoginActivity).replaceFragment(fragment)
+                (activity as LoginActivity).replaceFragment(PasswordRecoveryFragment())
             }
             is CodeState.WrongCodeState -> {
                 (activity as LoginActivity).showSnackBar(getString(R.string.invalid_code))
