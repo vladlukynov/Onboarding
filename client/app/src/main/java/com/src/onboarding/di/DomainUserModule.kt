@@ -8,9 +8,4 @@ import javax.inject.Singleton
 
 @Module
 class DomainUserModule {
-    @Singleton
-    @Provides
-    fun provideSignInUseCase(loginRepository: LoginRepository): SignInUseCase {
-        return SignInUseCase(loginRepository = loginRepository)
-    }
 }

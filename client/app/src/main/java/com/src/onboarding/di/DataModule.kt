@@ -1,5 +1,6 @@
 package com.src.onboarding.di
 
+import com.src.onboarding.data.local.repository.LocalUserRepository
 import com.src.onboarding.data.remote.dataSource.login.LoginDataSource
 import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.data.repository.LoginRepositoryImpl
@@ -17,7 +18,13 @@ class DataModule {
     }
 
     @Provides
-    fun provideLoginRepository(loginDataSource: LoginDataSource): LoginRepository {
-        return LoginRepositoryImpl(loginDataSource = loginDataSource)
+    fun provideLoginRepository(
+        loginDataSource: LoginDataSource,
+        localUserRepository: LocalUserRepository
+    ): LoginRepository {
+        return LoginRepositoryImpl(
+            loginDataSource = loginDataSource,
+            userLocalRepository = localUserRepository
+        )
     }
 }

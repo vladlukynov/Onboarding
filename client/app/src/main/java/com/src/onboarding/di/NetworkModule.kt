@@ -46,7 +46,6 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    //TODO provide tokenInterceptor
     @Singleton
     @Provides
     @Named(NAME_OKHTTP_WITH_TOKEN)
