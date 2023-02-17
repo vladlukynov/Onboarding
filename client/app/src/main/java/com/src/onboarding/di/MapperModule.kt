@@ -1,5 +1,6 @@
 package com.src.onboarding.di
 
+import com.src.onboarding.data.remote.model.course.colleague.ColleagueMapper
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
 import dagger.Module
 import dagger.Provides
@@ -11,6 +12,12 @@ class MapperModule {
     @Provides
     fun provideLoginMapper(): LoginMapper {
         return LoginMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideColleagueMapper(): ColleagueMapper {
+        return ColleagueMapper()
     }
 
 }

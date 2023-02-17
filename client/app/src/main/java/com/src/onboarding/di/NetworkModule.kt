@@ -1,15 +1,20 @@
 package com.src.onboarding.di
 
 import android.content.Context
+import com.src.onboarding.data.remote.dataSource.course.CourseDataSource
+import com.src.onboarding.data.remote.dataSource.course.CourseDataSourceImpl
 import com.src.onboarding.data.remote.dataSource.login.LoginDataSource
 import com.src.onboarding.data.remote.dataSource.login.LoginDataSourceImpl
 import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.data.remote.dataSource.user.UserDataSourceImpl
 import com.src.onboarding.data.remote.interceptor.TokenInterceptor
+import com.src.onboarding.data.remote.model.course.colleague.ColleagueMapper
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
+import com.src.onboarding.data.remote.service.CourseService
 import com.src.onboarding.data.remote.service.LoginService
 import com.src.onboarding.data.remote.service.SessionService
 import com.src.onboarding.data.remote.service.UserService
+import com.src.onboarding.data.remote.session.SessionController
 import com.src.onboarding.data.remote.session.SessionStorage
 import com.src.onboarding.data.remote.session.SessionStorageImpl
 import dagger.Module
@@ -96,6 +101,24 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    fun provideCourseService(@Named(NAME_RETROFIT_WITH_TOKEN) retrofit: Retrofit): CourseService {
+        return retrofit.create(CourseService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSessionController(
+        sessionService: SessionService,
+        sessionStorage: SessionStorage
+    ): SessionController {
+        return SessionController(
+            sessionService = sessionService,
+            sessionStorage = sessionStorage
+        )
+    }
+
+    @Singleton
+    @Provides
     fun provideUserDataSource(
         userService: UserService
     ): UserDataSource {
@@ -115,6 +138,20 @@ class NetworkModule {
             sessionStorage = sessionStorage,
             sessionService = sessionService,
             loginMapper = loginMapper
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideCourseDataSource(
+        courseService: CourseService,
+        colleagueMapper: ColleagueMapper,
+        sessionController: SessionController
+    ): CourseDataSource {
+        return CourseDataSourceImpl(
+            courseService = courseService,
+            colleagueMapper = colleagueMapper,
+            sessionController = sessionController
         )
     }
 
