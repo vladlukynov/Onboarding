@@ -13,4 +13,5 @@
     <color name="neutral_off_white">#F7F7FC</color>
     <color name="neutral_disabled">#ADB5BD</color>
     <color name="main_tint">#CC2C2C2C</color>
+    <color name="neutral_line">#EDEDED</color>
 </resources>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.welcome.code_enter.CodeEnterFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/gl_top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/gl_start" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/gl_end" />
+
+    <TextView
+        android:id="@+id/tv_enter_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mulish_bold"
+        android:text="Введите код"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_marginBottom="@dimen/space_4x"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintBottom_toTopOf="@id/tv_enter_code_description"
+        app:layout_constraintStart_toStartOf="@id/gl_start" />
+
+    <TextView
+        android:id="@+id/tv_enter_code_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_10x"
+        android:layout_marginTop="@dimen/space_1x"
+        android:fontFamily="@font/mulish_regular"
+        android:lineSpacingExtra="4dp"
+        android:text="Мы отправили Вам код подтверждения\nна электронный адрес."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintBottom_toTopOf="@id/flow_code_numbers"/>
+
+    <EditText
+        android:id="@+id/et_code_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="phone"
+        android:ems="1"
+        android:fontFamily="@font/mulish_bold"
+        android:inputType="number"
+        android:maxLength="1"
+        android:cursorVisible="false"
+        android:text=""
+        android:background="@drawable/enter_code_number_background"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/et_code_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="phone"
+        android:ems="1"
+        android:fontFamily="@font/mulish_bold"
+        android:inputType="number"
+        android:maxLength="1"
+        android:text=""
+        android:background="@drawable/enter_code_number_background"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:cursorVisible="false"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/et_code_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="phone"
+        android:ems="1"
+        android:fontFamily="@font/mulish_bold"
+        android:inputType="number"
+        android:maxLength="1"
+        android:text=""
+        android:background="@drawable/enter_code_number_background"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:cursorVisible="false"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/et_code_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="phone"
+        android:ems="1"
+        android:fontFamily="@font/mulish_bold"
+        android:inputType="number"
+        android:maxLength="1"
+        android:text=""
+        android:cursorVisible="false"
+        android:background="@drawable/enter_code_number_background"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow_code_numbers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="et_code_1, et_code_2, et_code_3, et_code_4"
+        app:flow_firstHorizontalStyle="packed"
+        app:flow_horizontalGap="@dimen/space_10x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_5x"
+        android:fontFamily="@font/mulish_semibold"
+        android:text="Отправить снова"
+        android:textColor="@color/main_purple"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/flow_code_numbers" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
