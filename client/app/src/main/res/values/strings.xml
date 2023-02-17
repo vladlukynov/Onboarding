@@ -35,4 +35,6 @@
     <string name="password_mismatch">Пароли не совпадают</string>
     <string name="email_does_not_exist">Такой почты не существует</string>
     <string name="invalid_code">Неверный код</string>
+    <string name="courses">Курсы</string>
+    <string name="profile2">Профиль</string>
 </resources>
