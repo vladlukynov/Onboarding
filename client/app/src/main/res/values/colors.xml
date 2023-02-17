@@ -10,4 +10,6 @@
 
     <color name="main_purple">#8C64D7</color>
     <color name="main_yellow">#DAEF14</color>
+    <color name="neutral_off_white">#F7F7FC</color>
+    <color name="neutral_disabled">#ADB5BD</color>
 </resources>

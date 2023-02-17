@@ -3,4 +3,11 @@
     <string name="start">Начать</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="welcome_text">Платформа\nонбординга №1</string>
+    <string name="already_have_account">Уже есть аккаунт?</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="password">Пароль</string>
+    <string name="e_mail">E-mail</string>
+    <string name="registration">Регистрация</string>
+    <string name="sign_in">Войти</string>
+    <string name="continue_text">Продолжить</string>
 </resources>
