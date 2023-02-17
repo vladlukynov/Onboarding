@@ -33,4 +33,6 @@ public class Course {
 
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Feedback> feedbacks = new HashSet<>();
+
+    private Long accessPostId;
 }

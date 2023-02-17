@@ -101,6 +101,16 @@ public class AuthUserController {
         return new ResponseEntity<>(userService.getInfoForProfile(user), HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/get-post-by-id", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getPostByUserId(@RequestParam("id") Long id){
+        try{
+            return new ResponseEntity<>(userService.findPostByUserId(id), HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<?> getUserById(@PathVariable Long id) {

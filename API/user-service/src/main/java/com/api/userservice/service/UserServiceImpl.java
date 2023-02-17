@@ -40,6 +40,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Long findPostByUserId(Long id){
+        Optional<User> usr = userRepository.findById(id);
+        if(usr.isEmpty()){
+            throw new EntityNotFoundException();
+        }
+        User user = usr.get();
+        if(user.getPost() == null){
+            throw new EntityNotFoundException();
+        }
+        return usr.get().getPost().getId();
+    }
+
+    @Override
     public void updateDate(String email, String date){
         userRepository.updateDateStartWorkByEmailEquals(email, date);
     }

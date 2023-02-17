@@ -27,6 +27,8 @@ public interface UserService {
 
     void updatePost(String email, Long post);
 
+    Long findPostByUserId(Long id);
+
     User findUserByEmail(String email);
 
     void setLinkPhoto(String linkPhoto, Long userId);
