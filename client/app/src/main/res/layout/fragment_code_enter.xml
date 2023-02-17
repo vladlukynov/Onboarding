@@ -31,43 +31,43 @@
         android:id="@+id/tv_enter_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_4x"
         android:fontFamily="@font/mulish_bold"
         android:text="Введите код"
         android:textColor="@color/black"
         android:textSize="24sp"
-        android:layout_marginBottom="@dimen/space_4x"
-        app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintBottom_toTopOf="@id/tv_enter_code_description"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start" />
 
     <TextView
         android:id="@+id/tv_enter_code_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_10x"
         android:layout_marginTop="@dimen/space_1x"
+        android:layout_marginBottom="@dimen/space_10x"
         android:fontFamily="@font/mulish_regular"
         android:lineSpacingExtra="4dp"
         android:text="Мы отправили Вам код подтверждения\nна электронный адрес."
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/flow_code_numbers"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
-        app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintBottom_toTopOf="@id/flow_code_numbers"/>
+        app:layout_constraintStart_toStartOf="@id/gl_start" />
 
     <EditText
         android:id="@+id/et_code_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints="phone"
+        android:background="@drawable/enter_code_number_background"
+        android:cursorVisible="false"
         android:ems="1"
         android:fontFamily="@font/mulish_bold"
         android:inputType="number"
         android:maxLength="1"
-        android:cursorVisible="false"
         android:text=""
-        android:background="@drawable/enter_code_number_background"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="28sp"
@@ -78,16 +78,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints="phone"
+        android:background="@drawable/enter_code_number_background"
+        android:cursorVisible="false"
         android:ems="1"
         android:fontFamily="@font/mulish_bold"
         android:inputType="number"
         android:maxLength="1"
         android:text=""
-        android:background="@drawable/enter_code_number_background"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="28sp"
-        android:cursorVisible="false"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -95,16 +95,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints="phone"
+        android:background="@drawable/enter_code_number_background"
+        android:cursorVisible="false"
         android:ems="1"
         android:fontFamily="@font/mulish_bold"
         android:inputType="number"
         android:maxLength="1"
         android:text=""
-        android:background="@drawable/enter_code_number_background"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="28sp"
-        android:cursorVisible="false"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -112,13 +112,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints="phone"
+        android:background="@drawable/enter_code_number_background"
+        android:cursorVisible="false"
         android:ems="1"
         android:fontFamily="@font/mulish_bold"
         android:inputType="number"
         android:maxLength="1"
         android:text=""
-        android:cursorVisible="false"
-        android:background="@drawable/enter_code_number_background"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="28sp"
@@ -136,6 +136,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_repeating_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_5x"
@@ -146,6 +147,11 @@
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/flow_code_numbers" />
+
+    <include
+        android:id="@+id/loading"
+        layout="@layout/fragment_loading"
+        android:visibility="gone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

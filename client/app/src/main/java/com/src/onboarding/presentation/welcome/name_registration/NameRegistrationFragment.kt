@@ -18,6 +18,7 @@ import com.src.onboarding.domain.state.login.RegistrationState
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.utils.PhotoCompression
 import com.src.onboarding.presentation.utils.REGEX_SPACE
+import com.src.onboarding.presentation.welcome.code_enter.CodeEnterFragment
 import com.src.onboarding.presentation.welcome.registration.viewModel.RegistrationViewModel
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -116,7 +117,7 @@ class NameRegistrationFragment : Fragment() {
             isClickNext = false
             when (state) {
                 is RegistrationState.SuccessState -> {
-                    //TODO перейти на новую страницу (с кодом)
+                    (activity as MainActivity).replaceFragment(CodeEnterFragment())
                 }
                 is RegistrationState.EmailAlreadyExistsState -> println("такая почта уже существует")
                 is RegistrationState.LoginAlreadyExistsState -> println("такой логин уже существует")
@@ -130,7 +131,7 @@ class NameRegistrationFragment : Fragment() {
 
     private fun setOnClickListenerForNextButton() {
         binding.tvSaveButton.setOnClickListener {
-            Log.d("Listener","click")
+            Log.d("Listener", "click")
             val firstNameWithoutSpace = binding.etFirstName.text.toString()
                 .replace(REGEX_SPACE, " ")
                 .lowercase(Locale.getDefault())
@@ -143,7 +144,7 @@ class NameRegistrationFragment : Fragment() {
             ) {
                 viewModel.setName("$firstNameWithoutSpace $lastNameWithoutSpace")
                 if (viewModel.liveDataName.value == null || viewModel.liveDataEmail.value == null || viewModel.liveDataPassword.value == null) {
-                   Log.d("RegistrationNameFragmet","data is empty")
+                    Log.d("RegistrationNameFragmet", "data is empty")
                     //TODO обработка ошибки (в клиенте что-то не сохранилось)
                 } else {
                     val photoCompression = PhotoCompression()
@@ -154,7 +155,7 @@ class NameRegistrationFragment : Fragment() {
                     viewModel.registration(photo)
                 }
             } else {
-                Log.d("RegistrationNameFragmet","field is empty")
+                //TODO field is empty
             }
 
             isClickNext = true

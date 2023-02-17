@@ -30,7 +30,6 @@ class RegistrationViewModel(
     private val _mutableLiveDataEmail = MutableLiveData<String?>(null)
     private val _mutableLiveDataPassword = MutableLiveData<String?>(null)
     private val _mutableLiveDataName = MutableLiveData<String?>(null)
-    private val _mutableLiveDataLastName = MutableLiveData<String?>(null)
 
     private val _mutableLiveDataCodeState = MutableLiveData<CodeState>(CodeState.DefaultState)
     private val _mutableLiveDataRepeatingCodeState =
@@ -43,7 +42,6 @@ class RegistrationViewModel(
     val liveDataImage get() = _mutableLiveDataImage
     val liveDataEmail get() = _mutableLiveDataEmail
     val liveDataPassword get() = _mutableLiveDataPassword
-    val liveDataLogin get() = _mutableLiveDataLastName
     val liveDataName get() = _mutableLiveDataName
 
     val liveDataCodeState get() = _mutableLiveDataCodeState

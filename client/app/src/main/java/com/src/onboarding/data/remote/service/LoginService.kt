@@ -44,6 +44,6 @@ interface LoginService {
     ): Response<Unit>
 
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/send-code-for-confirmation-account")
-    suspend fun sendCodeForAccountConfirmations(@Query("userId") userId: Long): Response<Unit>
+    suspend fun sendCodeForAccountConfirmations(@Query("id") userId: Long): Response<Unit>
 
 }

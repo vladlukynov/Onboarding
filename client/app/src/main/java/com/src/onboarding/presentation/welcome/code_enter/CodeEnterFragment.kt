@@ -1,9 +1,5 @@
 package com.src.onboarding.presentation.welcome.code_enter
 
-import android.annotation.SuppressLint
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,32 +12,46 @@ import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentCodeEnterBinding
+import com.src.onboarding.databinding.FragmentLoadingBinding
+import com.src.onboarding.domain.state.login.BasicState
+import com.src.onboarding.domain.state.login.CodeState
+import com.src.onboarding.presentation.MainActivity
+import com.src.onboarding.presentation.welcome.registration.viewModel.RegistrationViewModel
 
 class CodeEnterFragment : Fragment() {
 
     lateinit var binding: FragmentCodeEnterBinding
+    private lateinit var viewModel: RegistrationViewModel
+    private lateinit var bindingLoading: FragmentLoadingBinding
     lateinit var editTextList: List<EditText>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCodeEnterBinding.inflate(inflater)
-
-        // Inflate the layout for this fragment
+        viewModel = (activity as MainActivity).getRegistrationViewModel()
+        bindingLoading = binding.loading
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.liveDataIsLoading.observe(
+            this.viewLifecycleOwner, this::checkLoading
+        )
+        viewModel.liveDataCodeState.observe(
+            this.viewLifecycleOwner, this::checkState
+        )
+        viewModel.liveDataRepeatingCodeState.observe(
+            this.viewLifecycleOwner, this::checkSendRepeatingCodeState
+        )
         setCodeEditTextListeners()
         setListenerForLastEditText()
+        setCodeEditTextListeners()
+        setListenerForLastEditText()
+        setOnClickListenerForRepeatingCode()
     }
 
     private fun setListenerForLastEditText() {
@@ -58,8 +68,8 @@ class CodeEnterFragment : Fragment() {
                     code += i.text.toString()
                 }
                 Log.d("TEST", "Confirmation code is $code")
-                //editTextList[0].text.toString()
-                //viewModel.checkRecoveryCode(code = code)
+                editTextList[0].text.toString()
+                viewModel.checkRecoveryCode(code = code)
             }
         })
     }
@@ -108,5 +118,53 @@ class CodeEnterFragment : Fragment() {
     private fun setEditTextFilledSymbolStyle(et: EditText) {
         et.textSize = 32F
         et.background = null
+    }
+
+    private fun checkLoading(isLoading: Boolean) {
+        if (isLoading) {
+            bindingLoading.clLoadingPage.visibility = View.VISIBLE
+        } else {
+            bindingLoading.clLoadingPage.visibility = View.GONE
+        }
+    }
+
+    //TODO обработать ошибки (подверждение кода)
+    private fun checkState(state: CodeState) {
+        when (state) {
+            is CodeState.SuccessState -> {
+                //TODO перейти на новый фрагмент
+//                val fragment = CongratulationRegistrationFragment()
+//                (activity as MainActivity).replaceFragment(fragment)
+            }
+            is CodeState.WrongCodeState -> {
+                viewModel.setDefaultValueForCodeState()
+                println("wrong code")
+            }
+            is CodeState.ErrorState -> {
+                viewModel.setDefaultValueForCodeState()
+                println("error")
+            }
+            else -> {}
+        }
+    }
+
+    //TODO обработать ошибки (повторная отправка кода)
+    private fun checkSendRepeatingCodeState(state: BasicState<Unit>) {
+        when (state) {
+            is BasicState.SuccessState -> {
+                println("код отправлен")
+            }
+            is BasicState.ErrorState -> {
+                println("ошибка")
+            }
+            else -> {}
+        }
+    }
+
+    private fun setOnClickListenerForRepeatingCode() {
+        binding.tvRepeatingCode.setOnClickListener {
+            Log.d("EnterCode","onClickRepear")
+            viewModel.sendRepeatingCode()
+        }
     }
 }
