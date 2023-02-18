@@ -1,6 +1,7 @@
 package com.src.onboarding.presentation.courses.courses_main.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -22,8 +23,16 @@ class CoursesAdapter(private val onClickCourse: (item: Course) -> Unit) :
             binding.tvCourseName.text = course.name
             binding.tvThemeCount.text =
                 ThemeUtils().convertCountOfTheme(course.countThemes)
-            itemView.setOnClickListener {
-                onClickCourse(course)
+
+            if (course.closed) {
+                binding.ivLockedTint.visibility = View.VISIBLE
+                binding.ivLockIcon.visibility = View.VISIBLE
+            } else {
+                binding.ivLockedTint.visibility = View.INVISIBLE
+                binding.ivLockIcon.visibility = View.INVISIBLE
+                itemView.setOnClickListener {
+                    onClickCourse(course)
+                }
             }
         }
 
