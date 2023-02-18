@@ -39,6 +39,13 @@ class NotificationsFragment : Fragment() {
         )
         viewModel.getNotifications()
         setOnClickListenerForRemoveAllNotification()
+        setBackButtonOnClick()
+    }
+
+    private fun setBackButtonOnClick() {
+        binding.ivBackButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun setAdapterForNotifications() {

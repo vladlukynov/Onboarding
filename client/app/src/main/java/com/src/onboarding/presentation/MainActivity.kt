@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         (applicationContext as App).appComponent.inject(this)
         setContentView(R.layout.activity_main)
-        replaceFragment(TasksFragment())
+        replaceFragment(CoursesMainFragment())
     }
 
     @SuppressLint("ShowToast", "RestrictedApi")

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,10 +17,14 @@ import com.src.onboarding.domain.model.course.course.MainCourse
 import com.src.onboarding.domain.state.course.ColleagueState
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
+import com.src.onboarding.presentation.courses.CourseDetailsFragment
+import com.src.onboarding.presentation.courses.all_courses.AllCoursesFragment
 import com.src.onboarding.presentation.courses.courses_main.adapter.ColleagueAdapter
 import com.src.onboarding.presentation.courses.courses_main.adapter.CoursesAdapter
 import com.src.onboarding.presentation.courses.courses_main.adapter.MainCourseItemDecoration
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
+import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
+import com.src.onboarding.presentation.profile.UserProfileFragment
 
 class CoursesMainFragment : Fragment() {
     private lateinit var binding: FragmentCoursesMainBinding
@@ -49,6 +54,27 @@ class CoursesMainFragment : Fragment() {
         viewModel.getCourses()
         viewModel.getCountNotifications()
         setAdapters()
+        setOnNotificationClickListener()
+        setOnAllCoursesButtonClickListener()
+        setOnProfilePictureClickListener()
+    }
+
+    private fun setOnProfilePictureClickListener() {
+        binding.cvUserPicture.setOnClickListener {
+            (activity as MainActivity).replaceFragment(UserProfileFragment())
+        }
+    }
+
+    private fun setOnNotificationClickListener() {
+        binding.ivNotifications.setOnClickListener {
+            (activity as MainActivity).replaceFragment(NotificationsFragment())
+        }
+    }
+
+    private fun setOnAllCoursesButtonClickListener() {
+        binding.tvAllCourses.setOnClickListener {
+            (activity as MainActivity).replaceFragment(AllCoursesFragment())
+        }
     }
 
     private fun setAdapters() {
@@ -88,7 +114,11 @@ class CoursesMainFragment : Fragment() {
 
     //TODO
     private fun onClickColleague(colleague: Colleague) {
-
+        val bundle = Bundle()
+        bundle.putLong(UserProfileFragment.USER_ID, colleague.id)
+        val fragment = UserProfileFragment()
+        fragment.arguments = bundle
+        (activity as MainActivity).replaceFragment(fragment)
     }
 
     private fun setDataForColleaguesRecyclerView(colleagues: List<Colleague>) {
@@ -138,7 +168,11 @@ class CoursesMainFragment : Fragment() {
 
     //TODO
     private fun onClickCourses(course: Course) {
-
+        val bundle = Bundle()
+        bundle.putLong(CourseDetailsFragment.COURSE_ID, course.id)
+        val fragment = AllCoursesFragment()
+        fragment.arguments = bundle
+        (activity as MainActivity).replaceFragment(fragment)
     }
 
     private fun setDataForCoursesRecyclerView(courses: List<Course>) {
