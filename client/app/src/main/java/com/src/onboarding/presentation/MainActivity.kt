@@ -12,6 +12,7 @@ import com.src.onboarding.R
 import com.src.onboarding.app.App
 import com.src.onboarding.presentation.courses.add_employee.viewModel.AddEmployeeViewModel
 import com.src.onboarding.presentation.courses.add_employee.viewModel.AddEmployeeViewModelFactory
+import com.src.onboarding.presentation.courses.courses_main.CoursesMainFragment
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModelFactory
 import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         (applicationContext as App).appComponent.inject(this)
         setContentView(R.layout.activity_main)
-        replaceFragment(NotificationsFragment())
+        replaceFragment(CoursesMainFragment())
     }
 
     @SuppressLint("ShowToast", "RestrictedApi")

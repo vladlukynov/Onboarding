@@ -18,49 +18,47 @@ class TokenInterceptor @Inject constructor(
         if (response.code == 403 || response.code == 401) {
             val sessionStorage = sessionStorageProvider.get()
             val sessionService = sessionServiceProvider.get()
-            if (!sessionStorage.accessTokenIsValid()) {
-                if (!sessionStorage.refreshTokenIsValid()) {
-                    val refreshTokenResponse = RefreshTokenResponse(
-                        generateRefreshToken = true,
-                        email = sessionStorage.getEmail(),
-                        accessToken = sessionStorage.getAccessToken(),
-                        refreshToken = sessionStorage.getRefreshToken()
+            if (!sessionStorage.refreshTokenIsValid()) {
+                val refreshTokenResponse = RefreshTokenResponse(
+                    generateRefreshToken = true,
+                    email = sessionStorage.getEmail(),
+                    accessToken = sessionStorage.getAccessToken(),
+                    refreshToken = sessionStorage.getRefreshToken()
+                )
+                val tokenResponse = sessionService
+                    .refreshTokens(refreshTokenResponse)
+                    .execute()
+                    .body()
+                tokenResponse?.let {
+                    sessionStorage.refreshAccessToken(
+                        tokenResponse.accessToken,
+                        it.expireTimeAccessToken
                     )
-                    val tokenResponse = sessionService
-                        .refreshTokens(refreshTokenResponse)
-                        .execute()
-                        .body()
-                    tokenResponse?.let {
-                        sessionStorage.refreshAccessToken(
-                            tokenResponse.accessToken,
-                            it.expireTimeAccessToken
-                        )
-                        tokenResponse.refreshToken?.let { it1 ->
-                            tokenResponse.expireTimeRefreshToken?.let { it2 ->
-                                sessionStorage.refreshRefreshToken(
-                                    it1,
-                                    it2
-                                )
-                            }
+                    tokenResponse.refreshToken?.let { it1 ->
+                        tokenResponse.expireTimeRefreshToken?.let { it2 ->
+                            sessionStorage.refreshRefreshToken(
+                                it1,
+                                it2
+                            )
                         }
                     }
-                } else {
-                    val refreshTokenResponse = RefreshTokenResponse(
-                        generateRefreshToken = false,
-                        email = sessionStorage.getEmail(),
-                        accessToken = sessionStorage.getAccessToken(),
-                        refreshToken = sessionStorage.getRefreshToken()
+                }
+            } else {
+                val refreshTokenResponse = RefreshTokenResponse(
+                    generateRefreshToken = false,
+                    email = sessionStorage.getEmail(),
+                    accessToken = sessionStorage.getAccessToken(),
+                    refreshToken = sessionStorage.getRefreshToken()
+                )
+                val tokenResponse = sessionService
+                    .refreshTokens(refreshTokenResponse)
+                    .execute()
+                    .body()
+                tokenResponse?.let {
+                    sessionStorage.refreshAccessToken(
+                        tokenResponse.accessToken,
+                        it.expireTimeAccessToken
                     )
-                    val tokenResponse = sessionService
-                        .refreshTokens(refreshTokenResponse)
-                        .execute()
-                        .body()
-                    tokenResponse?.let {
-                        sessionStorage.refreshAccessToken(
-                            tokenResponse.accessToken,
-                            it.expireTimeAccessToken
-                        )
-                    }
                 }
             }
             response.close()

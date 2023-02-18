@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentCoursesMainBinding
 import com.src.onboarding.domain.model.course.colleague.Colleague
 import com.src.onboarding.domain.model.course.course.Course
@@ -145,11 +146,16 @@ class CoursesMainFragment : Fragment() {
         adapter.submitList(courses)
     }
 
-    //TODO проверить количество если больше 9 то ставим 9+
     private fun checkGetCountNotificationState(state: BasicState<Long>) {
         when (state) {
             is BasicState.SuccessState -> {
-                binding.tvNotificationCount.text = state.data.toString()
+                val notificationsCount = state.data
+                val notificationsCountString = if (notificationsCount > 9) {
+                    getString(R.string.too_many_notifications)
+                } else {
+                    notificationsCount.toString()
+                }
+                binding.tvNotificationCount.text = notificationsCountString
             }
             is BasicState.LoadingState -> {}
             is BasicState.ErrorState -> {
