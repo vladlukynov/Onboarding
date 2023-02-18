@@ -168,6 +168,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Course getCourseById(Long id) {
+        Optional<Course> courseOptional = courseRepository.findById(id);
+        if (courseOptional.isPresent()) {
+            return courseOptional.get();
+        }
+        throw new EntityNotFoundException();
+    }
+
+    @Override
     public Feedback findNextFeedbackInCourseById(Long id, Long userId) {
         Optional<Course> course = courseRepository.findById(id);
         if (course.isEmpty()) {

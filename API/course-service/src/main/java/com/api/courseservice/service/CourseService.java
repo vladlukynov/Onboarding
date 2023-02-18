@@ -17,4 +17,5 @@ public interface CourseService {
     boolean isNextTest(Long id, Long userId);
     double getPercentageOfCompletion(Long courseId, Long userId);
     int getCountTheme(Long courseId);
+    Course getCourseById(Long id);
 }

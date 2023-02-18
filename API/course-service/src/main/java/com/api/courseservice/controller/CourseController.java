@@ -1,15 +1,24 @@
 package com.api.courseservice.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.ClientHttpResponseStatusCodeException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.api.courseservice.DTO.CourseDTO;
+import com.api.courseservice.model.Course;
 import com.api.courseservice.service.CourseService;
 import com.api.courseservice.service.client.UserRestTemplateClient;
 import com.api.courseservice.utils.AppError;
@@ -93,5 +103,34 @@ public class CourseController {
         }
     }
 
+    @RequestMapping(path = "/image", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> getUserImage(@RequestParam Long id) {
+        Course course;
+        try {
+            course = courseService.getCourseById(id);
+        } catch (EntityNotFoundException exception) {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.NOT_FOUND.value(),
+                            "Course with id " + id + " does not exist."), httpHeaders, HttpStatus.NOT_FOUND);
+        }
+        try {
+            URL res = getClass().getClassLoader().getResource("images/" + course.getPhotoSrc());
+            File file;
+            if (res != null) {
+                file = Paths.get(res.toURI()).toFile();
+                InputStream input = new FileInputStream(file);
+                return new ResponseEntity<>(IOUtils.toByteArray(input), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } catch (URISyntaxException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
