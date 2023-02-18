@@ -7,16 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.src.onboarding.R
 import com.src.onboarding.app.App
+import com.src.onboarding.databinding.ActivityMainBinding
 import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
 import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModelFactory
 import com.src.onboarding.presentation.courses.courses_main.CoursesMainFragment
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModelFactory
-import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModel
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModelFactory
 import com.src.onboarding.presentation.courses.tasks.TasksFragment
@@ -43,22 +42,15 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userProfileViewModelFactory: UserProfileViewModelFactory
-
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (applicationContext as App).appComponent.inject(this)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         replaceFragment(CoursesMainFragment())
 
-        val bottomBar: BottomNavigationView = this.findViewById(R.id.bnv_bottom_bar)
-        bottomBar.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.i_courses -> replaceFragment(CoursesMainFragment())
-                R.id.i_tasks -> replaceFragment(TasksFragment())
-                R.id.i_profile -> replaceFragment(UserProfileFragment())
-            }
-            return@setOnItemSelectedListener true
-        }
+        setOnBottomBarItemClickListener()
     }
 
     @SuppressLint("ShowToast", "RestrictedApi")
@@ -85,6 +77,17 @@ class MainActivity : AppCompatActivity() {
         snackBar.show()
     }
 
+    private fun setOnBottomBarItemClickListener() {
+        binding.bnvBottomBar.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.i_courses -> replaceFragment(CoursesMainFragment())
+                R.id.i_tasks -> replaceFragment(TasksFragment())
+                R.id.i_profile -> replaceFragment(UserProfileFragment())
+            }
+            return@setOnItemSelectedListener true
+        }
+    }
+
     fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment)
             .addToBackStack(null).commit()
@@ -101,6 +104,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getTasksViewModel(): TasksViewModel =
         ViewModelProvider(this, tasksViewModelFactory)[TasksViewModel::class.java]
-    fun getUserProfileViewModel():UserProfileViewModel =
-        ViewModelProvider(this,userProfileViewModelFactory)[UserProfileViewModel::class.java]
+
+    fun getUserProfileViewModel(): UserProfileViewModel =
+        ViewModelProvider(this, userProfileViewModelFactory)[UserProfileViewModel::class.java]
 }

@@ -5,4 +5,5 @@ sealed class ChangePasswordState {
     object ErrorState : ChangePasswordState()
     object WrongPasswordState : ChangePasswordState()
     object ErrorCodeState : ChangePasswordState()
+    object DefaultState:ChangePasswordState()
 }
