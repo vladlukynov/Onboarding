@@ -1,6 +1,6 @@
 package com.src.onboarding.domain.usecase.user
 
-import com.src.onboarding.domain.model.user.Notification
+import com.src.onboarding.domain.user.Notification
 import com.src.onboarding.domain.repository.UserRepository
 import com.src.onboarding.domain.state.login.BasicState
 import kotlinx.coroutines.Dispatchers

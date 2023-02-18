@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.courses.notifications.NotificationsFragment">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"
@@ -39,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mulish_medium"
-        android:text="Ваши уведомления"
+        android:text="@string/your_tasks"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
@@ -56,21 +55,22 @@
         app:layout_constraintTop_toTopOf="@id/gl_top" />
 
     <View
-        android:layout_width="match_parent"
+        android:id="@+id/v_top_bar_divider"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/space_2x"
         android:background="@color/light_stroke"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/iv_back_button" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_notifications"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_5x"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toBottomOf="@id/iv_back_button"
+        app:layout_constraintTop_toBottomOf="@id/v_top_bar_divider"
         tools:itemCount="5"
-        tools:listitem="@layout/view_holder_notification" />
+        tools:listitem="@layout/view_holder_task" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

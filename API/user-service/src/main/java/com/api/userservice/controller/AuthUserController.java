@@ -167,10 +167,10 @@ public class AuthUserController {
             return responseEntity;
         }
         User user = (User) responseEntity.getBody();
-        if ((user != null) && (user.getPost().getId() != 1)) {
+        if ((user == null) || (user.getPost() == null) || (user.getPost().getId() != 1)) {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                            "not enough rights to execute"), HttpStatus.INTERNAL_SERVER_ERROR);
+                            "Not enough rights to execute"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         Date today = Calendar.getInstance().getTime();
         String date = df.format(today);
