@@ -16,12 +16,15 @@ import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeView
 import com.src.onboarding.presentation.courses.courses_main.CoursesMainFragment
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModelFactory
+import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModel
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModelFactory
 import com.src.onboarding.presentation.courses.tasks.TasksFragment
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModel
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFactory
-import com.src.onboarding.presentation.profile.UserProfileFragment
+import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
+import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
+import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModelFactory
 
 import javax.inject.Inject
 
@@ -37,6 +40,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var tasksViewModelFactory: TasksViewModelFactory
+
+    @Inject
+    lateinit var userProfileViewModelFactory: UserProfileViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,4 +101,6 @@ class MainActivity : AppCompatActivity() {
 
     fun getTasksViewModel(): TasksViewModel =
         ViewModelProvider(this, tasksViewModelFactory)[TasksViewModel::class.java]
+    fun getUserProfileViewModel():UserProfileViewModel =
+        ViewModelProvider(this,userProfileViewModelFactory)[UserProfileViewModel::class.java]
 }

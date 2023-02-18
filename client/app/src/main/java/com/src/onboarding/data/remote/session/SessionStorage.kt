@@ -8,7 +8,8 @@ interface SessionStorage {
         expireTimeRefreshToken: String,
         expireTimeAccessToken: String,
         id: String,
-        email: String
+        email: String,
+        postId: String?
     )
 
     fun getRefreshToken(): String
@@ -28,7 +29,8 @@ interface SessionStorage {
 
     fun getEmail(): String
     fun clearSession()
-    fun getId():String
-    fun setIsActive(isActive:Boolean)
-    fun getIsActive():Boolean
+    fun getId(): String
+    fun setIsActive(isActive: Boolean)
+    fun getIsActive(): Boolean
+    fun getPostId(): Long?
 }

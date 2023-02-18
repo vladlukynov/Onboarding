@@ -51,4 +51,5 @@
     <string name="add_task">Добавление задачи</string>
     <string name="et_title">Заголовок</string>
     <string name="teams">Команды</string>
+    <string name="about_me">О себе: </string>
 </resources>

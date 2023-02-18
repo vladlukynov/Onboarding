@@ -34,7 +34,8 @@ class LoginDataSourceImpl(
                     accessToken = body.accessToken,
                     expireTimeAccessToken = body.expireTimeAccessToken,
                     id = body.id,
-                    email = body.email
+                    email = body.email,
+                    postId = body.postId
                 )
                 sessionStorage.setIsActive(true)
             }
@@ -76,7 +77,8 @@ class LoginDataSourceImpl(
                     accessToken = body.accessToken,
                     expireTimeAccessToken = body.expireTimeAccessToken,
                     id = body.id,
-                    email = body.email
+                    email = body.email,
+                    postId = body.postId
                 )
                 sessionStorage.setIsActive(true)
             }
@@ -122,7 +124,8 @@ class LoginDataSourceImpl(
                 accessToken = body.accessToken,
                 expireTimeAccessToken = body.expireTimeAccessToken,
                 id = body.id,
-                email = body.email
+                email = body.email,
+                postId = body.postId
             )
             return RegistrationState.SuccessState
         } else {

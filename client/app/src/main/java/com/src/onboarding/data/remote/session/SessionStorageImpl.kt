@@ -10,7 +10,8 @@ class SessionStorageImpl(context: Context) : SessionStorage {
         expireTimeRefreshToken: String,
         expireTimeAccessToken: String,
         id: String,
-        email: String
+        email: String,
+        postId: String?
     ) {
         sharedPreferences.edit()
             .putString(REFRESH_TOKEN, refreshToken)
@@ -21,6 +22,7 @@ class SessionStorageImpl(context: Context) : SessionStorage {
             .putString(EXPIRE_TIME_ACCESS_TOKEN, expireTimeAccessToken)
             .putString(ID, id)
             .putString(EMAIL, email)
+            .putString(POST_ID, postId)
             .apply()
     }
 
@@ -102,6 +104,17 @@ class SessionStorageImpl(context: Context) : SessionStorage {
         return sharedPreferences.getBoolean(IS_ACTIVE, false)
     }
 
+    override fun getPostId(): Long? {
+        val postString = sharedPreferences.getString(POST_ID, "") ?: ""
+        if ( postString.isEmpty()) {
+            return null
+        }
+        else{
+            return postString.toLong()
+        }
+
+    }
+
     companion object {
         const val REFRESH_TOKEN = "refreshToken"
         const val ACCESS_TOKEN = "accessToken"
@@ -112,6 +125,7 @@ class SessionStorageImpl(context: Context) : SessionStorage {
         const val USER_DATA = "user_data"
         const val CURRENT_DATE_ACCESS_TOKEN = "current_date_access_token"
         const val CURRENT_DATE_REFRESH_TOKEN = "current_date_refresh_token"
+        const val POST_ID = "post_id"
         const val TOKEN_TYPE = "Bearer"
         const val IS_ACTIVE = "isActive"
     }
