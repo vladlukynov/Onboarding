@@ -47,7 +47,7 @@ class NotificationsFragment : Fragment() {
         binding.rvNotifications.layoutManager = layoutManager
         binding.rvNotifications.adapter = adapter
     }
-
+//TODO
     private fun checkGetNotificationsState(state: BasicState<List<Notification>>) {
         when (state) {
             is BasicState.SuccessState -> {

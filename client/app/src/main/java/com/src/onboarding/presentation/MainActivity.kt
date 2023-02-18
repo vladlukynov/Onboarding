@@ -18,6 +18,9 @@ import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMain
 import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModel
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModelFactory
+import com.src.onboarding.presentation.courses.tasks.TasksFragment
+import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModel
+import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFactory
 
 import javax.inject.Inject
 
@@ -31,11 +34,14 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var notificationViewModelFactory: NotificationViewModelFactory
 
+    @Inject
+    lateinit var tasksViewModelFactory: TasksViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (applicationContext as App).appComponent.inject(this)
         setContentView(R.layout.activity_main)
-        replaceFragment(CoursesMainFragment())
+        replaceFragment(TasksFragment())
     }
 
     @SuppressLint("ShowToast", "RestrictedApi")
@@ -75,4 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getNotificationViewModel(): NotificationViewModel =
         ViewModelProvider(this, notificationViewModelFactory)[NotificationViewModel::class.java]
+
+    fun getTasksViewModel(): TasksViewModel =
+        ViewModelProvider(this, tasksViewModelFactory)[TasksViewModel::class.java]
 }

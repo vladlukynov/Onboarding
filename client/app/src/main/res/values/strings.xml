@@ -42,4 +42,6 @@
     <string name="your_tasks">Ваши задачи</string>
     <string name="tasks">Задачи</string>
     <string name="too_many_notifications">9+</string>
+    <string name="unfinished">Незавершенные</string>
+    <string name="finished">Завершенные</string>
 </resources>

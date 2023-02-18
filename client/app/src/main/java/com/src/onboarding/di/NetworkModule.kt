@@ -7,6 +7,8 @@ import com.src.onboarding.data.remote.dataSource.employee.EmployeeDataSource
 import com.src.onboarding.data.remote.dataSource.employee.EmployeeDataSourceImpl
 import com.src.onboarding.data.remote.dataSource.login.LoginDataSource
 import com.src.onboarding.data.remote.dataSource.login.LoginDataSourceImpl
+import com.src.onboarding.data.remote.dataSource.task.TaskDataSource
+import com.src.onboarding.data.remote.dataSource.task.TaskDataSourceImpl
 import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.data.remote.dataSource.user.UserDataSourceImpl
 import com.src.onboarding.data.remote.interceptor.TokenInterceptor
@@ -15,6 +17,7 @@ import com.src.onboarding.data.remote.model.course.mainCourse.MainCourseMapper
 import com.src.onboarding.data.remote.model.employee.post.PostMapper
 import com.src.onboarding.data.remote.model.employee.team.TeamMapper
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
+import com.src.onboarding.data.remote.model.task.TaskMapper
 import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
 import com.src.onboarding.data.remote.service.*
 import com.src.onboarding.data.remote.session.SessionController
@@ -110,6 +113,12 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    fun provideTaskService(@Named(NAME_RETROFIT_WITH_TOKEN) retrofit: Retrofit): TaskService {
+        return retrofit.create(TaskService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideEmployeeService(@Named(NAME_RETROFIT_WITH_TOKEN) retrofit: Retrofit): EmployeeService {
         return retrofit.create(EmployeeService::class.java)
     }
@@ -182,6 +191,15 @@ class NetworkModule {
             postMapper = postMapper,
             teamMapper = teamMapper
         )
+    }
+
+    @Singleton
+    @Provides
+    fun provideTaskDataSource(
+        taskService: TaskService,
+        taskMapper: TaskMapper
+    ): TaskDataSource {
+        return TaskDataSourceImpl(taskService = taskService, taskMapper = taskMapper)
     }
 
     companion object {
