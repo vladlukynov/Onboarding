@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.courses.add_employee
+package com.src.onboarding.presentation.hr.add_employee
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import com.src.onboarding.domain.model.employee.post.Post
 import com.src.onboarding.domain.model.employee.team.Team
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
-import com.src.onboarding.presentation.courses.add_employee.adapter.AddEmployeeSpinnerAdapter
-import com.src.onboarding.presentation.courses.add_employee.viewModel.AddEmployeeViewModel
+import com.src.onboarding.presentation.hr.add_employee.adapter.AddEmployeeSpinnerAdapter
+import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
 
 //TODO добавить загрузку
 class AddEmployeeFragment : Fragment() {

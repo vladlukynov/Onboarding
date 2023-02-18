@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.courses.add_employee.viewModel
+package com.src.onboarding.presentation.hr.add_employee.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
