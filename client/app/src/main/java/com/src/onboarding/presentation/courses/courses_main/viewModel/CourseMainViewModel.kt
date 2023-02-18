@@ -19,13 +19,16 @@ class CourseMainViewModel(
 ) : ViewModel() {
     private val _mutableLiveDataColleagueState =
         MutableLiveData<ColleagueState<List<Colleague>>>(ColleagueState.LoadingState())
-    private val _mutableLiveDataCoursesState =
+    private val _mutableLiveDataAllCoursesState =
+        MutableLiveData<BasicState<MainCourse>>(BasicState.LoadingState())
+    private val _mutableLiveDataCoursesCountLimitState =
         MutableLiveData<BasicState<MainCourse>>(BasicState.LoadingState())
     private val _mutableLiveDataGetCountNotificationsState =
         MutableLiveData<BasicState<Long>>(BasicState.LoadingState())
 
     val liveDataColleagueState get() = _mutableLiveDataColleagueState
-    val liveDataCoursesState get() = _mutableLiveDataCoursesState
+    val liveDataAllCoursesState get() = _mutableLiveDataAllCoursesState
+    val liveDataCoursesCountLimitState get() = _mutableLiveDataCoursesCountLimitState
     val liveDataGetCountNotificationsState get() = _mutableLiveDataGetCountNotificationsState
 
     fun getColleagues() {
@@ -37,8 +40,21 @@ class CourseMainViewModel(
 
     fun getCourses() {
         viewModelScope.launch {
-            _mutableLiveDataCoursesState.value = BasicState.LoadingState()
-            _mutableLiveDataCoursesState.value = getCoursesUseCase.execute()
+            _mutableLiveDataAllCoursesState.value = BasicState.LoadingState()
+            _mutableLiveDataCoursesCountLimitState.value = BasicState.LoadingState()
+            val mainCourses = getCoursesUseCase.execute()
+            _mutableLiveDataAllCoursesState.value = mainCourses
+            if (mainCourses is BasicState.SuccessState) {
+                _mutableLiveDataCoursesCountLimitState.value = BasicState.SuccessState(
+                    MainCourse(
+                        currentCourse = mainCourses.data.currentCourse,
+                        allCourses = (0 until 10).map { mainCourses.data.allCourses.get(it) }
+                            .toList()
+                    )
+                )
+            } else {
+                _mutableLiveDataCoursesCountLimitState.value = BasicState.ErrorState()
+            }
         }
     }
 

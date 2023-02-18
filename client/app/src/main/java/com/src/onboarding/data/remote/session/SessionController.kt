@@ -7,6 +7,11 @@ class SessionController(
     private val sessionService: SessionService,
     private val sessionStorage: SessionStorage
 ) {
+    fun test(): String {
+      return sessionStorage.getAccessToken()
+
+    }
+
     fun getToken(): String? {
         if (sessionStorage.getAccessToken().isEmpty()) {
             return null

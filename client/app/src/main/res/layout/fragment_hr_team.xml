@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".presentation.hr.team.HrTeamFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"
@@ -123,12 +124,11 @@
         android:layout_height="48dp"
         android:layout_marginBottom="@dimen/space_5x"
         app:cardCornerRadius="100dp"
-        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:backgroundTint="@color/main_purple"
         app:layout_constraintEnd_toEndOf="@id/gl_end">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_add_task"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
