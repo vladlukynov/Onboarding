@@ -1,13 +1,12 @@
 package com.api.courseservice.repository;
 
-import com.api.courseservice.model.FeedbackResults;
-import com.api.courseservice.model.TestResults;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.NonNull;
 
-import java.util.Set;
+import com.api.courseservice.model.FeedbackResults;
 
 public interface FeedbackResultsRepository extends JpaRepository<FeedbackResults, Long> {
     @Query("select f from FeedbackResults f where f.userId = ?1")

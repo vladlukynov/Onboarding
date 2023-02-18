@@ -1,12 +1,11 @@
 package com.api.courseservice.repository;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.api.courseservice.model.Course;
-import com.api.courseservice.model.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import com.api.courseservice.model.Test;
 
 public interface TestRepository extends JpaRepository<Test, Long> {
     @Query("SELECT t FROM Test t WHERE t.course.id=:courseId")

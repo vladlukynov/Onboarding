@@ -1,11 +1,11 @@
 package com.api.courseservice.repository;
 
-import com.api.courseservice.model.TestResults;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.Set;
+import com.api.courseservice.model.TestResults;
 
 public interface TestResultsRepository extends JpaRepository<TestResults, Long> {
     @Query("select t from TestResults t where t.userId=:userId")

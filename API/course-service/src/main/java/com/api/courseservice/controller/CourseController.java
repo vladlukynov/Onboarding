@@ -11,21 +11,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.ClientHttpResponseStatusCodeException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.api.courseservice.DTO.CourseDTO;
@@ -33,8 +33,6 @@ import com.api.courseservice.model.Course;
 import com.api.courseservice.service.CourseService;
 import com.api.courseservice.service.client.UserRestTemplateClient;
 import com.api.courseservice.utils.AppError;
-
-import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/course")
@@ -74,7 +72,23 @@ public class CourseController {
         }
         map.put("allCourses", list);
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 
+    @RequestMapping(path = "/started-courses", method = RequestMethod.GET)
+    public ResponseEntity<?> getStartedOrPassedCourses(HttpServletRequest request) {
+        Long userId = (long) -1;
+        Long postId = (long) -1;
+        try {
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
+        }
+        List<CourseDTO> list = courseService.getStartedOrPassedCoursesForUser(userId, postId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/next-task", method = RequestMethod.GET)
@@ -126,9 +140,7 @@ public class CourseController {
             } else {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
-        } catch (IOException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }

@@ -91,6 +91,7 @@
         tools:text="Включает в себя традиционное взаимодействие человека с компьютером, в том числе все аспекты продукта, как они воспринимаются пользователями." />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_course_topics"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

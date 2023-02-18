@@ -65,11 +65,15 @@
         app:layout_constraintTop_toBottomOf="@id/iv_back_button" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_tasks"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/v_top_bar_divider"
+        app:layout_constraintVertical_bias="0.0"
         tools:itemCount="5"
         tools:listitem="@layout/view_holder_task" />
 
