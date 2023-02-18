@@ -76,10 +76,11 @@ class TasksFragment : Fragment() {
                 tasks.removeAt(tasks.size - 1)
             }
         } else {
-            if (tasks[0] is TaskWithTitle.TitleModel && tasks[1] is TaskWithTitle.TitleModel) {
+            if (tasks.size == 1) {
                 tasks.removeAt(0)
-            }
-            else{
+                tasks.add(TaskWithTitle.TitleModel(getString(R.string.finished)))
+            } else if (tasks[0] is TaskWithTitle.TitleModel && tasks[1] is TaskWithTitle.TitleModel) {
+            } else {
                 var indexOFFinishedTitle = 0
                 for (i in (1 until tasks.size)) {
                     if (tasks[i] is TaskWithTitle.TitleModel && (tasks[i] as TaskWithTitle.TitleModel).title == getString(
