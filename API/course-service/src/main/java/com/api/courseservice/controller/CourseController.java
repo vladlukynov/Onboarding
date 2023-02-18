@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.api.courseservice.DTO.CourseDTO;
 import com.api.courseservice.service.CourseService;
@@ -37,31 +38,33 @@ public class CourseController {
 
     @RequestMapping(path = "/all", method = RequestMethod.GET)
     public ResponseEntity<?> getCourses(HttpServletRequest request) {
+        Long userId = (long) -1;
+        Long postId = (long) -1;
         try {
-            Long userId = userRestTemplateClient.getUserId(request);
-            Long postId = userRestTemplateClient.getUserPostId(userId, request);
-            Map<String, Object> map = new HashMap<>();
-            List<CourseDTO> list = courseService.getCoursesForUser(userId, postId);
-            if (!list.get(list.size() - 1).isClosed()) {
-                map.put("currentCourse", null);
-            } else {
-                int i = 0;
-                for (; i < list.size(); i++) {
-                    if (list.get(i).isClosed()) {
-                        break;
-                    }
-                }
-                map.put("currentCourse", list.get(i - 1));
-            }
-            map.put("allCourses", list);
-            return new ResponseEntity<>(map, HttpStatus.OK);
-        } catch (ClientHttpResponseStatusCodeException exception) {
-            try {
-                return new ResponseEntity<>(exception.getResponse().getStatusCode());
-            } catch (IOException e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
         }
+        Map<String, Object> map = new HashMap<>();
+        List<CourseDTO> list = courseService.getCoursesForUser(userId, postId);
+        if (!list.get(list.size() - 1).isClosed()) {
+            map.put("currentCourse", null);
+        } else {
+            int i = 0;
+            for (; i < list.size(); i++) {
+                if (list.get(i).isClosed()) {
+                    break;
+                }
+            }
+            map.put("currentCourse", list.get(i - 1));
+        }
+        map.put("allCourses", list);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+
     }
 
     @RequestMapping(path = "/next-task", method = RequestMethod.GET)
