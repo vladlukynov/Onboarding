@@ -2,6 +2,7 @@ package com.src.onboarding.di
 
 import com.src.onboarding.domain.repository.CourseRepository
 import com.src.onboarding.domain.usecase.course.GetColleaguesUseCase
+import com.src.onboarding.domain.usecase.course.GetCoursesUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,5 +13,11 @@ class DomainCourseModule {
     @Provides
     fun provideGetColleaguesUseCase(courseRepository: CourseRepository): GetColleaguesUseCase {
         return GetColleaguesUseCase(courseRepository = courseRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetCoursesUseCase(courseRepository: CourseRepository): GetCoursesUseCase {
+        return GetCoursesUseCase(courseRepository = courseRepository)
     }
 }

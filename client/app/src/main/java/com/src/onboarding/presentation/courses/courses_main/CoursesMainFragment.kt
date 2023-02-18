@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.src.onboarding.databinding.FragmentCoursesMainBinding
 import com.src.onboarding.domain.model.course.colleague.Colleague
+import com.src.onboarding.domain.model.course.course.Course
+import com.src.onboarding.domain.model.course.course.MainCourse
 import com.src.onboarding.domain.state.course.ColleagueState
+import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.courses.courses_main.adapter.ColleagueAdapter
+import com.src.onboarding.presentation.courses.courses_main.adapter.CoursesAdapter
 import com.src.onboarding.presentation.courses.courses_main.adapter.MainCourseItemDecoration
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 
@@ -33,12 +37,17 @@ class CoursesMainFragment : Fragment() {
         viewModel.liveDataColleagueState.observe(
             this.viewLifecycleOwner, this::checkColleaguesState
         )
+        viewModel.liveDataCoursesState.observe(
+            this.viewLifecycleOwner, this::checkCoursesState
+        )
         viewModel.getColleagues()
+        viewModel.getCourses()
         setAdapters()
     }
 
     private fun setAdapters() {
         setAdapterForColleaguesRecyclerView()
+        setAdapterForCoursesRecyclerView()
     }
 
     private fun checkColleaguesState(state: ColleagueState<List<Colleague>>) {
@@ -76,4 +85,38 @@ class CoursesMainFragment : Fragment() {
         val adapter = binding.rvColleagues.adapter as ColleagueAdapter
         adapter.submitList(colleagues)
     }
+
+    //TODO сообщить об ошибке
+    //TODO добавить текущий тест
+    private fun checkCoursesState(state: BasicState<MainCourse>) {
+        when (state) {
+            is BasicState.SuccessState -> {
+                setDataForCoursesRecyclerView(state.data.allCourses)
+
+            }
+            is BasicState.LoadingState -> {}
+            is BasicState.ErrorState -> {
+
+            }
+        }
+    }
+
+    private fun setAdapterForCoursesRecyclerView() {
+        val adapter = CoursesAdapter { onClickCourses(it) }
+        val layoutManager = GridLayoutManager(requireContext(), 1, RecyclerView.HORIZONTAL, false)
+        binding.rvCourses.layoutManager = layoutManager
+        binding.rvCourses.adapter = adapter
+        binding.rvCourses.addItemDecoration(mainCourseItemDecoration)
+    }
+
+    //TODO
+    private fun onClickCourses(course: Course) {
+
+    }
+
+    private fun setDataForCoursesRecyclerView(courses: List<Course>) {
+        val adapter = binding.rvCourses.adapter as CoursesAdapter
+        adapter.submitList(courses)
+    }
+
 }

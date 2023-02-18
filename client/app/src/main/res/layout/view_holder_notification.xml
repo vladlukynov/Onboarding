@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,8 +9,8 @@
         android:id="@+id/cv_notification"
         android:layout_width="38dp"
         android:layout_height="38dp"
-        app:cardCornerRadius="100dp"
         android:layout_marginTop="18dp"
+        app:cardCornerRadius="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,29 +22,29 @@
             android:src="@drawable/ic_bell"
             app:tint="@color/white" />
     </androidx.cardview.widget.CardView>
-    
-    <TextView
-        android:id="@+id/tv_notification_text"
-        app:layout_constraintTop_toTopOf="@id/cv_notification"
-        app:layout_constraintBottom_toBottomOf="@id/cv_notification"
-        app:layout_constraintStart_toEndOf="@id/cv_notification"
-        android:textSize="11sp"
-        android:layout_marginStart="@dimen/space_2x"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/mulish_medium"
-        app:text="Не забудьте пройти опрос для новых сотрудников а так же атан ывнт рлублок кспав!"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
 
     <TextView
-        app:text="12.05.2023"
-        android:textSize="8sp"
+        android:id="@+id/tv_notification_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_2x"
+        android:fontFamily="@font/mulish_medium"
         android:textColor="@color/black"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/cv_notification"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_notification_text"
+        app:layout_constraintStart_toEndOf="@id/cv_notification"
+        app:layout_constraintTop_toTopOf="@id/cv_notification"
+        tools:text="Не забудьте пройти опрос для новых сотрудников а так же атан ывнт рлублок кспав!" />
+
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_notification_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="12.05.2023" />
 
     <View
         android:layout_width="match_parent"

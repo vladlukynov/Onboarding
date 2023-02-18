@@ -3,17 +3,20 @@ package com.src.onboarding.di
 import android.content.Context
 import com.src.onboarding.data.remote.dataSource.course.CourseDataSource
 import com.src.onboarding.data.remote.dataSource.course.CourseDataSourceImpl
+import com.src.onboarding.data.remote.dataSource.employee.EmployeeDataSource
+import com.src.onboarding.data.remote.dataSource.employee.EmployeeDataSourceImpl
 import com.src.onboarding.data.remote.dataSource.login.LoginDataSource
 import com.src.onboarding.data.remote.dataSource.login.LoginDataSourceImpl
 import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.data.remote.dataSource.user.UserDataSourceImpl
 import com.src.onboarding.data.remote.interceptor.TokenInterceptor
 import com.src.onboarding.data.remote.model.course.colleague.ColleagueMapper
+import com.src.onboarding.data.remote.model.course.mainCourse.MainCourseMapper
+import com.src.onboarding.data.remote.model.employee.post.PostMapper
+import com.src.onboarding.data.remote.model.employee.team.TeamMapper
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
-import com.src.onboarding.data.remote.service.CourseService
-import com.src.onboarding.data.remote.service.LoginService
-import com.src.onboarding.data.remote.service.SessionService
-import com.src.onboarding.data.remote.service.UserService
+import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
+import com.src.onboarding.data.remote.service.*
 import com.src.onboarding.data.remote.session.SessionController
 import com.src.onboarding.data.remote.session.SessionStorage
 import com.src.onboarding.data.remote.session.SessionStorageImpl
@@ -83,7 +86,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideUserService(@Named(NAME_OKHTTP_WITH_TOKEN) retrofit: Retrofit): UserService {
+    fun provideUserService(@Named(NAME_RETROFIT_WITH_TOKEN) retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
     }
 
@@ -107,6 +110,12 @@ class NetworkModule {
 
     @Singleton
     @Provides
+    fun provideEmployeeService(@Named(NAME_RETROFIT_WITH_TOKEN) retrofit: Retrofit): EmployeeService {
+        return retrofit.create(EmployeeService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideSessionController(
         sessionService: SessionService,
         sessionStorage: SessionStorage
@@ -120,9 +129,13 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideUserDataSource(
-        userService: UserService
+        userService: UserService,
+        notificationMapper: NotificationMapper
     ): UserDataSource {
-        return UserDataSourceImpl(userService = userService)
+        return UserDataSourceImpl(
+            userService = userService,
+            notificationMapper = notificationMapper
+        )
     }
 
     @Singleton
@@ -146,12 +159,28 @@ class NetworkModule {
     fun provideCourseDataSource(
         courseService: CourseService,
         colleagueMapper: ColleagueMapper,
+        mainCourseMapper: MainCourseMapper,
         sessionController: SessionController
     ): CourseDataSource {
         return CourseDataSourceImpl(
             courseService = courseService,
             colleagueMapper = colleagueMapper,
+            mainCourseMapper = mainCourseMapper,
             sessionController = sessionController
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideEmployeeDataSource(
+        employeeService: EmployeeService,
+        postMapper: PostMapper,
+        teamMapper: TeamMapper
+    ): EmployeeDataSource {
+        return EmployeeDataSourceImpl(
+            employeeService = employeeService,
+            postMapper = postMapper,
+            teamMapper = teamMapper
         )
     }
 
@@ -162,5 +191,6 @@ class NetworkModule {
         const val NAME_OKHTTP_WITHOUT_TOKEN = "okhttp_without_token"
         const val BASE_URL = "http://192.168.0.115:8080/"
         const val USER_SERVICE_BASE_URL = "user-service"
+        const val COURSE_SERVICE_BASE_URL = "course-service"
     }
 }

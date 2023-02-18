@@ -69,9 +69,6 @@ class TokenInterceptor @Inject constructor(
                 .build()
             return chain.proceed(newRequest)
         }
-        response.close()
-        val newRequest = chain.request().newBuilder()
-            .build()
-        return chain.proceed(newRequest)
+        return response
     }
 }

@@ -58,6 +58,4 @@ class ColleagueDiffCallback : DiffUtil.ItemCallback<Colleague>() {
     override fun areContentsTheSame(oldItem: Colleague, newItem: Colleague): Boolean {
         return oldItem == newItem
     }
-
-
 }

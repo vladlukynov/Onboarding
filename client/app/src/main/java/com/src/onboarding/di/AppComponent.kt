@@ -14,7 +14,8 @@ import javax.inject.Singleton
         DataModule::class,
         DomainUserModule::class,
         DomainLoginModule::class,
-        DomainCourseModule::class]
+        DomainCourseModule::class,
+        DomainEmployeeModule::class]
 )
 interface AppComponent {
     fun inject(mainActivity: MainActivity)
