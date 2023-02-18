@@ -1,6 +1,7 @@
 package com.src.onboarding.data.remote.service
 
 import com.src.onboarding.data.remote.model.course.colleague.ColleagueResponse
+import com.src.onboarding.data.remote.model.course.course.CourseResponse
 import com.src.onboarding.data.remote.model.course.mainCourse.MainCourseResponse
 import com.src.onboarding.di.NetworkModule
 import retrofit2.Response
@@ -13,4 +14,7 @@ interface CourseService {
 
     @GET("${NetworkModule.COURSE_SERVICE_BASE_URL}/course/all")
     suspend fun getCourses(@Header("Authorization") token: String?): Response<MainCourseResponse>
+
+    @GET("${NetworkModule.COURSE_SERVICE_BASE_URL}/course/started-courses")
+    suspend fun getStartedCoursesForUser(@Header("Authorization") token: String?): Response<List<CourseResponse>>
 }

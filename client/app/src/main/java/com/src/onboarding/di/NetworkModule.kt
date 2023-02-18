@@ -13,12 +13,14 @@ import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.data.remote.dataSource.user.UserDataSourceImpl
 import com.src.onboarding.data.remote.interceptor.TokenInterceptor
 import com.src.onboarding.data.remote.model.course.colleague.ColleagueMapper
+import com.src.onboarding.data.remote.model.course.course.CourseMapper
 import com.src.onboarding.data.remote.model.course.mainCourse.MainCourseMapper
 import com.src.onboarding.data.remote.model.employee.post.PostMapper
 import com.src.onboarding.data.remote.model.employee.team.TeamMapper
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
 import com.src.onboarding.data.remote.model.task.TaskMapper
 import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
+import com.src.onboarding.data.remote.model.user.user_profile.UserProfileMapper
 import com.src.onboarding.data.remote.service.*
 import com.src.onboarding.data.remote.session.SessionController
 import com.src.onboarding.data.remote.session.SessionStorage
@@ -139,11 +141,15 @@ class NetworkModule {
     @Provides
     fun provideUserDataSource(
         userService: UserService,
-        notificationMapper: NotificationMapper
+        notificationMapper: NotificationMapper,
+        userProfileMapper: UserProfileMapper,
+        sessionController: SessionController
     ): UserDataSource {
         return UserDataSourceImpl(
             userService = userService,
-            notificationMapper = notificationMapper
+            notificationMapper = notificationMapper,
+            userProfileMapper = userProfileMapper,
+            sessionController=sessionController
         )
     }
 
@@ -169,13 +175,15 @@ class NetworkModule {
         courseService: CourseService,
         colleagueMapper: ColleagueMapper,
         mainCourseMapper: MainCourseMapper,
-        sessionController: SessionController
+        sessionController: SessionController,
+        courseMapper: CourseMapper
     ): CourseDataSource {
         return CourseDataSourceImpl(
             courseService = courseService,
             colleagueMapper = colleagueMapper,
             mainCourseMapper = mainCourseMapper,
-            sessionController = sessionController
+            sessionController = sessionController,
+            courseMapper = courseMapper
         )
     }
 

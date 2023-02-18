@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.profile.UserProfileFragment">
+    tools:context=".presentation.profile.user_profile.UserProfileFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_2x"
         android:fontFamily="@font/mulish_bold"
-        android:text="Алена Рыжова"
+        tools:text="Алена Рыжова"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mulish_regular"
-        android:text="Разработчик, Back-end Java"
+        tools:text="Разработчик, Back-end Java"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mulish_regular"
-        android:text="e-mail: "
+        tools:text="e-mail: "
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@id/tv_email"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -105,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mulish_regular"
-        android:text="alena@yandex.ru"
+        tools:text="alena@yandex.ru"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toEndOf="@id/tv_email_title"
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_1x"
         android:fontFamily="@font/mulish_regular"
-        android:text="О себе: разработчик"
+        tools:text="О себе: разработчик"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
@@ -172,6 +172,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_3x"
         app:constraint_referenced_ids="tv_statistics, vert_line_1, tv_achievements, vert_line_2, tv_activity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_about" />
 
     <androidx.recyclerview.widget.RecyclerView
