@@ -2,7 +2,7 @@
     <item
         android:id="@+id/i_chats"
         android:icon="@drawable/ic_chat"
-        android:title="@string/chats" />
+        android:title="@string/support" />
     <item
         android:id="@+id/i_courses"
         android:icon="@drawable/ic_courses"

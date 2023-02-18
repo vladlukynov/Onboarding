@@ -33,15 +33,6 @@ class HrTeamFragment : Fragment() {
 
         setAdapterForNotifications()
         setOnAddButtonClickListener()
-
-        setDataForRecycler(
-            arrayListOf(
-                Teammate(1, "2", "3", "4"),
-                Teammate(2, "5", "6", "7"),
-                Teammate(3, "8", "9", "10"),
-                Teammate(4, "112", "1233", "4123")
-            )
-        )
     }
 
     private fun setAdapterForNotifications() {
