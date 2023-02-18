@@ -142,14 +142,12 @@ class NetworkModule {
     fun provideUserDataSource(
         userService: UserService,
         notificationMapper: NotificationMapper,
-        userProfileMapper: UserProfileMapper,
-        sessionController: SessionController
+        userProfileMapper: UserProfileMapper
     ): UserDataSource {
         return UserDataSourceImpl(
             userService = userService,
             notificationMapper = notificationMapper,
-            userProfileMapper = userProfileMapper,
-            sessionController=sessionController
+            userProfileMapper = userProfileMapper
         )
     }
 

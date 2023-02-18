@@ -18,5 +18,5 @@ interface UserService {
     suspend fun clearNotifications(): Response<Unit>
 
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/user/profile")
-    suspend fun getProfile(@Header("Authorization") token: String?): Response<UserProfileResponse>
+    suspend fun getProfile(): Response<UserProfileResponse>
 }

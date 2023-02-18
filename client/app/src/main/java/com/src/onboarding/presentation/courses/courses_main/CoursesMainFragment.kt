@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -44,7 +43,7 @@ class CoursesMainFragment : Fragment() {
         viewModel.liveDataColleagueState.observe(
             this.viewLifecycleOwner, this::checkColleaguesState
         )
-        viewModel.liveDataCoursesState.observe(
+        viewModel.liveDataCoursesCountLimitState.observe(
             this.viewLifecycleOwner, this::checkCoursesState
         )
         viewModel.liveDataGetCountNotificationsState.observe(
