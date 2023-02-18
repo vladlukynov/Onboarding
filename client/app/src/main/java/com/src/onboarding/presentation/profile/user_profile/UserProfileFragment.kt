@@ -2,6 +2,7 @@ package com.src.onboarding.presentation.profile.user_profile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -166,7 +167,7 @@ class UserProfileFragment : Fragment() {
 
     private fun setAdaptersForStatisticRecyclerView() {
         val adapter = StatisticAdapter { onClickCourses(it) }
-        val layoutManager = GridLayoutManager(requireContext(), 1, RecyclerView.HORIZONTAL, false)
+        val layoutManager = GridLayoutManager(requireContext(), 1, RecyclerView.VERTICAL, false)
         binding.rvStatistics.layoutManager = layoutManager
         binding.rvStatistics.adapter = adapter
     }

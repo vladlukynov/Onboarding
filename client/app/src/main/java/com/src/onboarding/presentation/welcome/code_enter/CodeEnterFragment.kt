@@ -1,5 +1,6 @@
 package com.src.onboarding.presentation.welcome.code_enter
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +16,7 @@ import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.state.login.CodeState
 import com.src.onboarding.presentation.LoginActivity
+import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.welcome.registration.viewModel.RegistrationViewModel
 
 class CodeEnterFragment : Fragment() {
@@ -129,7 +131,8 @@ class CodeEnterFragment : Fragment() {
     private fun checkState(state: CodeState) {
         when (state) {
             is CodeState.SuccessState -> {
-                //TODO перейти на новый фрагмент
+                startActivity(Intent(context, MainActivity::class.java).apply {
+                })
             }
             is CodeState.WrongCodeState -> {
                 viewModel.setDefaultValueForCodeState()

@@ -10,6 +10,7 @@ import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentPasswordRecoveryBinding
 import com.src.onboarding.domain.state.login.ChangePasswordState
+import com.src.onboarding.presentation.HrActivity
 import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.welcome.recovery.recovery.viewModel.PasswordRecoveryViewModel
@@ -36,13 +37,16 @@ class PasswordRecoveryFragment : Fragment() {
         viewModel.liveDataChangePasswordState.observe(
             this.viewLifecycleOwner, this::checkState
         )
+        viewModel.liveDataPostId.observe(
+            this.viewLifecycleOwner, this::checkPostId
+        )
         binding.tvContinueButton.setOnClickListener {
             val password1 = binding.etPassword.text.toString().replace("\\s".toRegex(), "")
             val password2 = binding.etPasswordRepeat.text.toString().replace("\\s".toRegex(), "")
             if (password1 == password2 && password1.isNotEmpty()) {
                 viewModel.changePassword(password = password1)
 
-                startActivity(Intent(context, MainActivity::class.java).apply {})
+                //   startActivity(Intent(context, MainActivity::class.java).apply {})
             } else {
                 if (password1.isEmpty() || password2.isEmpty()) {
                     (activity as LoginActivity).showSnackBar(getString(R.string.fill_all_fields))
@@ -64,15 +68,29 @@ class PasswordRecoveryFragment : Fragment() {
     private fun checkState(state: ChangePasswordState) {
         when (state) {
             is ChangePasswordState.SuccessState -> {
-                //TODO перейти на новый экран
+                viewModel.getPostId()
             }
             is ChangePasswordState.WrongPasswordState -> {
                 (activity as LoginActivity).showSnackBar(getString(R.string.invalid_code))
 
             }
-            else -> {
+            is ChangePasswordState.ErrorState -> {
                 (activity as LoginActivity).showSnackBar(null)
             }
         }
     }
+
+    private fun checkPostId(id: Long?) {
+
+        if (id == null || (id != 1L && id != -1L)) {
+            startActivity(Intent(context, MainActivity::class.java).apply {
+            })
+        } else {
+            if (id != -1L) {
+                startActivity(Intent(context, HrActivity::class.java).apply {
+                })
+            }
+        }
+    }
+
 }
