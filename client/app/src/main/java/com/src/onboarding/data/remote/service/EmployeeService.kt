@@ -16,7 +16,7 @@ interface EmployeeService {
 
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/user/add-worker")
     suspend fun addWorker(
-        @Query("email") email: String,
+        @Query("email", encoded = true) email: String,
         @Query("newPost") postId: Long,
         @Query("newCommand") teamId: Long
     ): Response<Unit>

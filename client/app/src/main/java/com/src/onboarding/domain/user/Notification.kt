@@ -1,6 +1,6 @@
-package com.src.onboarding.domain.model.user
+package com.src.onboarding.domain.user
 
-class Notification(
+data class Notification(
     val id: Long,
     val content: String,
     val date: String
