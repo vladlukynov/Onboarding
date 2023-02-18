@@ -8,6 +8,10 @@
         android:icon="@drawable/ic_courses"
         android:title="@string/courses" />
     <item
+        android:id="@+id/i_tasks"
+        android:icon="@drawable/ic_tasks"
+        android:title="@string/tasks" />
+    <item
         android:id="@+id/i_profile"
         android:icon="@drawable/ic_profile"
         android:title="@string/profile2" />
