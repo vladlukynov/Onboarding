@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/cl_container"
     tools:context=".presentation.courses.all_courses.AllCoursesFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -47,13 +48,16 @@
         app:layout_constraintTop_toTopOf="@id/iv_back_button" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/rv_courses"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/space_4x"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/iv_back_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="3"
+        app:spanCount="2"
         tools:listitem="@layout/view_holder_course_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,10 +45,16 @@ class CourseMainViewModel(
             val mainCourses = getCoursesUseCase.execute()
             _mutableLiveDataAllCoursesState.value = mainCourses
             if (mainCourses is BasicState.SuccessState) {
+                val allCourse = mainCourses.data.allCourses
+                val border = if (allCourse.size < 10) {
+                    allCourse.size
+                } else {
+                    10
+                }
                 _mutableLiveDataCoursesCountLimitState.value = BasicState.SuccessState(
                     MainCourse(
                         currentCourse = mainCourses.data.currentCourse,
-                        allCourses = (0 until 10).map { mainCourses.data.allCourses.get(it) }
+                        allCourses = (0 until border).map { mainCourses.data.allCourses.get(it) }
                             .toList()
                     )
                 )

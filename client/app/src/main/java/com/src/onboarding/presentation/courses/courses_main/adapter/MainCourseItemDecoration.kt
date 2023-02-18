@@ -11,13 +11,10 @@ class MainCourseItemDecoration : RecyclerView.ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        val position = parent.getChildLayoutPosition(view)
-        if (position < state.itemCount) {
             outRect.right = MARGIN
-        }
     }
 
     private companion object {
-        private const val MARGIN = 24
+        private const val MARGIN = 50
     }
 }
