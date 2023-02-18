@@ -1,5 +1,6 @@
 package com.api.courseservice.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -181,6 +182,22 @@ public class CourseServiceImpl implements CourseService {
             return courseOptional.get();
         }
         throw new EntityNotFoundException();
+    }
+
+    @Override
+    public List<CourseDTO> getStartedOrPassedCoursesForUser(Long userId, Long postId) {
+        List<CourseDTO> courseList = courseRepository.getCoursesByPostId(postId);
+        List<CourseDTO> result = new ArrayList<>();
+        for (CourseDTO courseDTO : courseList) {
+            if (checkCourseStartOrPassed(courseDTO.getId(), userId)) {
+                courseDTO.setCountThemes(getCountTheme(courseDTO.getId()));
+                courseDTO.setPercentageOfCompletion(getPercentageOfCompletion(courseDTO.getId(), userId));
+                result.add(courseDTO);
+            } else {
+                break;
+            }
+        }
+        return result;
     }
 
     @Override

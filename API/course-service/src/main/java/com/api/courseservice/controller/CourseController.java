@@ -72,7 +72,23 @@ public class CourseController {
         }
         map.put("allCourses", list);
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 
+    @RequestMapping(path = "/started-courses", method = RequestMethod.GET)
+    public ResponseEntity<?> getStartedOrPassedCourses(HttpServletRequest request) {
+        Long userId = (long) -1;
+        Long postId = (long) -1;
+        try {
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
+        }
+        List<CourseDTO> list = courseService.getStartedOrPassedCoursesForUser(userId, postId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/next-task", method = RequestMethod.GET)

@@ -16,4 +16,5 @@ public interface CourseService {
     double getPercentageOfCompletion(Long courseId, Long userId);
     int getCountTheme(Long courseId);
     Course getCourseById(Long id);
+    List<CourseDTO> getStartedOrPassedCoursesForUser(Long userId, Long postId);
 }
