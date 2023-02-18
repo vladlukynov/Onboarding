@@ -9,6 +9,7 @@ import com.src.onboarding.databinding.FragmentAddEmployeeBinding
 import com.src.onboarding.domain.model.employee.post.Post
 import com.src.onboarding.domain.model.employee.team.Team
 import com.src.onboarding.domain.state.login.BasicState
+import com.src.onboarding.presentation.HrActivity
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.hr.add_employee.adapter.AddEmployeeSpinnerAdapter
 import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
@@ -27,7 +28,7 @@ class AddEmployeeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddEmployeeBinding.inflate(inflater)
-        viewModel = (activity as MainActivity).getAddEmployeeViewModel()
+        viewModel = (activity as HrActivity).getAddEmployeeViewModel()
         return binding.root
     }
 
@@ -45,6 +46,7 @@ class AddEmployeeFragment : Fragment() {
         viewModel.getPosts()
         viewModel.getTeams()
         setOnClickListenerForContinueButton()
+        setOnBackButtonClickListener()
     }
 
     private fun checkPostState(state: BasicState<List<Post>>) {
@@ -119,4 +121,9 @@ class AddEmployeeFragment : Fragment() {
         }
     }
 
+    private fun setOnBackButtonClickListener() {
+        binding.ibBackButton.setOnClickListener {
+            parentFragmentManager.popBackStackImmediate()
+        }
+    }
 }

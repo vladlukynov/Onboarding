@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentUserProfileBinding
 import com.src.onboarding.domain.model.course.course.Course
@@ -159,6 +160,8 @@ class UserProfileFragment : Fragment() {
     private fun setDataForProfile(userProfile: UserProfile) {
         Glide.with(requireContext())
             .load(userProfile.image)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
             .into(binding.ivUserPicture)
         if (userProfile.description == null || userProfile.description == "") {
             binding.tvAbout.visibility = View.GONE

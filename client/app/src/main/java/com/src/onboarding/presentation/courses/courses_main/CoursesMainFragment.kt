@@ -24,7 +24,7 @@ import com.src.onboarding.presentation.courses.courses_main.adapter.MainCourseIt
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
 import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
-
+//TODO ПРОВЕРКА ЧТО ЭТО НЕ ТЫ!!!!!
 class CoursesMainFragment : Fragment() {
     private lateinit var binding: FragmentCoursesMainBinding
     private lateinit var viewModel: CourseMainViewModel

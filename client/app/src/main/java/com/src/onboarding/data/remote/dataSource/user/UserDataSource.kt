@@ -11,4 +11,5 @@ interface UserDataSource {
     suspend fun clearNotifications(): BasicState<Unit>
     suspend fun getProfile(): BasicState<UserProfile>
     suspend fun getAllActivities(): BasicState<List<Activity>>
+    suspend fun logout(): BasicState<Unit>
 }
