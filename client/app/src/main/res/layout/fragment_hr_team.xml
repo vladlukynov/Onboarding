@@ -38,7 +38,8 @@
             android:id="@+id/iv_user_picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@color/main_purple" />
+            android:src="@color/main_purple"
+            tools:ignore="ContentDescription" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_3x"
         android:fontFamily="@font/mulish_medium"
-        android:text="Добро пожаловать"
+        android:text="@string/welcome"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/cv_user_picture"
@@ -72,7 +73,8 @@
         android:src="@drawable/ic_bell"
         app:layout_constraintBottom_toBottomOf="@id/cv_user_picture"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
-        app:layout_constraintTop_toTopOf="@id/cv_user_picture" />
+        app:layout_constraintTop_toTopOf="@id/cv_user_picture"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tv_notification_count"
@@ -105,12 +107,37 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_colleagues"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="36dp"
+        android:layout_marginBottom="@dimen/space_2x"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tv_team_title"
+        app:layout_constraintBottom_toTopOf="@id/cv_add_task"
         tools:itemCount="3"
         tools:listitem="@layout/view_holder_teammate" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_add_task"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/space_5x"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/main_purple"
+        app:layout_constraintEnd_toEndOf="@id/gl_end">
+
+        <ImageButton
+            android:id="@+id/ib_add_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            app:tint="@color/main_yellow"
+            app:srcCompat="@drawable/ic_plus_button"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

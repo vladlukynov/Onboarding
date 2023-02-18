@@ -44,4 +44,8 @@
     <string name="too_many_notifications">9+</string>
     <string name="unfinished">Незавершенные</string>
     <string name="finished">Завершенные</string>
+    <string name="statistic">Статистика</string>
+    <string name="achievements">Достижения</string>
+    <string name="activity">Активность</string>
+    <string name="welcome">Добро пожаловать</string>
 </resources>
