@@ -18,6 +18,7 @@ import com.api.userservice.model.User;
 import com.api.userservice.security.jwt.JwtService;
 import com.api.userservice.service.NotificationService;
 import com.api.userservice.service.TaskService;
+import com.api.userservice.service.UserActivityService;
 import com.api.userservice.service.UserService;
 import com.api.userservice.service.UserTokenService;
 import com.api.userservice.utils.AppError;
@@ -39,6 +40,9 @@ public class TaskController {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private UserActivityService userActivityService;
 
     @RequestMapping(path = "/get-task-filter", method = RequestMethod.GET)
     public ResponseEntity<?> getTaskFilter(boolean completed, HttpServletRequest request) {
@@ -82,6 +86,11 @@ public class TaskController {
         User user = (User) responseEntity.getBody();
         boolean check = taskService.setCompletedTask(user.getId(), taskId, completed);
         if (check) {
+            if (taskService.getTaskById(taskId).isCompleted()) {
+                userActivityService.addNewUserActivity("Выполнение задачи \"" + taskService.getTaskById(taskId).getHeader() + "\"", user);
+            } else {
+                userActivityService.addNewUserActivity("Отмена выполнения задачи \"" + taskService.getTaskById(taskId).getHeader() + "\"", user);
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(

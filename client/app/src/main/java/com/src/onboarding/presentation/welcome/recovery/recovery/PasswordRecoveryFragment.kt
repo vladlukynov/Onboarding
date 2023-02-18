@@ -1,5 +1,6 @@
 package com.src.onboarding.presentation.welcome.recovery.recovery
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentPasswordRecoveryBinding
 import com.src.onboarding.domain.state.login.ChangePasswordState
 import com.src.onboarding.presentation.LoginActivity
+import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.welcome.recovery.recovery.viewModel.PasswordRecoveryViewModel
 
 class PasswordRecoveryFragment : Fragment() {
@@ -39,6 +41,8 @@ class PasswordRecoveryFragment : Fragment() {
             val password2 = binding.etPasswordRepeat.text.toString().replace("\\s".toRegex(), "")
             if (password1 == password2 && password1.isNotEmpty()) {
                 viewModel.changePassword(password = password1)
+
+                startActivity(Intent(context, MainActivity::class.java).apply {})
             } else {
                 if (password1.isEmpty() || password2.isEmpty()) {
                     (activity as LoginActivity).showSnackBar(getString(R.string.fill_all_fields))

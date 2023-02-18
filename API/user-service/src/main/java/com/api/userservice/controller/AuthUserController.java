@@ -155,7 +155,7 @@ public class AuthUserController {
                     new AppError(HttpStatus.NOT_FOUND.value(),
                             "User with id " + id + " does not exist."), httpHeaders, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(userService.getInfoForUserPageWithoutEmail(user), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getInfoForProfile(user), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/add-worker", method = RequestMethod.GET)

@@ -1,5 +1,6 @@
 package com.src.onboarding.di
 
+import com.src.onboarding.presentation.HrActivity
 import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.MainActivity
 import dagger.Component
@@ -21,4 +22,5 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(loginActivity: LoginActivity)
+    fun inject(hrActivity: HrActivity)
 }

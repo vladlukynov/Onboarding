@@ -1,5 +1,6 @@
 package com.src.onboarding.presentation.welcome.sign_in
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentSignInBinding
 import com.src.onboarding.domain.state.login.LoginState
 import com.src.onboarding.presentation.LoginActivity
+import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.utils.REGEX_EMAIL
 import com.src.onboarding.presentation.welcome.recovery.recovery_email.PasswordRecoveryEnterEmailFragment
 import com.src.onboarding.presentation.welcome.registration.RegistrationFragment
@@ -62,6 +64,9 @@ class SignInFragment : Fragment() {
                         emailWithoutSpace!!,
                         passwordWithoutSpace!!,
                     )
+
+                    startActivity(Intent(context, MainActivity::class.java).apply {
+                    })
                 }
             }
         }
