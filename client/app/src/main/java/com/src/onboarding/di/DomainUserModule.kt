@@ -1,10 +1,7 @@
 package com.src.onboarding.di
 
 import com.src.onboarding.domain.repository.UserRepository
-import com.src.onboarding.domain.usecase.user.ClearNotificationsUseCase
-import com.src.onboarding.domain.usecase.user.GetCountNotificationUseCase
-import com.src.onboarding.domain.usecase.user.GetNotificationsUseCase
-import com.src.onboarding.domain.usecase.user.GetUserProfileUseCase
+import com.src.onboarding.domain.usecase.user.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -33,5 +30,11 @@ class DomainUserModule {
     @Provides
     fun provideGetUserProfileUseCase(userRepository: UserRepository): GetUserProfileUseCase {
         return GetUserProfileUseCase(userRepository = userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetActivitiesUseCase(userRepository: UserRepository): GetActivitiesUseCase {
+        return GetActivitiesUseCase(userRepository = userRepository)
     }
 }

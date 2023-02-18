@@ -1,5 +1,6 @@
 package com.src.onboarding.data.remote.dataSource.course
 
+import android.util.Log
 import com.src.onboarding.data.remote.model.course.colleague.ColleagueMapper
 import com.src.onboarding.data.remote.model.course.course.CourseMapper
 import com.src.onboarding.data.remote.model.course.mainCourse.MainCourseMapper
@@ -20,6 +21,7 @@ class CourseDataSourceImpl(
 ) : CourseDataSource {
     override suspend fun getColleagues(): ColleagueState<List<Colleague>> {
         val response = courseService.getColleagues()
+        Log.d("sessionController",sessionController.getToken()!!)
         if (response.isSuccessful) {
             val body = response.body()
             if (body != null) {

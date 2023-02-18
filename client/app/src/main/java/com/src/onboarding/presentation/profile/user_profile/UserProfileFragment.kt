@@ -2,7 +2,6 @@ package com.src.onboarding.presentation.profile.user_profile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +13,11 @@ import com.bumptech.glide.Glide
 import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentUserProfileBinding
 import com.src.onboarding.domain.model.course.course.Course
+import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
+import com.src.onboarding.presentation.profile.user_profile.adapter.ActivityAdapter
 import com.src.onboarding.presentation.profile.user_profile.adapter.StatisticAdapter
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
 
@@ -40,10 +41,20 @@ class UserProfileFragment : Fragment() {
         viewModel.liveDataGetStartedCourseState.observe(
             this.viewLifecycleOwner, this::checkGetStartedCourseState
         )
+        viewModel.liveDataGetActivitiesState.observe(
+            this.viewLifecycleOwner, this::checkGetSActivitiesState
+        )
         viewModel.getProfile()
         viewModel.getStartedCourses()
+        viewModel.getActivities()
         setAdaptersForStatisticRecyclerView()
+        setAdaptersForActivitiesRecyclerView()
         setBackButtonOnClick()
+        setOnClickListeners()
+
+    }
+
+    private fun setOnClickListeners() {
         binding.tvAchievements.setOnClickListener {
             binding.rvActivity.visibility = View.INVISIBLE
             binding.rvStatistics.visibility = View.INVISIBLE
@@ -118,7 +129,6 @@ class UserProfileFragment : Fragment() {
                 )
             )
         }
-
     }
 
     private fun checkGetProfileState(state: BasicState<UserProfile>) {
@@ -186,6 +196,30 @@ class UserProfileFragment : Fragment() {
         binding.ivBackButton.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+    }
+
+    private fun checkGetSActivitiesState(state: BasicState<List<Activity>>) {
+        when (state) {
+            is BasicState.SuccessState -> {
+                setDataForActivities(state.data)
+            }
+            is BasicState.LoadingState -> {}
+            is BasicState.ErrorState -> {
+
+            }
+        }
+    }
+
+    private fun setAdaptersForActivitiesRecyclerView() {
+        val adapter = ActivityAdapter()
+        val layoutManager = GridLayoutManager(requireContext(), 1, RecyclerView.VERTICAL, false)
+        binding.rvActivity.layoutManager = layoutManager
+        binding.rvActivity.adapter = adapter
+    }
+
+    private fun setDataForActivities(activities: List<Activity>) {
+        val adapter = binding.rvActivity.adapter as ActivityAdapter
+        adapter.submitList(activities)
     }
 
     companion object {

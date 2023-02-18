@@ -7,6 +7,7 @@ import com.src.onboarding.data.remote.model.employee.post.PostMapper
 import com.src.onboarding.data.remote.model.employee.team.TeamMapper
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
 import com.src.onboarding.data.remote.model.task.TaskMapper
+import com.src.onboarding.data.remote.model.user.activity.ActivityMapper
 import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
 import com.src.onboarding.data.remote.model.user.user_profile.UserProfileMapper
 import dagger.Module
@@ -67,5 +68,11 @@ class MapperModule {
     @Provides
     fun provideUserProfileMapper(): UserProfileMapper {
         return UserProfileMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideActivityMapper(): ActivityMapper {
+        return ActivityMapper()
     }
 }

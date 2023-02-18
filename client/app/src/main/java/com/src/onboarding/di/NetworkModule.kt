@@ -19,6 +19,7 @@ import com.src.onboarding.data.remote.model.employee.post.PostMapper
 import com.src.onboarding.data.remote.model.employee.team.TeamMapper
 import com.src.onboarding.data.remote.model.login.login.LoginMapper
 import com.src.onboarding.data.remote.model.task.TaskMapper
+import com.src.onboarding.data.remote.model.user.activity.ActivityMapper
 import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
 import com.src.onboarding.data.remote.model.user.user_profile.UserProfileMapper
 import com.src.onboarding.data.remote.service.*
@@ -103,7 +104,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideSessionService(@Named(NAME_RETROFIT_WITH_TOKEN) retrofit: Retrofit): SessionService {
+    fun provideSessionService(@Named(NAME_RETROFIT_WITHOUT_TOKEN) retrofit: Retrofit): SessionService {
         return retrofit.create(SessionService::class.java)
     }
 
@@ -142,12 +143,14 @@ class NetworkModule {
     fun provideUserDataSource(
         userService: UserService,
         notificationMapper: NotificationMapper,
-        userProfileMapper: UserProfileMapper
+        userProfileMapper: UserProfileMapper,
+        activityMapper: ActivityMapper
     ): UserDataSource {
         return UserDataSourceImpl(
             userService = userService,
             notificationMapper = notificationMapper,
-            userProfileMapper = userProfileMapper
+            userProfileMapper = userProfileMapper,
+            activityMapper = activityMapper
         )
     }
 

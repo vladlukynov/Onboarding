@@ -1,5 +1,6 @@
 package com.src.onboarding.data.remote.interceptor
 
+import android.util.Log
 import com.src.onboarding.data.remote.model.token.RefreshTokenResponse
 import com.src.onboarding.data.remote.service.SessionService
 import com.src.onboarding.data.remote.session.SessionStorage
@@ -18,6 +19,7 @@ class TokenInterceptor @Inject constructor(
         val sessionStorage = sessionStorageProvider.get()
         val sessionService = sessionServiceProvider.get()
         if (response.code == 403 || response.code == 401) {
+            Log.d("session 403|401", "accessToken = ${sessionStorage.accessTokenIsValid()}")
             if (!sessionStorage.accessTokenIsValid()) {
                 if (!sessionStorage.refreshTokenIsValid()) {
                     val refreshTokenResponse = RefreshTokenResponse(
@@ -62,11 +64,11 @@ class TokenInterceptor @Inject constructor(
                         )
                     }
                 }
-                response.close()
-                val newRequest = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer ${sessionStorage.getAccessToken()}")
-                    .build()
-                return chain.proceed(newRequest)
+//                response.close()
+//                val newRequest = chain.request().newBuilder()
+//                    .addHeader("Authorization", "Bearer ${sessionStorage.getAccessToken()}")
+//                    .build()
+//                return chain.proceed(newRequest)
             }
         }
         response.close()
