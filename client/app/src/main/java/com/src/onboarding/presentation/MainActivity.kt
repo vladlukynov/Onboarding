@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.src.onboarding.R
 import com.src.onboarding.app.App
-import com.src.onboarding.presentation.courses.add_employee.viewModel.AddEmployeeViewModel
-import com.src.onboarding.presentation.courses.add_employee.viewModel.AddEmployeeViewModelFactory
+import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
+import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModelFactory
 import com.src.onboarding.presentation.courses.courses_main.CoursesMainFragment
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModelFactory
