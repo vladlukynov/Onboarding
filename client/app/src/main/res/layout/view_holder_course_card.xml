@@ -20,6 +20,20 @@
             android:layout_height="match_parent"
             android:src="@color/main_purple" />
 
+        <ImageView
+            android:id="@+id/iv_locked_tint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/image_tint" />
+
+        <ImageView
+            android:id="@+id/iv_lock_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="40dp"
+            android:src="@drawable/ic_course_item_closed"
+            app:tint="#292D32" />
+
     </androidx.cardview.widget.CardView>
 
     <TextView
