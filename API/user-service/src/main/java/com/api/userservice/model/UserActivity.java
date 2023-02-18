@@ -34,5 +34,7 @@ public class UserActivity {
 
     private String content;
 
+    private String percent;
+
     private Date date;
 }

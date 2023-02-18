@@ -59,8 +59,9 @@ public class AuthUserController {
     @Autowired
     private NotificationService notificationService;
 
-    String pattern = "MM/dd/yyyy";
-    DateFormat df = new SimpleDateFormat(pattern);
+    private String pattern = "dd/MM/yyyy";
+
+    private DateFormat df = new SimpleDateFormat(pattern);
 
     @RequestMapping(path = "/check-password", method = RequestMethod.GET)
     public ResponseEntity<?> checkPassword(@RequestParam String password, HttpServletRequest request) {

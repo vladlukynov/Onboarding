@@ -20,12 +20,13 @@ public class UserActivityServiceImpl implements UserActivityService {
     private UserActivityRepository userActivityRepository;
 
     @Override
-    public void addNewUserActivity(String activity, User user) {
+    public void addNewUserActivity(String activity, User user, String percent) {
         UserActivity userActivity = new UserActivity();
         userActivity.setUser(user);
         userActivity.setContent(activity);
         Date today = Calendar.getInstance().getTime();
         userActivity.setDate(today);
+        userActivity.setPercent(percent);
         userActivityRepository.save(userActivity);
     }
 

@@ -87,9 +87,9 @@ public class TaskController {
         boolean check = taskService.setCompletedTask(user.getId(), taskId, completed);
         if (check) {
             if (taskService.getTaskById(taskId).isCompleted()) {
-                userActivityService.addNewUserActivity("Выполнение задачи \"" + taskService.getTaskById(taskId).getHeader() + "\"", user);
+                userActivityService.addNewUserActivity("Выполнение задачи \"" + taskService.getTaskById(taskId).getHeader() + "\"", user, null);
             } else {
-                userActivityService.addNewUserActivity("Отмена выполнения задачи \"" + taskService.getTaskById(taskId).getHeader() + "\"", user);
+                userActivityService.addNewUserActivity("Отмена выполнения задачи \"" + taskService.getTaskById(taskId).getHeader() + "\"", user, null);
             }
             return new ResponseEntity<>(HttpStatus.OK);
         } else {

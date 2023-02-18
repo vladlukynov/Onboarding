@@ -157,13 +157,13 @@ public class UserController {
     @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> login(@RequestBody LoginBean loginBean) {
         User user;
-            try {
-                user = userService.findUserByEmail(loginBean.getEmail());
-            } catch (EntityNotFoundException exception) {
-                return new ResponseEntity<>(
-                        new AppError(HttpStatus.NOT_FOUND.value(),
-                                "The user with such email does not exist."), HttpStatus.NOT_FOUND);
-            }
+        try {
+            user = userService.findUserByEmail(loginBean.getEmail());
+        } catch (EntityNotFoundException exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.NOT_FOUND.value(),
+                            "The user with such email does not exist."), HttpStatus.NOT_FOUND);
+        }
         if (!userService.isCorrectPassword(user, loginBean.getPassword())) {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.NOT_FOUND.value(),
@@ -252,6 +252,7 @@ public class UserController {
         map.put("refresh-token", newRefreshToken);
         map.put("expireTimeRefreshToken", String.valueOf(refreshTokenService.getExpirationTime()));
         map.put("id", String.valueOf(user.getId()));
+        map.put("postId", user.getPost() != null ? String.valueOf(user.getPost().getId()) : null);
         map.put("email", user.getEmail());
         return map;
     }
