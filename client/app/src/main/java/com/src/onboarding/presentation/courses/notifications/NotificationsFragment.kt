@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.src.onboarding.databinding.FragmentNotificationsBinding
 import com.src.onboarding.domain.state.login.BasicState
-import com.src.onboarding.domain.user.Notification
+import com.src.onboarding.domain.model.user.Notification
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.courses.notifications.adapter.NotificationAdapter
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModel

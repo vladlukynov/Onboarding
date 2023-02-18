@@ -2,7 +2,7 @@ package com.src.onboarding.data.repository
 
 import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.domain.model.user.UserProfile
-import com.src.onboarding.domain.user.Notification
+import com.src.onboarding.domain.model.user.Notification
 import com.src.onboarding.domain.repository.UserRepository
 import com.src.onboarding.domain.state.login.BasicState
 import kotlinx.coroutines.Dispatchers

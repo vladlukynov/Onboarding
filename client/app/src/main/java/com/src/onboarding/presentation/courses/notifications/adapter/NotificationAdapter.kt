@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.src.onboarding.databinding.ViewHolderNotificationBinding
-import com.src.onboarding.domain.user.Notification
+import com.src.onboarding.domain.model.user.Notification
 
 class NotificationAdapter() :
     ListAdapter<Notification, NotificationAdapter.DataViewHolder>(NotificationDiffCallback()) {

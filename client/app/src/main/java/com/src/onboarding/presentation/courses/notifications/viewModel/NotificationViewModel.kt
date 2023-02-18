@@ -3,10 +3,9 @@ package com.src.onboarding.presentation.courses.notifications.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.src.onboarding.domain.user.Notification
+import com.src.onboarding.domain.model.user.Notification
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.usecase.user.ClearNotificationsUseCase
-import com.src.onboarding.domain.usecase.user.GetCountNotificationUseCase
 import com.src.onboarding.domain.usecase.user.GetNotificationsUseCase
 import kotlinx.coroutines.launch
 

@@ -5,7 +5,7 @@ import com.src.onboarding.data.remote.model.user.user_profile.UserProfileMapper
 import com.src.onboarding.data.remote.service.UserService
 import com.src.onboarding.data.remote.session.SessionController
 import com.src.onboarding.domain.model.user.UserProfile
-import com.src.onboarding.domain.user.Notification
+import com.src.onboarding.domain.model.user.Notification
 import com.src.onboarding.domain.state.login.BasicState
 
 class UserDataSourceImpl(

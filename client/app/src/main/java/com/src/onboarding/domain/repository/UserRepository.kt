@@ -1,7 +1,7 @@
 package com.src.onboarding.domain.repository
 
 import com.src.onboarding.domain.model.user.UserProfile
-import com.src.onboarding.domain.user.Notification
+import com.src.onboarding.domain.model.user.Notification
 import com.src.onboarding.domain.state.login.BasicState
 
 interface UserRepository {
