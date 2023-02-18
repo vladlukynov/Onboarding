@@ -22,7 +22,7 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    private String pattern = "MM/dd/yyyy";
+    private String pattern = "dd/MM/yyyy";
 
     private DateFormat df = new SimpleDateFormat(pattern);
 
