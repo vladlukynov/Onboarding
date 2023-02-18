@@ -9,19 +9,25 @@ import com.src.onboarding.domain.state.course.ColleagueState
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.usecase.course.GetColleaguesUseCase
 import com.src.onboarding.domain.usecase.course.GetCoursesUseCase
+import com.src.onboarding.domain.usecase.user.GetCountNotificationUseCase
 import kotlinx.coroutines.launch
 
 class CourseMainViewModel(
     private val getColleaguesUseCase: GetColleaguesUseCase,
-    private val getCoursesUseCase: GetCoursesUseCase
+    private val getCoursesUseCase: GetCoursesUseCase,
+    private val getCountNotificationsUseCase: GetCountNotificationUseCase
 ) : ViewModel() {
     private val _mutableLiveDataColleagueState =
         MutableLiveData<ColleagueState<List<Colleague>>>(ColleagueState.LoadingState())
     private val _mutableLiveDataCoursesState =
         MutableLiveData<BasicState<MainCourse>>(BasicState.LoadingState())
+    private val _mutableLiveDataGetCountNotificationsState =
+        MutableLiveData<BasicState<Long>>(BasicState.LoadingState())
 
     val liveDataColleagueState get() = _mutableLiveDataColleagueState
     val liveDataCoursesState get() = _mutableLiveDataCoursesState
+    val liveDataGetCountNotificationsState get() = _mutableLiveDataGetCountNotificationsState
+
     fun getColleagues() {
         viewModelScope.launch {
             _mutableLiveDataColleagueState.value = ColleagueState.LoadingState()
@@ -33,6 +39,14 @@ class CourseMainViewModel(
         viewModelScope.launch {
             _mutableLiveDataCoursesState.value = BasicState.LoadingState()
             _mutableLiveDataCoursesState.value = getCoursesUseCase.execute()
+        }
+    }
+
+    fun getCountNotifications() {
+        viewModelScope.launch {
+            _mutableLiveDataGetCountNotificationsState.value = BasicState.LoadingState()
+            _mutableLiveDataGetCountNotificationsState.value =
+                getCountNotificationsUseCase.execute()
         }
     }
 }

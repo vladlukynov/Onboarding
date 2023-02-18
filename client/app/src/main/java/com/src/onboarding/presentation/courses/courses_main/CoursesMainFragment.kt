@@ -41,8 +41,12 @@ class CoursesMainFragment : Fragment() {
         viewModel.liveDataCoursesState.observe(
             this.viewLifecycleOwner, this::checkCoursesState
         )
+        viewModel.liveDataGetCountNotificationsState.observe(
+            this.viewLifecycleOwner, this::checkGetCountNotificationState
+        )
         viewModel.getColleagues()
         viewModel.getCourses()
+        viewModel.getCountNotifications()
         setAdapters()
     }
 
@@ -141,4 +145,17 @@ class CoursesMainFragment : Fragment() {
         adapter.submitList(courses)
     }
 
+    //TODO проверить количество если больше 9 то ставим 9+
+    private fun checkGetCountNotificationState(state: BasicState<Long>) {
+        when (state) {
+            is BasicState.SuccessState -> {
+                binding.tvNotificationCount.text = state.data.toString()
+            }
+            is BasicState.LoadingState -> {}
+            is BasicState.ErrorState -> {
+
+            }
+        }
+
+    }
 }

@@ -75,13 +75,14 @@
         app:layout_constraintTop_toTopOf="@id/cv_user_picture" />
 
     <TextView
+        android:id="@+id/tv_notification_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="-4dp"
         android:layout_marginBottom="-4dp"
         android:background="@drawable/red_circle_background"
         android:ems="1"
-        android:text="7"
+        android:text="0"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="10sp"

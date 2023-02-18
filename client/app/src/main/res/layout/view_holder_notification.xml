@@ -38,6 +38,7 @@
         tools:text="Не забудьте пройти опрос для новых сотрудников а так же атан ывнт рлублок кспав!" />
 
     <TextView
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
