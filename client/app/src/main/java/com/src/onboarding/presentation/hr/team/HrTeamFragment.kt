@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.hr.add_employee
+package com.src.onboarding.presentation.hr.team
 
 import android.os.Bundle
 import android.view.LayoutInflater
