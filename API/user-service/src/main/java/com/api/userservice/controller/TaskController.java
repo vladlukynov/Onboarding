@@ -57,7 +57,7 @@ public class TaskController {
             return responseEntity;
         }
         User user = (User) responseEntity.getBody();
-        if ((user != null) && (user.getPost().getId() != 1)) {
+        if ((user == null) || (user.getPost() == null) || (user.getPost().getId() != 1)) {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                             "Not enough rights to execute"), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -98,7 +98,7 @@ public class TaskController {
             return responseEntity;
         }
         User user = (User) responseEntity.getBody();
-        if ((user != null) && (user.getPost().getId() != 1)) {
+        if ((user == null) || (user.getPost() == null) || (user.getPost().getId() != 1)) {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                             "Not enough rights to execute"), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -14,7 +14,7 @@ import com.api.userservice.model.Task;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("SELECT new com.api.userservice.DTO.TaskDTO(t.id, t.dateStart, t.deadlineDate, t.header, t.description, t.completed)" +
-            " FROM Task t WHERE t.user.id=:userId ORDER BY t.completed DESC")
+            " FROM Task t WHERE t.user.id=:userId ORDER BY t.completed ASC")
     List<TaskDTO> getTasksByUserId(Long userId);
 
     @Query("SELECT new com.api.userservice.DTO.TaskDTO(t.id, t.dateStart, t.deadlineDate, t.header, t.description, t.completed)" +
