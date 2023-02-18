@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,5 +66,14 @@ public class TaskServiceImpl implements TaskService {
         String date = df.format(today);
         task.setDateStart(date);
         taskRepository.save(task);
+    }
+
+    @Override
+    public Task getTaskById(Long taskId) {
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+        if (taskOptional.isPresent()) {
+            return taskOptional.get();
+        }
+        throw new EntityNotFoundException();
     }
 }

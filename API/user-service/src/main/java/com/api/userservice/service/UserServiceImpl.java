@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.api.userservice.DTO.ColleagueDTO;
 import com.api.userservice.DTO.EditUserBean;
 import com.api.userservice.DTO.RegisterBean;
-import com.api.userservice.DTO.UserPageWithoutEmail;
 import com.api.userservice.DTO.UserProfile;
 import com.api.userservice.model.User;
 import com.api.userservice.repository.UserRepository;
@@ -136,13 +135,6 @@ public class UserServiceImpl implements UserService {
         UserProfile userProfile = new UserProfile(user);
         userProfile.setImage("/user/image?id=" + user.getId());
         return userProfile;
-    }
-
-    @Override
-    public UserPageWithoutEmail getInfoForUserPageWithoutEmail(User user) {
-        UserPageWithoutEmail userPageWithoutEmail = new UserPageWithoutEmail(user);
-        userPageWithoutEmail.setImage("/user/image?id=" + user.getId());
-        return userPageWithoutEmail;
     }
 
     @Override
