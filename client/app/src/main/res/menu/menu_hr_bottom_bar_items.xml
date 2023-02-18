@@ -5,7 +5,7 @@
         android:title="@string/questions" />
     <item
         android:id="@+id/i_teams"
-        android:icon="@drawable/ic_tasks"
+        android:icon="@drawable/ic_teams"
         android:title="@string/teams" />
     <item
         android:id="@+id/i_profile"
