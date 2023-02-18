@@ -47,4 +47,5 @@
     <string name="statistic">Статистика</string>
     <string name="achievements">Достижения</string>
     <string name="activity">Активность</string>
+    <string name="welcome">Добро пожаловать</string>
 </resources>
