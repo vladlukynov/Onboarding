@@ -15,7 +15,7 @@ sealed class TaskWithTitle {
     ) : TaskWithTitle()
 
     companion object {
-        fun convertTaskModelToTaskWithDateTaskModel(task: Task): TaskWithTitle =
+        fun convertTaskModelToTaskWithTitleTaskModel(task: Task): TaskWithTitle =
             TaskModel(
                 id = task.id,
                 dateStart = task.dateStart,

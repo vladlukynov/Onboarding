@@ -14,6 +14,7 @@ import com.src.onboarding.domain.state.course.ColleagueState
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.HrActivity
 import com.src.onboarding.presentation.hr.add_task.AddTaskFragment
+import com.src.onboarding.presentation.hr.profile.HrEmployeeProfileFragment
 import com.src.onboarding.presentation.hr.team.adapter.TeammateAdapter
 import com.src.onboarding.presentation.hr.team.viewModel.HrTeamViewModel
 
@@ -77,9 +78,12 @@ class HrTeamFragment : Fragment() {
         }
     }
 
-    //TODO перейти на страницу коллеги
     private fun onCLickColleague(colleague: Colleague) {
-
+        val bundle = Bundle()
+        bundle.putLong(HrEmployeeProfileFragment.USER_ID, colleague.id)
+        val fragment = HrEmployeeProfileFragment()
+        fragment.arguments = bundle
+        (activity as HrActivity).replaceFragment(fragment)
     }
 
     private fun checkGetProfileState(state: BasicState<UserProfile>) {

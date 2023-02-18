@@ -20,7 +20,7 @@ class TeammateAdapter(private val onClickColleague: (item: Colleague) -> Unit) :
                 .load(colleague.image)
                 .into(binding.ivColleaguePicture)
             itemView.setOnClickListener {
-                onClickColleague
+                onClickColleague(colleague)
             }
         }
 

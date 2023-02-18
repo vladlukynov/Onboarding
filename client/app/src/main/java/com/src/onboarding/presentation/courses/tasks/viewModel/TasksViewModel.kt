@@ -32,7 +32,7 @@ class TasksViewModel(
                 if (unfinishedTasks.data.isNotEmpty()) {
                     result.add(TaskWithTitle.TitleModel("Незавершенные"))
                     result.addAll(unfinishedTasks.data.map {
-                        TaskWithTitle.convertTaskModelToTaskWithDateTaskModel(
+                        TaskWithTitle.convertTaskModelToTaskWithTitleTaskModel(
                             it
                         )
                     })
@@ -43,7 +43,7 @@ class TasksViewModel(
                     Log.d("ViewModel finished","size=${finishedTask.data.size}")
                     result.add(TaskWithTitle.TitleModel("Завершенные"))
                     result.addAll(finishedTask.data.map {
-                        TaskWithTitle.convertTaskModelToTaskWithDateTaskModel(
+                        TaskWithTitle.convertTaskModelToTaskWithTitleTaskModel(
                             it
                         )
                     })

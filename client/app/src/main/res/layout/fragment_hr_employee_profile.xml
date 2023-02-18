@@ -27,6 +27,7 @@
         app:layout_constraintGuide_end="@dimen/gl_end" />
 
     <ImageView
+        android:id="@+id/iv_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_back_button"
@@ -188,7 +189,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_2x"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/flow_profile_tabs"
