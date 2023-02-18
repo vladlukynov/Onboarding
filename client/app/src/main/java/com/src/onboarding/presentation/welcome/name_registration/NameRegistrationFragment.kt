@@ -17,6 +17,7 @@ import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentNameRegistrationBinding
 import com.src.onboarding.domain.state.login.RegistrationState
 import com.src.onboarding.presentation.LoginActivity
+import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.utils.PhotoCompression
 import com.src.onboarding.presentation.utils.REGEX_SPACE
 import com.src.onboarding.presentation.welcome.code_enter.CodeEnterFragment
@@ -154,6 +155,8 @@ class NameRegistrationFragment : Fragment() {
                         viewModel.setImage(uri = photo!!)
                     }
                     viewModel.registration(photo)
+
+                    startActivity(Intent(context, MainActivity::class.java).apply {})
                 }
             } else {
                 (activity as LoginActivity).showSnackBar(getString(R.string.fill_all_fields))
