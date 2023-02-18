@@ -52,4 +52,6 @@
     <string name="et_title">Заголовок</string>
     <string name="teams">Команды</string>
     <string name="about_me">О себе: </string>
+    <string name="support">Поддержка</string>
+    <string name="questions">Вопросы</string>
 </resources>
