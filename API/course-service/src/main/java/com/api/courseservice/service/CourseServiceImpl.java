@@ -1,21 +1,28 @@
 package com.api.courseservice.service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.api.courseservice.model.*;
-import com.api.courseservice.repository.FeedbackRepository;
-import com.api.courseservice.repository.FeedbackResultsRepository;
-import com.api.courseservice.repository.TestRepository;
-import com.api.courseservice.repository.TestResultsRepository;
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.courseservice.DTO.CourseDTO;
+import com.api.courseservice.model.Course;
+import com.api.courseservice.model.Feedback;
+import com.api.courseservice.model.FeedbackResults;
+import com.api.courseservice.model.Test;
+import com.api.courseservice.model.TestResults;
 import com.api.courseservice.repository.CourseRepository;
-
-import javax.persistence.EntityNotFoundException;
+import com.api.courseservice.repository.FeedbackRepository;
+import com.api.courseservice.repository.FeedbackResultsRepository;
+import com.api.courseservice.repository.TestRepository;
+import com.api.courseservice.repository.TestResultsRepository;
 
 @Service
 public class CourseServiceImpl implements CourseService {

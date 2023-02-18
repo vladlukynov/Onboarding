@@ -1,9 +1,10 @@
 package com.api.courseservice.service;
 
-import com.api.courseservice.model.FeedbackResults;
+import java.util.Set;
+
 import org.springframework.lang.NonNull;
 
-import java.util.Set;
+import com.api.courseservice.model.FeedbackResults;
 
 public interface FeedbackResultsService {
     Set<FeedbackResults> findByUserIdEquals(@NonNull Long userId);
