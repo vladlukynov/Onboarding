@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.src.onboarding.R
 import com.src.onboarding.app.App
@@ -15,12 +16,12 @@ import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeView
 import com.src.onboarding.presentation.courses.courses_main.CoursesMainFragment
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModelFactory
-import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModel
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModelFactory
 import com.src.onboarding.presentation.courses.tasks.TasksFragment
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModel
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFactory
+import com.src.onboarding.presentation.profile.UserProfileFragment
 
 import javax.inject.Inject
 
@@ -42,6 +43,16 @@ class MainActivity : AppCompatActivity() {
         (applicationContext as App).appComponent.inject(this)
         setContentView(R.layout.activity_main)
         replaceFragment(CoursesMainFragment())
+
+        val bottomBar: BottomNavigationView = this.findViewById(R.id.bnv_bottom_bar)
+        bottomBar.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.i_courses -> replaceFragment(CoursesMainFragment())
+                R.id.i_tasks -> replaceFragment(TasksFragment())
+                R.id.i_profile -> replaceFragment(UserProfileFragment())
+            }
+            return@setOnItemSelectedListener true
+        }
     }
 
     @SuppressLint("ShowToast", "RestrictedApi")
