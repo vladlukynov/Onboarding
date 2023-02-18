@@ -4,6 +4,7 @@ import com.src.onboarding.domain.repository.UserRepository
 import com.src.onboarding.domain.usecase.user.ClearNotificationsUseCase
 import com.src.onboarding.domain.usecase.user.GetCountNotificationUseCase
 import com.src.onboarding.domain.usecase.user.GetNotificationsUseCase
+import com.src.onboarding.domain.usecase.user.GetUserProfileUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -26,5 +27,11 @@ class DomainUserModule {
     @Provides
     fun provideClearNotificationsUseCAse(userRepository: UserRepository): ClearNotificationsUseCase {
         return ClearNotificationsUseCase(userRepository = userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetUserProfileUseCase(userRepository: UserRepository): GetUserProfileUseCase {
+        return GetUserProfileUseCase(userRepository = userRepository)
     }
 }

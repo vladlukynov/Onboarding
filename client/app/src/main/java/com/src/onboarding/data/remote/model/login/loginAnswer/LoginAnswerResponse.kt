@@ -15,5 +15,7 @@ class LoginAnswerResponse(
     @SerializedName("id")
     val id: String,
     @SerializedName("email")
-    val email: String
+    val email: String,
+    @SerializedName("postId")
+    val postId: String?
 )

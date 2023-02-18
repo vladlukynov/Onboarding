@@ -1,13 +1,18 @@
 package com.src.onboarding.data.remote.dataSource.user
 
 import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
+import com.src.onboarding.data.remote.model.user.user_profile.UserProfileMapper
 import com.src.onboarding.data.remote.service.UserService
+import com.src.onboarding.data.remote.session.SessionController
+import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.user.Notification
 import com.src.onboarding.domain.state.login.BasicState
 
 class UserDataSourceImpl(
     private val userService: UserService,
-    private val notificationMapper: NotificationMapper
+    private val notificationMapper: NotificationMapper,
+    private val userProfileMapper: UserProfileMapper,
+    private val sessionController: SessionController
 ) : UserDataSource {
     override suspend fun getNotifications(): BasicState<List<Notification>> {
         val response = userService.getNotifications()
@@ -39,6 +44,17 @@ class UserDataSourceImpl(
         val response = userService.getCountNotification()
         if (response.isSuccessful) {
             return BasicState.SuccessState(Unit)
+        }
+        return BasicState.ErrorState()
+    }
+
+    override suspend fun getProfile(): BasicState<UserProfile> {
+        val response = userService.getProfile(sessionController.getToken())
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) {
+                return BasicState.SuccessState(userProfileMapper.mapFromResponseToModel(body))
+            }
         }
         return BasicState.ErrorState()
     }
