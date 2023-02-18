@@ -48,4 +48,7 @@
     <string name="achievements">Достижения</string>
     <string name="activity">Активность</string>
     <string name="welcome">Добро пожаловать</string>
+    <string name="add_task">Добавление задачи</string>
+    <string name="et_title">Заголовок</string>
+    <string name="teams">Команды</string>
 </resources>
