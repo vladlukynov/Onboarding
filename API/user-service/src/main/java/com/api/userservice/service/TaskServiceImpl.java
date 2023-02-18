@@ -29,6 +29,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<TaskDTO> getTasksByUserId(Long userId, boolean completed) {
+        return taskRepository.getTasksByUserId(userId, completed);
+    }
+
+    @Override
     public boolean setCompletedTask(Long userId, Long taskId, boolean completed) {
         List<TaskDTO> tasks = getTasksByUserId(userId);
         boolean flag = false;

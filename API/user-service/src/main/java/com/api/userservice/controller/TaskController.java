@@ -40,14 +40,14 @@ public class TaskController {
     @Autowired
     private NotificationService notificationService;
 
-    @RequestMapping(path = "/all", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllTask(HttpServletRequest request) {
+    @RequestMapping(path = "/get-task-filter", method = RequestMethod.GET)
+    public ResponseEntity<?> getTaskFilter(boolean completed, HttpServletRequest request) {
         ResponseEntity<?> responseEntity = getUserByRequest(request);
         if (!responseEntity.getStatusCode().equals(HttpStatus.OK)) {
             return responseEntity;
         }
         User user = (User) responseEntity.getBody();
-        return new ResponseEntity<>(taskService.getTasksByUserId(user.getId()), HttpStatus.OK);
+        return new ResponseEntity<>(taskService.getTasksByUserId(user.getId(), completed), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/get-tasks-by-user-id", method = RequestMethod.GET)
@@ -82,7 +82,7 @@ public class TaskController {
         User user = (User) responseEntity.getBody();
         boolean check = taskService.setCompletedTask(user.getId(), taskId, completed);
         if (check) {
-            return new ResponseEntity<>(taskService.getTasksByUserId(user.getId()), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.CONFLICT.value(),

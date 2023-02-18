@@ -8,6 +8,8 @@ import com.api.userservice.model.User;
 public interface TaskService {
     List<TaskDTO> getTasksByUserId(Long userId);
 
+    List<TaskDTO> getTasksByUserId(Long userId, boolean completed);
+
     boolean setCompletedTask(Long userId, Long taskId, boolean completed);
 
     void addNewTask(User user, String header, String description, String deadline);
