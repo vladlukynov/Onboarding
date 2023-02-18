@@ -54,4 +54,5 @@
     <string name="about_me">О себе: </string>
     <string name="support">Поддержка</string>
     <string name="questions">Вопросы</string>
+    <string name="deadline_date">Дата дедлайна</string>
 </resources>
