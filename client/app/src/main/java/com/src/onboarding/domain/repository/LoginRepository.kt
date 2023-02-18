@@ -14,4 +14,5 @@ interface LoginRepository {
     suspend fun sendCodeForAccountConfirmations(): BasicState<Unit>
     suspend fun setIsActiveAndClearSession()
     suspend fun recoverPassword(password: String): ChangePasswordState
+    suspend fun getPostId(): Long?
 }

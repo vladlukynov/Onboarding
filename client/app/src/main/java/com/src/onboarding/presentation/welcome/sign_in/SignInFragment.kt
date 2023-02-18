@@ -10,6 +10,7 @@ import com.src.onboarding.R
 import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentSignInBinding
 import com.src.onboarding.domain.state.login.LoginState
+import com.src.onboarding.presentation.HrActivity
 import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.utils.REGEX_EMAIL
@@ -41,6 +42,9 @@ class SignInFragment : Fragment() {
         viewModel.liveDataLoginState.observe(
             this.viewLifecycleOwner, this::checkState
         )
+        viewModel.liveDataPostId.observe(
+            this.viewLifecycleOwner, this::checkPostId
+        )
         setOnClickListeners()
     }
 
@@ -64,13 +68,24 @@ class SignInFragment : Fragment() {
                         emailWithoutSpace!!,
                         passwordWithoutSpace!!,
                     )
-
-                    startActivity(Intent(context, MainActivity::class.java).apply {
-                    })
                 }
             }
         }
     }
+
+    private fun checkPostId(id: Long?) {
+        if (isClickNext) {
+            if (id == null || id != 1L) {
+                startActivity(Intent(context, MainActivity::class.java).apply {
+                })
+            }
+            else{
+                startActivity(Intent(context, HrActivity::class.java).apply {
+                })
+            }
+        }
+    }
+
 
     private fun checkLoading(isLoading: Boolean) {
         if (isLoading) {
@@ -84,7 +99,7 @@ class SignInFragment : Fragment() {
         when (state) {
             is LoginState.SuccessState -> {
                 if (isClickNext) {
-                    //TODO перейти дальше
+                    viewModel.getPostId()
                 }
             }
             is LoginState.ErrorEmailState -> {

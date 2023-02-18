@@ -60,4 +60,8 @@ class LoginRepositoryImpl(
         withContext(Dispatchers.IO) {
             return@withContext loginDataSource.recoverPassword(newPassword = password)
         }
+
+    override suspend fun getPostId(): Long? {
+        return userLocalRepository.getPostId()
+    }
 }
