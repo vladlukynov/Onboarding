@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_done_task_button"
+        android:layout_width="@dimen/space_6x"
+        android:layout_height="@dimen/space_6x"
+        android:layout_marginStart="@dimen/space_1x"
+        android:layout_marginTop="@dimen/space_2x"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/shape_task_done_item" />
+
+    <TextView
+        android:id="@+id/tv_task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_3x"
+        android:fontFamily="@font/mulish_semibold"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        app:layout_constraintStart_toEndOf="@id/iv_done_task_button"
+        app:layout_constraintTop_toTopOf="@id/iv_done_task_button"
+        tools:text="Создать текст" />
+
+    <TextView
+        android:id="@+id/tv_create_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_2x"
+        android:fontFamily="@font/mulish_light"
+        android:textColor="@color/black"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="16.02.2023" />
+
+    <TextView
+        android:id="@+id/tv_deadline_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_2x"
+        android:fontFamily="@font/mulish_light"
+        android:textColor="#AF3535"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@id/v_task_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Дедлайн: 28.02.2023 12:00" />
+
+    <View
+        android:id="@+id/v_task_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/space_3x"
+        android:background="@color/light_stroke"
+        app:layout_constraintTop_toBottomOf="@id/iv_done_task_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
