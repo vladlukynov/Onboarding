@@ -24,7 +24,7 @@ import com.src.onboarding.presentation.courses.courses_main.adapter.CoursesAdapt
 import com.src.onboarding.presentation.courses.courses_main.adapter.MainCourseItemDecoration
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
-import com.src.onboarding.presentation.profile.UserProfileFragment
+import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
 
 class CoursesMainFragment : Fragment() {
     private lateinit var binding: FragmentCoursesMainBinding
