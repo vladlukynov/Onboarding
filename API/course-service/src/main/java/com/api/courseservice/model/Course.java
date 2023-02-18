@@ -25,6 +25,8 @@ public class Course {
     @Column(nullable = false)
     private String name;
 
+    private String description;
+
     @Column(name = "photosrc", nullable = false)
     private String photoSrc;
 
@@ -34,5 +36,8 @@ public class Course {
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Feedback> feedbacks = new HashSet<>();
 
-    private Long accessPostId;
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ProgramCourse> programCourses;
+
+
 }
