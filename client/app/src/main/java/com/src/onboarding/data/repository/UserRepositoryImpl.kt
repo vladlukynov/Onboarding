@@ -30,4 +30,8 @@ class UserRepositoryImpl(private val userDataSource: UserDataSource) : UserRepos
     override suspend fun getActivities(): BasicState<List<Activity>> = withContext(Dispatchers.IO) {
         return@withContext userDataSource.getAllActivities()
     }
+
+    override suspend fun logout(): BasicState<Unit> = withContext(Dispatchers.IO) {
+        return@withContext userDataSource.logout()
+    }
 }

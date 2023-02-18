@@ -7,6 +7,7 @@ import com.src.onboarding.di.NetworkModule
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Query
 
 interface UserService {
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/notification/get-notifications")
@@ -23,4 +24,9 @@ interface UserService {
 
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/activity/all")
     suspend fun getActivities(): Response<List<ActivityResponse>>
+
+    @GET("${NetworkModule.USER_SERVICE_BASE_URL}/user/logout")
+    suspend fun logout(
+        @Query("refreshToken", encoded = true) refreshToken: String
+    ): Response<Unit>
 }

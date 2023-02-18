@@ -11,4 +11,5 @@ interface UserRepository {
     suspend fun clearNotifications(): BasicState<Unit>
     suspend fun getProfile(): BasicState<UserProfile>
     suspend fun getActivities(): BasicState<List<Activity>>
+    suspend fun logout(): BasicState<Unit>
 }

@@ -144,13 +144,15 @@ class NetworkModule {
         userService: UserService,
         notificationMapper: NotificationMapper,
         userProfileMapper: UserProfileMapper,
-        activityMapper: ActivityMapper
+        activityMapper: ActivityMapper,
+        sessionStorage: SessionStorage
     ): UserDataSource {
         return UserDataSourceImpl(
             userService = userService,
             notificationMapper = notificationMapper,
             userProfileMapper = userProfileMapper,
-            activityMapper = activityMapper
+            activityMapper = activityMapper,
+            sessionStorage = sessionStorage
         )
     }
 
