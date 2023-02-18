@@ -37,4 +37,6 @@
     <string name="invalid_code">Неверный код</string>
     <string name="courses">Курсы</string>
     <string name="profile2">Профиль</string>
+    <string name="employee_email">E-mail сотрудника</string>
+    <string name="add_employee">Добавление сотрудника</string>
 </resources>
