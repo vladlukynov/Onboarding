@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.src.onboarding.databinding.FragmentCoursesMainBinding
 import com.src.onboarding.domain.model.course.colleague.Colleague
 import com.src.onboarding.domain.model.course.course.Course
@@ -60,9 +61,13 @@ class CoursesMainFragment : Fragment() {
 
             }
             is ColleagueState.ErrorState -> {
+                (activity as MainActivity).showSnackBar(null)
 
             }
             is ColleagueState.NotWorkingState -> {
+                binding.clMainCourseProgressCard.visibility = View.GONE
+                binding.tvColleagues.visibility = View.GONE
+                binding.rvColleagues.visibility = View.GONE
 
             }
         }
@@ -92,6 +97,7 @@ class CoursesMainFragment : Fragment() {
         when (state) {
             is BasicState.SuccessState -> {
                 setDataForCoursesRecyclerView(state.data.allCourses)
+                setCurrentCourse(state.data.currentCourse)
 
             }
             is BasicState.LoadingState -> {}
@@ -107,6 +113,22 @@ class CoursesMainFragment : Fragment() {
         binding.rvCourses.layoutManager = layoutManager
         binding.rvCourses.adapter = adapter
         binding.rvCourses.addItemDecoration(mainCourseItemDecoration)
+    }
+
+    //TODo добавить плейсхолдер
+    private fun setCurrentCourse(course: Course?) {
+        if (course == null) {
+            binding.clMainCourseProgressCard.visibility = View.GONE
+        } else {
+            Glide.with(requireContext())
+                .load(course.image)
+                .into(binding.ivMainCourse)
+            binding.tvMainCourse.text = course.name
+            val percent = if (course.percentageOfCompletion == null) {
+                0
+            } else course.percentageOfCompletion.toInt()
+            binding.pbProgressBar.progress = percent
+        }
     }
 
     //TODO

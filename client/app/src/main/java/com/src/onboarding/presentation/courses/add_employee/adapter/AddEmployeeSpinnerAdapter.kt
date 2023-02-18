@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.welcome.courses.add_employee.adapter
+package com.src.onboarding.presentation.courses.add_employee.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
