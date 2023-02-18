@@ -32,9 +32,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var courseMainViewModelFactory: CourseMainViewModelFactory
 
     @Inject
-    lateinit var addEmployeeViewModelFactory: AddEmployeeViewModelFactory
-
-    @Inject
     lateinit var notificationViewModelFactory: NotificationViewModelFactory
 
     @Inject
@@ -95,9 +92,6 @@ class MainActivity : AppCompatActivity() {
 
     fun getCourseViewModel(): CourseMainViewModel =
         ViewModelProvider(this, courseMainViewModelFactory)[CourseMainViewModel::class.java]
-
-    fun getAddEmployeeViewModel(): AddEmployeeViewModel =
-        ViewModelProvider(this, addEmployeeViewModelFactory)[AddEmployeeViewModel::class.java]
 
     fun getNotificationViewModel(): NotificationViewModel =
         ViewModelProvider(this, notificationViewModelFactory)[NotificationViewModel::class.java]

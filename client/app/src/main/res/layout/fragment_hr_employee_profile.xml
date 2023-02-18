@@ -220,7 +220,7 @@
         android:backgroundTint="@color/main_purple"
         app:layout_constraintEnd_toEndOf="@id/gl_end">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_add_task"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

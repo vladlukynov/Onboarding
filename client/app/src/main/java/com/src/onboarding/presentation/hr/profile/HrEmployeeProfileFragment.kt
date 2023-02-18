@@ -21,6 +21,7 @@ import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.HrActivity
 import com.src.onboarding.presentation.courses.tasks.adapter.TasksAdapter
+import com.src.onboarding.presentation.hr.add_task.AddTaskFragment
 import com.src.onboarding.presentation.hr.profile.viewModel.HrEmployeeProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.adapter.ActivityAdapter
 import com.src.onboarding.presentation.profile.user_profile.adapter.StatisticAdapter
@@ -71,6 +72,7 @@ class HrEmployeeProfileFragment : Fragment() {
             binding.rvActivity.visibility = View.INVISIBLE
             binding.rvStatistics.visibility = View.INVISIBLE
             binding.rvTasks.visibility = View.INVISIBLE
+            binding.cvAddTask.visibility=View.INVISIBLE
 
             binding.tvActivity.setTextColor(
                 ContextCompat.getColor(
@@ -102,6 +104,7 @@ class HrEmployeeProfileFragment : Fragment() {
             binding.rvActivity.visibility = View.VISIBLE
             binding.rvStatistics.visibility = View.INVISIBLE
             binding.rvTasks.visibility = View.INVISIBLE
+            binding.cvAddTask.visibility=View.INVISIBLE
 
             binding.tvActivity.setTextColor(
                 ContextCompat.getColor(
@@ -133,6 +136,7 @@ class HrEmployeeProfileFragment : Fragment() {
             binding.rvActivity.visibility = View.INVISIBLE
             binding.rvStatistics.visibility = View.VISIBLE
             binding.rvTasks.visibility = View.INVISIBLE
+            binding.cvAddTask.visibility=View.INVISIBLE
 
             binding.tvActivity.setTextColor(
                 ContextCompat.getColor(
@@ -163,6 +167,7 @@ class HrEmployeeProfileFragment : Fragment() {
             binding.rvActivity.visibility = View.INVISIBLE
             binding.rvStatistics.visibility = View.INVISIBLE
             binding.rvTasks.visibility = View.VISIBLE
+            binding.cvAddTask.visibility=View.VISIBLE
 
             binding.tvActivity.setTextColor(
                 ContextCompat.getColor(
@@ -188,6 +193,9 @@ class HrEmployeeProfileFragment : Fragment() {
                     R.color.text_grey
                 )
             )
+        }
+        binding.cvAddTask.setOnClickListener {
+            (activity as HrActivity).replaceFragment(AddTaskFragment())
         }
     }
 

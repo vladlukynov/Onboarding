@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.src.onboarding.R
 import com.src.onboarding.app.App
+import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
+import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModelFactory
 import com.src.onboarding.presentation.hr.profile.viewModel.HrEmployeeProfileViewModel
 import com.src.onboarding.presentation.hr.profile.viewModel.HrEmployeeProfileViewModelFactory
 import com.src.onboarding.presentation.hr.team.HrTeamFragment
@@ -19,6 +21,8 @@ class HrActivity : AppCompatActivity() {
 
     @Inject
     lateinit var hrEmployeeProfileViewModelFactory: HrEmployeeProfileViewModelFactory
+    @Inject
+    lateinit var addEmployeeViewModelFactory: AddEmployeeViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,4 +44,6 @@ class HrActivity : AppCompatActivity() {
             this,
             hrEmployeeProfileViewModelFactory
         )[HrEmployeeProfileViewModel::class.java]
+    fun getAddEmployeeViewModel(): AddEmployeeViewModel =
+        ViewModelProvider(this, addEmployeeViewModelFactory)[AddEmployeeViewModel::class.java]
 }

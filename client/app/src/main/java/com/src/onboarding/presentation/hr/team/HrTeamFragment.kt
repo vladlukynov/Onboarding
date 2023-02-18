@@ -13,6 +13,7 @@ import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.course.ColleagueState
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.HrActivity
+import com.src.onboarding.presentation.hr.add_employee.AddEmployeeFragment
 import com.src.onboarding.presentation.hr.add_task.AddTaskFragment
 import com.src.onboarding.presentation.hr.profile.HrEmployeeProfileFragment
 import com.src.onboarding.presentation.hr.team.adapter.TeammateAdapter
@@ -74,7 +75,7 @@ class HrTeamFragment : Fragment() {
 
     private fun setOnAddButtonClickListener() {
         binding.cvAddTask.setOnClickListener {
-            (activity as HrActivity).replaceFragment(AddTaskFragment())
+            (activity as HrActivity).replaceFragment(AddEmployeeFragment())
         }
     }
 
