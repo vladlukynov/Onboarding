@@ -10,7 +10,6 @@ import com.src.onboarding.databinding.FragmentLoadingBinding
 import com.src.onboarding.databinding.FragmentRegistrationBinding
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.LoginActivity
-import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.utils.REGEX_EMAIL
 import com.src.onboarding.presentation.welcome.name_registration.NameRegistrationFragment
 import com.src.onboarding.presentation.welcome.registration.viewModel.RegistrationViewModel
@@ -76,7 +75,7 @@ class RegistrationFragment : Fragment() {
                     }
                     if (password1 != null && password2 != null && password1.isNotEmpty() && password2.isNotEmpty() && password1 == password2) {
                         viewModel.setPassword(password1)
-                        (activity as MainActivity).replaceFragment(NameRegistrationFragment())
+                        (activity as LoginActivity).replaceFragment(NameRegistrationFragment())
                     }
                 }
             } else {
@@ -95,7 +94,7 @@ class RegistrationFragment : Fragment() {
 
     private fun setOnClickListenerForSignInButton() {
         binding.tvSignIn.setOnClickListener {
-            (activity as MainActivity).replaceFragment(SignInFragment())
+            (activity as LoginActivity).replaceFragment(SignInFragment())
         }
     }
 
