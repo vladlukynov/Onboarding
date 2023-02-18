@@ -18,5 +18,5 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
   instance:
-    instance-id: review-instance
+    instance-id: course-instance
     preferIpAddress: true

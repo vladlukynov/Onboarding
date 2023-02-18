@@ -14,5 +14,20 @@ public class CourseDTO {
 
     private String name;
 
+    private String description;
+
     private String photoSrc;
+
+    private boolean closed;
+
+    private int countThemes;
+
+    private double percentageOfCompletion;
+
+    public CourseDTO(Long id, String name, String description, String photoSrc) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.photoSrc = photoSrc;
+    }
 }

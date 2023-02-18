@@ -16,8 +16,10 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("select c from Course c where c.id = ?1")
     Optional<Course> findNextTestInCourseById(@NonNull Long id);
 
-    @Query("SELECT new com.api.courseservice.DTO.CourseDTO(c.id, c.name, c.photoSrc) FROM Course c " +
-            "WHERE c.accessPostId =: postId")
+    @Query("SELECT new com.api.courseservice.DTO.CourseDTO(c.id, c.name, c.description, c.photoSrc) FROM Course c " +
+            "JOIN ProgramCourse pc ON pc.course = c " +
+            "JOIN Program p ON pc.program = p " +
+            "WHERE p.accessPostId=:postId ORDER BY pc.numberCourseInProgram ASC")
     List<CourseDTO> getCoursesByPostId(Long postId);
 
     void deleteById(Long id);

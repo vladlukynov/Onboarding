@@ -80,7 +80,6 @@ services:
       - "8084:8084"
     networks:
       - backend
-      -
   courseservice:
     image: prlwk/course-service-onboarding:0.0.1-SNAPSHOT
     environment:

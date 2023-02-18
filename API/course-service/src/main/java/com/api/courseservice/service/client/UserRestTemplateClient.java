@@ -16,7 +16,7 @@ public class UserRestTemplateClient {
     @Autowired
     RestTemplate restTemplate;
 
-    public Long getUserId(HttpServletRequest request) throws ClientHttpResponseStatusCodeException {
+    public Long getUserId(HttpServletRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", request.getHeader("Authorization"));
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -28,7 +28,7 @@ public class UserRestTemplateClient {
         return ((Number) responseEntity.getBody()).longValue();
     }
 
-    public Long getUserPostId(Long userId, HttpServletRequest request) throws ClientHttpResponseStatusCodeException {
+    public Long getUserPostId(Long userId, HttpServletRequest request){
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", request.getHeader("Authorization"));
         HttpEntity<?> entity = new HttpEntity<>(headers);
