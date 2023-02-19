@@ -10,4 +10,5 @@ interface CourseRepository {
     suspend fun getColleagues(): ColleagueState<List<Colleague>>
     suspend fun getCourses(): BasicState<MainCourse>
     suspend fun getStartedCoursesForUser(): BasicState<List<Course>>
+    suspend fun getStartedCoursesByIdForUser(id: Long): BasicState<List<Course>>
 }

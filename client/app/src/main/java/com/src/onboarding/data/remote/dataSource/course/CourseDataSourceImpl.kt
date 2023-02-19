@@ -21,7 +21,7 @@ class CourseDataSourceImpl(
 ) : CourseDataSource {
     override suspend fun getColleagues(): ColleagueState<List<Colleague>> {
         val response = courseService.getColleagues()
-        Log.d("sessionController",sessionController.getToken()!!)
+        Log.d("sessionController", sessionController.getToken()!!)
         if (response.isSuccessful) {
             val body = response.body()
             if (body != null) {
@@ -51,6 +51,20 @@ class CourseDataSourceImpl(
 
     override suspend fun getStartedCoursesForUser(): BasicState<List<Course>> {
         val response = courseService.getStartedCoursesForUser(sessionController.getToken())
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) {
+                return BasicState.SuccessState(body.map { courseMapper.mapFromResponseToModel(it) })
+            }
+        }
+        return BasicState.ErrorState()
+    }
+
+    override suspend fun getStartedCoursesByIdForUser(id: Long): BasicState<List<Course>> {
+        val response = courseService.getStartedCoursesByIdForUser(
+            token = sessionController.getToken(),
+            id = id
+        )
         if (response.isSuccessful) {
             val body = response.body()
             if (body != null) {

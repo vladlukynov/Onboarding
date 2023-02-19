@@ -33,6 +33,12 @@ class UserRepositoryImpl(
         return@withContext userDataSource.getProfile()
     }
 
+    override suspend fun getUserById(id: Long): BasicState<UserProfile> =
+        withContext(Dispatchers.IO) {
+            return@withContext userDataSource.getUserById(id)
+
+        }
+
     override suspend fun getActivities(): BasicState<List<Activity>> = withContext(Dispatchers.IO) {
         return@withContext userDataSource.getAllActivities()
     }

@@ -21,7 +21,7 @@ class HrUserProfileViewModel(
     private val getStartedCoursesForUserUseCase: GetStartedCoursesForUserUseCase,
     private val getActivitiesUseCase: GetActivitiesUseCase,
     private val editProfileUseCase: EditProfileUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
 ) : ViewModel() {
     private val _mutableLiveDataGetProfileState =
         MutableLiveData<BasicState<UserProfile>>(BasicState.LoadingState())

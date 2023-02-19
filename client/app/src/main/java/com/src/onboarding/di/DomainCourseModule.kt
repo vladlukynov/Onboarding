@@ -3,6 +3,7 @@ package com.src.onboarding.di
 import com.src.onboarding.domain.repository.CourseRepository
 import com.src.onboarding.domain.usecase.course.GetColleaguesUseCase
 import com.src.onboarding.domain.usecase.course.GetCoursesUseCase
+import com.src.onboarding.domain.usecase.course.GetStartedCoursesByIdForUserUseCase
 import com.src.onboarding.domain.usecase.course.GetStartedCoursesForUserUseCase
 import dagger.Module
 import dagger.Provides
@@ -26,5 +27,11 @@ class DomainCourseModule {
     @Provides
     fun provideGetStartedCoursesForUserUseCase(courseRepository: CourseRepository): GetStartedCoursesForUserUseCase {
         return GetStartedCoursesForUserUseCase(courseRepository = courseRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetStartedCoursesByIdForUserUseCase(courseRepository: CourseRepository): GetStartedCoursesByIdForUserUseCase {
+        return GetStartedCoursesByIdForUserUseCase(courseRepository = courseRepository)
     }
 }

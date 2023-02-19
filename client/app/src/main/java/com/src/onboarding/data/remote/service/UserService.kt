@@ -22,6 +22,9 @@ interface UserService {
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/user/profile")
     suspend fun getProfile(): Response<UserProfileResponse>
 
+    @GET("${NetworkModule.USER_SERVICE_BASE_URL}/user/id/{userId}")
+    suspend fun getUserById(@Path("userId") id: Long): Response<UserProfileResponse>
+
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/activity/all")
     suspend fun getActivities(): Response<List<ActivityResponse>>
 
