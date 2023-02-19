@@ -18,6 +18,7 @@ import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
+import com.src.onboarding.presentation.hr.profile.HrEmployeeProfileFragment
 import com.src.onboarding.presentation.profile.edit_profile.EditProfileFragment
 import com.src.onboarding.presentation.profile.user_profile.adapter.StatisticAdapter
 import com.src.onboarding.presentation.profile.user_profile.adapter.ActivityAdapter
@@ -26,11 +27,14 @@ import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfil
 class UserProfileFragment : Fragment() {
     private lateinit var binding: FragmentUserProfileBinding
     private lateinit var viewModel: UserProfileViewModel
+    private var userId: Long? = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val args = this.arguments
+        userId = args?.getLong(HrEmployeeProfileFragment.USER_ID)
         binding = FragmentUserProfileBinding.inflate(inflater)
         viewModel = (activity as MainActivity).getUserProfileViewModel()
         return binding.root
@@ -46,9 +50,22 @@ class UserProfileFragment : Fragment() {
         viewModel.liveDataGetActivitiesState.observe(
             this.viewLifecycleOwner, this::checkGetSActivitiesState
         )
-        viewModel.getProfile()
-        viewModel.getStartedCourses()
-        viewModel.getActivities()
+        viewModel.liveDataGetStartedCourseByIdState.observe(
+            this.viewLifecycleOwner, this::checkGetStartedCourseState
+        )
+        viewModel.liveDataGetUserByIdState.observe(
+            this.viewLifecycleOwner, this::checkGetProfileState
+        )
+        if (userId == null || userId == 0L) {
+            viewModel.getProfile()
+            viewModel.getStartedCourses()
+            viewModel.getActivities()
+            binding.tvEditProfile.visibility = View.VISIBLE
+        } else {
+            viewModel.getUserById(id = userId!!)
+            viewModel.getStartedCoursesById(id = userId!!)
+            binding.tvEditProfile.visibility = View.GONE
+        }
         setAdaptersForStatisticRecyclerView()
         setAdaptersForActivitiesRecyclerView()
         setBackButtonOnClick()

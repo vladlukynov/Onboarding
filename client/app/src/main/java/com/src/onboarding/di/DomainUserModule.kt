@@ -52,6 +52,12 @@ class DomainUserModule {
 
     @Singleton
     @Provides
+    fun provideGetUserByIdUseCase(userRepository: UserRepository): GetUserByIdUseCase {
+        return GetUserByIdUseCase(userRepository = userRepository)
+    }
+
+    @Singleton
+    @Provides
     fun provideGetIdUseCase(userRepository: UserRepository): GetIdUseCase {
         return GetIdUseCase(userRepository = userRepository)
     }

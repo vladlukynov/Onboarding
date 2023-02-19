@@ -144,7 +144,7 @@ class HrEditProfileFragment : Fragment() {
             val name = binding.tvUserName.text.toString()
 
             val description =
-                binding.etAbout.text.toString().replace("\\s".toRegex(), "")
+                binding.etAbout.text.toString()
 
             if (binding.tvUserName.text.toString()
                     .isNotEmpty() && binding.etAbout.text.toString()

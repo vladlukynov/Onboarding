@@ -8,16 +8,17 @@ import com.src.onboarding.domain.model.task.Task
 import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.login.BasicState
-import com.src.onboarding.domain.usecase.course.GetStartedCoursesForUserUseCase
+import com.src.onboarding.domain.usecase.course.GetStartedCoursesByIdForUserUseCase
+
 import com.src.onboarding.domain.usecase.task.GetTasksByUserIdUseCase
 import com.src.onboarding.domain.usecase.user.GetActivitiesUseCase
-import com.src.onboarding.domain.usecase.user.GetUserProfileUseCase
+import com.src.onboarding.domain.usecase.user.GetUserByIdUseCase
 import kotlinx.coroutines.launch
-//TODO СТАТИТСИКА ПО АЙДИ
+//TODO активити
 class HrEmployeeProfileViewModel
     (
-    private val getUserProfileUseCase: GetUserProfileUseCase,
-    private val getStartedCoursesForUserUseCase: GetStartedCoursesForUserUseCase,
+    private val getUserByIdUseCase: GetUserByIdUseCase,
+    private val getStartedCoursesByIdForUserUseCase: GetStartedCoursesByIdForUserUseCase,
     private val getActivitiesUseCase: GetActivitiesUseCase,
     private val getTasksByUserIdUseCase: GetTasksByUserIdUseCase
 ) : ViewModel() {
@@ -34,18 +35,18 @@ class HrEmployeeProfileViewModel
     val liveDataGetActivitiesState get() = _mutableLiveDataGetActivitiesState
     val liveDataTasksState get() = _mutableLiveDataTasksState
 
-    fun getProfile() {
+    fun getProfile(id: Long) {
         viewModelScope.launch {
             _mutableLiveDataGetProfileState.value = BasicState.LoadingState()
-            _mutableLiveDataGetProfileState.value = getUserProfileUseCase.execute()
+            _mutableLiveDataGetProfileState.value = getUserByIdUseCase.execute(id)
         }
     }
 
-    fun getStartedCourses() {
+    fun getStartedCourses(id: Long) {
         viewModelScope.launch {
             _mutableLiveDataGetStartedCoursesForUserState.value = BasicState.LoadingState()
             _mutableLiveDataGetStartedCoursesForUserState.value =
-                getStartedCoursesForUserUseCase.execute()
+                getStartedCoursesByIdForUserUseCase.execute(id = id)
         }
     }
 

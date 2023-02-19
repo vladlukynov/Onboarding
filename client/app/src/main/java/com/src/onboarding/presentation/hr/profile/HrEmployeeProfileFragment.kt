@@ -55,8 +55,8 @@ class HrEmployeeProfileFragment : Fragment() {
         viewModel.liveDataTasksState.observe(
             this.viewLifecycleOwner, this::checkGetTasksState
         )
-        viewModel.getProfile()
-        viewModel.getStartedCourses()
+        viewModel.getProfile(userId)
+        viewModel.getStartedCourses(userId)
         viewModel.getActivities()
         viewModel.getTasks(userId)
         setAdaptersForStatisticRecyclerView()
@@ -235,6 +235,7 @@ class HrEmployeeProfileFragment : Fragment() {
         if (userProfile.description == null || userProfile.description == "") {
             binding.tvAbout.visibility = View.GONE
         } else {
+            binding.tvAbout.visibility = View.VISIBLE
             binding.tvAbout.text = getString(R.string.about_me) + " " + userProfile.description
         }
         binding.tvUserName.text = userProfile.name

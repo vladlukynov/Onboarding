@@ -24,4 +24,9 @@ class CourseRepositoryImpl(private val courseDataSource: CourseDataSource) : Cou
         withContext(Dispatchers.IO) {
             return@withContext courseDataSource.getStartedCoursesForUser()
         }
+
+    override suspend fun getStartedCoursesByIdForUser(id: Long): BasicState<List<Course>> =
+        withContext(Dispatchers.IO) {
+            return@withContext courseDataSource.getStartedCoursesByIdForUser(id = id)
+        }
 }

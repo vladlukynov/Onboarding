@@ -60,6 +60,7 @@
         android:text="Изменить"
         android:textColor="@color/main_purple"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintTop_toTopOf="@id/gl_top" />
 

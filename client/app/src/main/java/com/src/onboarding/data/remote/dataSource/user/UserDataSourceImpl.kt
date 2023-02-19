@@ -68,6 +68,17 @@ class UserDataSourceImpl(
         return BasicState.ErrorState()
     }
 
+    override suspend fun getUserById(id: Long): BasicState<UserProfile> {
+        val response = userService.getUserById(id)
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) {
+                return BasicState.SuccessState(userProfileMapper.mapFromResponseToModel(body))
+            }
+        }
+        return BasicState.ErrorState()
+    }
+
     override suspend fun getAllActivities(): BasicState<List<Activity>> {
         val response = userService.getActivities()
         if (response.isSuccessful) {

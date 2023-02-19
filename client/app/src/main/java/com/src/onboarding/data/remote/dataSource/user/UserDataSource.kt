@@ -12,6 +12,7 @@ interface UserDataSource {
     suspend fun getCountNotification(): BasicState<Long>
     suspend fun clearNotifications(): BasicState<Unit>
     suspend fun getProfile(): BasicState<UserProfile>
+    suspend fun getUserById(id:Long): BasicState<UserProfile>
     suspend fun getAllActivities(): BasicState<List<Activity>>
     suspend fun logout(): BasicState<Unit>
     suspend fun editProfile(data: String, file: File?): EditProfileState

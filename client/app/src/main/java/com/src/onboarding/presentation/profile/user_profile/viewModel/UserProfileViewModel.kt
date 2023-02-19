@@ -9,11 +9,9 @@ import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.state.user.EditProfileState
+import com.src.onboarding.domain.usecase.course.GetStartedCoursesByIdForUserUseCase
 import com.src.onboarding.domain.usecase.course.GetStartedCoursesForUserUseCase
-import com.src.onboarding.domain.usecase.user.EditProfileUseCase
-import com.src.onboarding.domain.usecase.user.GetActivitiesUseCase
-import com.src.onboarding.domain.usecase.user.GetUserProfileUseCase
-import com.src.onboarding.domain.usecase.user.LogoutUseCase
+import com.src.onboarding.domain.usecase.user.*
 import kotlinx.coroutines.launch
 
 class UserProfileViewModel(
@@ -21,7 +19,9 @@ class UserProfileViewModel(
     private val getStartedCoursesForUserUseCase: GetStartedCoursesForUserUseCase,
     private val getActivitiesUseCase: GetActivitiesUseCase,
     private val editProfileUseCase: EditProfileUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
+    private val getStartedCoursesByIdForUserUseCase: GetStartedCoursesByIdForUserUseCase,
+    private val getUserByIdUseCase: GetUserByIdUseCase
 ) : ViewModel() {
     private val _mutableLiveDataGetProfileState =
         MutableLiveData<BasicState<UserProfile>>(BasicState.LoadingState())
@@ -29,6 +29,10 @@ class UserProfileViewModel(
         MutableLiveData<EditProfileState>(EditProfileState.DefaultState)
     private val _mutableLiveDataGetStartedCoursesForUserState =
         MutableLiveData<BasicState<List<Course>>>(BasicState.LoadingState())
+    private val _mutableLiveDataGetStartedByIdCoursesForUserState =
+        MutableLiveData<BasicState<List<Course>>>(BasicState.LoadingState())
+    private val _mutableLiveDataGetUserByIdState =
+        MutableLiveData<BasicState<UserProfile>>(BasicState.LoadingState())
     private val _mutableLiveDataGetActivitiesState =
         MutableLiveData<BasicState<List<Activity>>>(BasicState.LoadingState())
     private val _mutableLiveDataLogoutState =
@@ -40,7 +44,9 @@ class UserProfileViewModel(
     private val _mutableLiveDataPhotoString = MutableLiveData<String?>(null)
 
     val liveDataGetProfileState get() = _mutableLiveDataGetProfileState
+    val liveDataGetUserByIdState get() = _mutableLiveDataGetUserByIdState
     val liveDataGetStartedCourseState get() = _mutableLiveDataGetStartedCoursesForUserState
+    val liveDataGetStartedCourseByIdState get() = _mutableLiveDataGetStartedByIdCoursesForUserState
     val liveDataGetActivitiesState get() = _mutableLiveDataGetActivitiesState
     val liveDataEditProfileState get() = _mutableLiveDataEditProfileState
     val liveDataLogoutState get() = _mutableLiveDataLogoutState
@@ -58,11 +64,33 @@ class UserProfileViewModel(
         }
     }
 
+    fun getUserById(id: Long) {
+        viewModelScope.launch {
+            _mutableLiveDataGetUserByIdState.value = BasicState.LoadingState()
+            val state = getUserByIdUseCase.execute(id = id)
+            _mutableLiveDataGetUserByIdState.value = state
+            if (state is BasicState.SuccessState) {
+                val profile = state.data
+                _mutableLiveDataName.value = profile.name
+                _mutableLiveDataDescription.value = profile.description
+                _mutableLiveDataPhotoString.value = profile.image
+            }
+        }
+    }
+
     fun getStartedCourses() {
         viewModelScope.launch {
             _mutableLiveDataGetStartedCoursesForUserState.value = BasicState.LoadingState()
             _mutableLiveDataGetStartedCoursesForUserState.value =
                 getStartedCoursesForUserUseCase.execute()
+        }
+    }
+
+    fun getStartedCoursesById(id: Long) {
+        viewModelScope.launch {
+            _mutableLiveDataGetStartedByIdCoursesForUserState.value = BasicState.LoadingState()
+            _mutableLiveDataGetStartedByIdCoursesForUserState.value =
+                getStartedCoursesByIdForUserUseCase.execute(id = id)
         }
     }
 
