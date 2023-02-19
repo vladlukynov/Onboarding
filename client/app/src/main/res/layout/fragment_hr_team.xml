@@ -81,6 +81,7 @@
         android:id="@+id/tv_notification_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:layout_marginEnd="-4dp"
         android:layout_marginBottom="-4dp"
         android:background="@drawable/red_circle_background"
