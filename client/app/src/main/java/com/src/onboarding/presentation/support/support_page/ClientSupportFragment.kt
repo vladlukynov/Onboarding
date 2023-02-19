@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.src.onboarding.databinding.FragmentClientSupportBinding
 import com.src.onboarding.domain.model.user.Question
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.HrActivity
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.support.new_appeal.NewAppealFragment
+import com.src.onboarding.presentation.support.support_page.adapter.HrAppealAdapter
 import com.src.onboarding.presentation.support.support_page.viewModel.ClientSupportViewModel
 
 class ClientSupportFragment : Fragment() {
@@ -32,11 +34,12 @@ class ClientSupportFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setOnAddAppealButtonClick()
+        setRecyclerAdapter()
         viewModel.liveDataGetQuestionState.observe(
             this.viewLifecycleOwner, this::checkQuestionsState
         )
-            //эта штука вызывает запрос. Туда нужно передать isCompleted (вызывать этот метод тут)
-      //  viewModel.getQuestions()
+        //эта штука вызывает запрос. Туда нужно передать isCompleted (вызывать этот метод тут)
+        //  viewModel.getQuestions()
     }
 
     private fun setOnAddAppealButtonClick() {
@@ -45,10 +48,15 @@ class ClientSupportFragment : Fragment() {
         }
     }
 
+    private fun setRecyclerAdapter() {
+        binding.rvAppeals.adapter = HrAppealAdapter()
+        binding.rvAppeals.layoutManager = LinearLayoutManager(requireContext())
+    }
+
     private fun checkQuestionsState(state: BasicState<List<Question>>) {
         when (state) {
             is BasicState.SuccessState -> {
-          //      state.data - получили вопросики, дальше их куда-то передем
+                //      state.data - получили вопросики, дальше их куда-то передем
             }
             is BasicState.LoadingState -> {}
             is BasicState.ErrorState -> {
