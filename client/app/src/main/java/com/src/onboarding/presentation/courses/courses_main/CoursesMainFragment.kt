@@ -13,6 +13,7 @@ import com.src.onboarding.databinding.FragmentCoursesMainBinding
 import com.src.onboarding.domain.model.course.colleague.Colleague
 import com.src.onboarding.domain.model.course.course.Course
 import com.src.onboarding.domain.model.course.course.MainCourse
+import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.course.ColleagueState
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
@@ -50,9 +51,13 @@ class CoursesMainFragment : Fragment() {
         viewModel.liveDataGetCountNotificationsState.observe(
             this.viewLifecycleOwner, this::checkGetCountNotificationState
         )
+        viewModel.liveDataGetProfileState.observe(
+            this.viewLifecycleOwner, this::checkGetProfileState
+        )
         viewModel.getColleagues()
         viewModel.getCourses()
         viewModel.getCountNotifications()
+        viewModel.getProfile()
         setAdapters()
         setOnNotificationClickListener()
         setOnAllCoursesButtonClickListener()
@@ -201,6 +206,17 @@ class CoursesMainFragment : Fragment() {
 
             }
         }
+    }
 
+    private fun checkGetProfileState(state: BasicState<UserProfile>) {
+        when (state) {
+            is BasicState.SuccessState -> {
+                binding.tvUserName.text = state.data.name
+            }
+            is BasicState.LoadingState -> {}
+            is BasicState.ErrorState -> {
+
+            }
+        }
     }
 }
