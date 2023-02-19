@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.src.onboarding.databinding.FragmentNewAppealBinding
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.HrActivity
@@ -33,16 +32,14 @@ class NewAppealFragment : Fragment() {
         )
 
         setOnSendMessageButtonClickListener()
-        //  viewModel.addQuestion() - вот с помощью этой штуки добавяем вопрос
-        //viewModel.addAnswer() - а это ответ
-        //туда нужно передать параметры, посмотрите во вью модели
     }
 
     private fun checkQuestionState(state: BasicState<Unit>) {
         when (state) {
-            is BasicState.SuccessState -> {//ура вопрос успешно добавлен  (вот тут можете перхеодить хоть куда)
-                binding.ivSendMessageButton.visibility = View.GONE
+            is BasicState.SuccessState -> {
+                binding.cvSendMessageButton.visibility = View.GONE
                 binding.tilMessage.visibility = View.GONE
+                binding.clClientMessage.visibility = View.VISIBLE
             }
             is BasicState.ErrorState -> {
 
@@ -69,6 +66,7 @@ class NewAppealFragment : Fragment() {
     private fun setOnSendMessageButtonClickListener() {
         binding.ivSendMessageButton.setOnClickListener {
             val question = binding.etMessage.text
+            binding.tvAppealClientMessage.text = binding.etMessage.text
             viewModel.addQuestion(question.toString())
         }
     }
