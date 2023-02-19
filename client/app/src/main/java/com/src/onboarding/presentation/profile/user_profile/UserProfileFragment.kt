@@ -169,7 +169,7 @@ class UserProfileFragment : Fragment() {
         if (userProfile.description == null || userProfile.description == "") {
             binding.tvAbout.visibility = View.GONE
         } else {
-            binding.tvAbout.visibility = View.INVISIBLE
+            binding.tvAbout.visibility = View.VISIBLE
             binding.tvAbout.text = getString(R.string.about_me) + " " + userProfile.description
         }
         binding.tvUserName.text = userProfile.name
