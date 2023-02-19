@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.profile.user_profile.viewModel
+package com.src.onboarding.presentation.hr.your_profile.profile.viewModel
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +15,7 @@ import com.src.onboarding.domain.usecase.user.GetActivitiesUseCase
 import com.src.onboarding.domain.usecase.user.GetUserProfileUseCase
 import kotlinx.coroutines.launch
 
-class UserProfileViewModel(
+class HrUserProfileViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getStartedCoursesForUserUseCase: GetStartedCoursesForUserUseCase,
     private val getActivitiesUseCase: GetActivitiesUseCase,

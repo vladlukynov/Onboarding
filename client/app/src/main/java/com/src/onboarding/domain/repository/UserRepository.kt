@@ -4,6 +4,8 @@ import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.model.user.Notification
 import com.src.onboarding.domain.state.login.BasicState
+import com.src.onboarding.domain.state.user.EditProfileState
+import java.io.File
 
 interface UserRepository {
     suspend fun getNotifications(): BasicState<List<Notification>>
@@ -12,4 +14,5 @@ interface UserRepository {
     suspend fun getProfile(): BasicState<UserProfile>
     suspend fun getActivities(): BasicState<List<Activity>>
     suspend fun logout(): BasicState<Unit>
+    suspend fun editProfile(data: String, file: File?): EditProfileState
 }

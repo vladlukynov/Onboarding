@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.profile.user_profile.viewModel
+package com.src.onboarding.presentation.hr.your_profile.profile.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +9,7 @@ import com.src.onboarding.domain.usecase.user.GetUserProfileUseCase
 import com.src.onboarding.presentation.profile.edit_profile.viewModel.UserProfileViewModel
 import javax.inject.Inject
 
-class UserProfileViewModelFactory @Inject constructor(
+class HrUserProfileViewModelFactory @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getStartedCoursesForUserUseCase: GetStartedCoursesForUserUseCase,
     private val getActivitiesUseCase: GetActivitiesUseCase,

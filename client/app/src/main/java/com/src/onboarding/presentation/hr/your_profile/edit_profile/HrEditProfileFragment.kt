@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.profile.edit_profile
+package com.src.onboarding.presentation.hr.your_profile.edit_profile
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -15,15 +15,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.src.onboarding.databinding.FragmentEditProfileBinding
 import com.src.onboarding.domain.state.user.EditProfileState
-import com.src.onboarding.presentation.MainActivity
-import com.src.onboarding.presentation.profile.edit_profile.viewModel.UserProfileViewModel
+import com.src.onboarding.presentation.HrActivity
+import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModel
 import com.src.onboarding.presentation.utils.PhotoCompression
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 
-class EditProfileFragment : Fragment() {
+class HrEditProfileFragment : Fragment() {
     private lateinit var binding: FragmentEditProfileBinding
-    private lateinit var viewModel: UserProfileViewModel
+    private lateinit var viewModel: HrUserProfileViewModel
     private var photo: Uri? = null
     private var isClickNext = false
 
@@ -34,7 +34,7 @@ class EditProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEditProfileBinding.inflate(inflater)
-        viewModel = (activity as MainActivity).getUserProfileViewModel()
+        viewModel = (activity as HrActivity).getUserProfileViewModel()
         return binding.root
     }
 
@@ -107,7 +107,7 @@ class EditProfileFragment : Fragment() {
                     }
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Log.e(Companion.TAG, "Crop error: ${result.error}")
+                    Log.e(TAG, "Crop error: ${result.error}")
                 }
             }
         }
