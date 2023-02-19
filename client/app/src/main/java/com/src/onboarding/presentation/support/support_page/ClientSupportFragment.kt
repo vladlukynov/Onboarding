@@ -26,7 +26,11 @@ class ClientSupportFragment : Fragment() {
         binding = FragmentClientSupportBinding.inflate(inflater)
         if (activity is HrActivity)
             binding.cvAddAppeal.visibility = View.GONE
-        viewModel = (activity as HrActivity).getClientSupportViewModel()
+        if(activity is MainActivity) {
+            viewModel = (activity as MainActivity).getClientSupportViewModel()
+        } else {
+            viewModel = (activity as HrActivity).getClientSupportViewModel()
+        }
         return binding.root
     }
 
