@@ -22,12 +22,15 @@ class ClientSupportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentClientSupportBinding.inflate(inflater)
+        if (activity is HrActivity)
+            binding.cvAddAppeal.visibility = View.GONE
         viewModel = (activity as HrActivity).getClientSupportViewModel()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setOnAddAppealButtonClick()
         viewModel.liveDataGetQuestionState.observe(
             this.viewLifecycleOwner, this::checkQuestionsState
