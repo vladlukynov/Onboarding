@@ -41,8 +41,10 @@ public class QuestionDTO {
         this.senderImg = "/user/image?id=" + question.getSender().getId();
         this.senderMessage = question.getSenderMessage();
         this.dateSenderMessage = question.getDateSenderMessage();
-        this.recipient = question.getRecipient().getName();
-        this.recipientImg = "/user/image?id=" + question.getRecipient().getId();;
+        if(question.getRecipient() != null) {
+            this.recipient = question.getRecipient().getName();
+            this.recipientImg = "/user/image?id=" + question.getRecipient().getId();
+        }
         this.recipientMessage = question.getRecipientMessage();
         this.dateRecipientMessage = question.getDateRecipientMessage();
     }
