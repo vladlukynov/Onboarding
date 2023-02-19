@@ -2,12 +2,14 @@ package com.src.onboarding.data.remote.dataSource.user
 
 import com.src.onboarding.data.remote.model.user.activity.ActivityMapper
 import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
+import com.src.onboarding.data.remote.model.user.question.QuestionMapper
 import com.src.onboarding.data.remote.model.user.user_profile.UserProfileMapper
 import com.src.onboarding.data.remote.service.UserService
 import com.src.onboarding.data.remote.session.SessionStorage
 import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.model.user.Notification
+import com.src.onboarding.domain.model.user.Question
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.state.user.EditProfileState
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -21,7 +23,8 @@ class UserDataSourceImpl(
     private val notificationMapper: NotificationMapper,
     private val userProfileMapper: UserProfileMapper,
     private val activityMapper: ActivityMapper,
-    private val sessionStorage: SessionStorage
+    private val sessionStorage: SessionStorage,
+    private val questionMapper: QuestionMapper
 ) : UserDataSource {
     override suspend fun getNotifications(): BasicState<List<Notification>> {
         val response = userService.getNotifications()
@@ -117,5 +120,36 @@ class UserDataSourceImpl(
             }
         }
         return EditProfileState.ErrorState
+    }
+
+    override suspend fun addNewQuestion(text: String): BasicState<Unit> {
+        val response = userService.addNewQuestion(text = text)
+        return if (response.isSuccessful) {
+            sessionStorage.clearSession()
+            BasicState.SuccessState(Unit)
+        } else {
+            BasicState.ErrorState()
+        }
+    }
+
+    override suspend fun addAnswer(questionId: Long, text: String): BasicState<Unit> {
+        val response = userService.addAnswer(questionId = questionId, text = text)
+        return if (response.isSuccessful) {
+            sessionStorage.clearSession()
+            BasicState.SuccessState(Unit)
+        } else {
+            BasicState.ErrorState()
+        }
+    }
+
+    override suspend fun getQuestions(isCompleted: Boolean): BasicState<List<Question>> {
+        val response = userService.getQuestions(isCompleted = isCompleted)
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) {
+                return BasicState.SuccessState(body.map { questionMapper.mapFromResponseToModel(it) })
+            }
+        }
+        return BasicState.ErrorState()
     }
 }

@@ -22,6 +22,7 @@ import com.src.onboarding.data.remote.model.login.login.LoginMapper
 import com.src.onboarding.data.remote.model.task.TaskMapper
 import com.src.onboarding.data.remote.model.user.activity.ActivityMapper
 import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
+import com.src.onboarding.data.remote.model.user.question.QuestionMapper
 import com.src.onboarding.data.remote.model.user.user_profile.UserProfileMapper
 import com.src.onboarding.data.remote.service.*
 import com.src.onboarding.data.remote.session.SessionController
@@ -146,14 +147,16 @@ class NetworkModule {
         notificationMapper: NotificationMapper,
         userProfileMapper: UserProfileMapper,
         activityMapper: ActivityMapper,
-        sessionStorage: SessionStorage
+        sessionStorage: SessionStorage,
+        questionMapper: QuestionMapper
     ): UserDataSource {
         return UserDataSourceImpl(
             userService = userService,
             notificationMapper = notificationMapper,
             userProfileMapper = userProfileMapper,
             activityMapper = activityMapper,
-            sessionStorage = sessionStorage
+            sessionStorage = sessionStorage,
+            questionMapper = questionMapper
         )
     }
 
@@ -189,7 +192,7 @@ class NetworkModule {
             mainCourseMapper = mainCourseMapper,
             sessionController = sessionController,
             courseMapper = courseMapper,
-            courseBlockMapper=courseBlockMapper
+            courseBlockMapper = courseBlockMapper
         )
     }
 

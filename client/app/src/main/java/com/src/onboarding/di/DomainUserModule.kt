@@ -61,4 +61,22 @@ class DomainUserModule {
     fun provideGetIdUseCase(userRepository: UserRepository): GetIdUseCase {
         return GetIdUseCase(userRepository = userRepository)
     }
+
+    @Singleton
+    @Provides
+    fun provideAddNewAnswerUseCase(userRepository: UserRepository): AddNewAnswerUseCase {
+        return AddNewAnswerUseCase(userRepository = userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAddNewQuestionUseCase(userRepository: UserRepository): AddNewQuestionUseCase {
+        return AddNewQuestionUseCase(userRepository = userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetQuestionsUseCase(userRepository: UserRepository): GetQuestionsUseCase {
+        return GetQuestionsUseCase(userRepository = userRepository)
+    }
 }

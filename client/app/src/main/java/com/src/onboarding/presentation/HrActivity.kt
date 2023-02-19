@@ -21,6 +21,10 @@ import com.src.onboarding.presentation.hr.your_profile.profile.HrUserProfileFrag
 import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModel
 import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModelFactory
 import com.src.onboarding.presentation.support.appeal_page.AppealPageFragment
+import com.src.onboarding.presentation.support.new_appeal.viewModel.NewAppealViewModel
+import com.src.onboarding.presentation.support.new_appeal.viewModel.NewAppealViewModelFactory
+import com.src.onboarding.presentation.support.support_page.viewModel.ClientSupportViewModel
+import com.src.onboarding.presentation.support.support_page.viewModel.ClientSupportViewModelFactory
 import javax.inject.Inject
 
 class HrActivity : AppCompatActivity() {
@@ -39,6 +43,12 @@ class HrActivity : AppCompatActivity() {
 
     @Inject
     lateinit var addTaskViewModelFactory: AddTaskViewModelFactory
+
+    @Inject
+    lateinit var clientSupportViewModelFactory: ClientSupportViewModelFactory
+
+    @Inject
+    lateinit var newAppealViewModelFactory: NewAppealViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,4 +106,10 @@ class HrActivity : AppCompatActivity() {
 
     fun getAddViewModel(): AddTaskViewModel =
         ViewModelProvider(this, addTaskViewModelFactory)[AddTaskViewModel::class.java]
+
+    fun getClientSupportViewModel(): ClientSupportViewModel =
+        ViewModelProvider(this, clientSupportViewModelFactory)[ClientSupportViewModel::class.java]
+
+    fun getNewAppealViewModel(): NewAppealViewModel =
+        ViewModelProvider(this, newAppealViewModelFactory)[NewAppealViewModel::class.java]
 }

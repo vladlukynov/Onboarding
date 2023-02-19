@@ -5,6 +5,7 @@ import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.model.user.Notification
+import com.src.onboarding.domain.model.user.Question
 import com.src.onboarding.domain.repository.UserRepository
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.state.user.EditProfileState
@@ -55,4 +56,19 @@ class UserRepositoryImpl(
     override suspend fun getId(): Long = withContext(Dispatchers.IO) {
         return@withContext userLocalUserRepository.getId()
     }
+
+    override suspend fun addNewQuestion(text: String): BasicState<Unit> =
+        withContext(Dispatchers.IO) {
+            return@withContext userDataSource.addNewQuestion(text)
+        }
+
+    override suspend fun addAnswer(questionId: Long, text: String): BasicState<Unit> =
+        withContext(Dispatchers.IO) {
+            return@withContext userDataSource.addAnswer(questionId, text)
+        }
+
+    override suspend fun getQuestions(isCompleted: Boolean): BasicState<List<Question>> =
+        withContext(Dispatchers.IO) {
+            return@withContext userDataSource.getQuestions(isCompleted)
+        }
 }

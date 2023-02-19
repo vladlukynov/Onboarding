@@ -12,6 +12,7 @@ import com.src.onboarding.data.remote.model.login.login.LoginMapper
 import com.src.onboarding.data.remote.model.task.TaskMapper
 import com.src.onboarding.data.remote.model.user.activity.ActivityMapper
 import com.src.onboarding.data.remote.model.user.notification.NotificationMapper
+import com.src.onboarding.data.remote.model.user.question.QuestionMapper
 import com.src.onboarding.data.remote.model.user.user_profile.UserProfileMapper
 import dagger.Module
 import dagger.Provides
@@ -95,5 +96,11 @@ class MapperModule {
     @Provides
     fun provideCourseBlockMapper(blockMapper: BlockMapper): CourseBlockMapper {
         return CourseBlockMapper(blockMapper = blockMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideQuestionMapper(): QuestionMapper {
+        return QuestionMapper()
     }
 }

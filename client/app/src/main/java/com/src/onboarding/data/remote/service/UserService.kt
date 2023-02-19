@@ -2,6 +2,7 @@ package com.src.onboarding.data.remote.service
 
 import com.src.onboarding.data.remote.model.user.activity.ActivityResponse
 import com.src.onboarding.data.remote.model.user.notification.NotificationResponse
+import com.src.onboarding.data.remote.model.user.question.QuestionResponse
 import com.src.onboarding.data.remote.model.user.user_profile.UserProfileResponse
 import com.src.onboarding.di.NetworkModule
 import okhttp3.MultipartBody
@@ -39,4 +40,21 @@ interface UserService {
         @Part("editUserBeanString") data: RequestBody,
         @Part file: MultipartBody.Part?
     ): Response<Unit>
+
+    @GET("${NetworkModule.USER_SERVICE_BASE_URL}/question/add-new-question")
+    suspend fun addNewQuestion(
+        @Query("text") text: String
+    ): Response<Unit>
+
+    @GET("${NetworkModule.USER_SERVICE_BASE_URL}/question/add-answer")
+    suspend fun addAnswer(
+        @Query("idQuestion") questionId: Long,
+        @Query("text") text: String
+    ): Response<Unit>
+
+    @GET("${NetworkModule.USER_SERVICE_BASE_URL}/question/get-questions")
+    suspend fun getQuestions(
+        @Query("isCompleted") isCompleted: Boolean,
+    ): Response<List<QuestionResponse>>
+
 }
