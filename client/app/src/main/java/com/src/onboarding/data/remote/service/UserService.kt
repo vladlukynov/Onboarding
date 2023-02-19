@@ -4,10 +4,10 @@ import com.src.onboarding.data.remote.model.user.activity.ActivityResponse
 import com.src.onboarding.data.remote.model.user.notification.NotificationResponse
 import com.src.onboarding.data.remote.model.user.user_profile.UserProfileResponse
 import com.src.onboarding.di.NetworkModule
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface UserService {
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/notification/get-notifications")
@@ -28,5 +28,12 @@ interface UserService {
     @GET("${NetworkModule.USER_SERVICE_BASE_URL}/user/logout")
     suspend fun logout(
         @Query("refreshToken", encoded = true) refreshToken: String
+    ): Response<Unit>
+
+    @Multipart
+    @POST("${NetworkModule.USER_SERVICE_BASE_URL}/user/edit-profile")
+    suspend fun editProfile(
+        @Part("editUserBeanString") data: RequestBody,
+        @Part file: MultipartBody.Part?
     ): Response<Unit>
 }

@@ -9,6 +9,12 @@ import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.model.user.Notification
 import com.src.onboarding.domain.state.login.BasicState
+import com.src.onboarding.domain.state.user.EditProfileState
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 class UserDataSourceImpl(
     private val userService: UserService,
@@ -82,5 +88,23 @@ class UserDataSourceImpl(
         } else {
             BasicState.ErrorState()
         }
+    }
+
+    override suspend fun editProfile(data: String, file: File?): EditProfileState {
+        val dataMultipart = data.toRequestBody("text/plain".toMediaTypeOrNull())
+        var part: MultipartBody.Part? = null
+        if (file != null) {
+            val fileMultipart = file.asRequestBody("image/*".toMediaTypeOrNull())
+            part = MultipartBody.Part.createFormData("file", file.name, fileMultipart)
+        }
+        val response = userService.editProfile(dataMultipart, part)
+        if (response.isSuccessful) {
+            return EditProfileState.SuccessState
+        } else {
+            if (response.code() == 409) {
+                return EditProfileState.LoginAlreadyExistsState
+            }
+        }
+        return EditProfileState.ErrorState
     }
 }

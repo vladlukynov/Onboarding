@@ -43,4 +43,10 @@ class DomainUserModule {
     fun provideLogoutUseCase(userRepository: UserRepository): LogoutUseCase {
         return LogoutUseCase(userRepository = userRepository)
     }
+
+    @Singleton
+    @Provides
+    fun provideEditProfileUseCase(userRepository: UserRepository): EditProfileUseCase {
+        return EditProfileUseCase(userRepository = userRepository)
+    }
 }

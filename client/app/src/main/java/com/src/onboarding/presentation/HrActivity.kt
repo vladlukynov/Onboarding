@@ -13,6 +13,8 @@ import com.src.onboarding.presentation.hr.profile.viewModel.HrEmployeeProfileVie
 import com.src.onboarding.presentation.hr.team.HrTeamFragment
 import com.src.onboarding.presentation.hr.team.viewModel.HrTeamViewModel
 import com.src.onboarding.presentation.hr.team.viewModel.HrTeamViewModelFactory
+import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModel
+import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModelFactory
 import javax.inject.Inject
 
 class HrActivity : AppCompatActivity() {
@@ -21,8 +23,12 @@ class HrActivity : AppCompatActivity() {
 
     @Inject
     lateinit var hrEmployeeProfileViewModelFactory: HrEmployeeProfileViewModelFactory
+
     @Inject
     lateinit var addEmployeeViewModelFactory: AddEmployeeViewModelFactory
+
+    @Inject
+    lateinit var userProfileViewModelFactory: HrUserProfileViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,10 @@ class HrActivity : AppCompatActivity() {
             this,
             hrEmployeeProfileViewModelFactory
         )[HrEmployeeProfileViewModel::class.java]
+
     fun getAddEmployeeViewModel(): AddEmployeeViewModel =
         ViewModelProvider(this, addEmployeeViewModelFactory)[AddEmployeeViewModel::class.java]
+
+    fun getUserProfileViewModel(): HrUserProfileViewModel =
+        ViewModelProvider(this, userProfileViewModelFactory)[HrUserProfileViewModel::class.java]
 }

@@ -11,8 +11,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.src.onboarding.R
 import com.src.onboarding.app.App
 import com.src.onboarding.databinding.ActivityMainBinding
-import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
-import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModelFactory
 import com.src.onboarding.presentation.courses.courses_main.CoursesMainFragment
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModelFactory
@@ -22,7 +20,7 @@ import com.src.onboarding.presentation.courses.tasks.TasksFragment
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModel
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFactory
 import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
-import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
+import com.src.onboarding.presentation.profile.edit_profile.viewModel.UserProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModelFactory
 
 import javax.inject.Inject

@@ -6,8 +6,10 @@ import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.model.user.Notification
 import com.src.onboarding.domain.repository.UserRepository
 import com.src.onboarding.domain.state.login.BasicState
+import com.src.onboarding.domain.state.user.EditProfileState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.File
 
 class UserRepositoryImpl(private val userDataSource: UserDataSource) : UserRepository {
     override suspend fun getNotifications(): BasicState<List<Notification>> =
@@ -34,4 +36,9 @@ class UserRepositoryImpl(private val userDataSource: UserDataSource) : UserRepos
     override suspend fun logout(): BasicState<Unit> = withContext(Dispatchers.IO) {
         return@withContext userDataSource.logout()
     }
+
+    override suspend fun editProfile(data: String, file: File?): EditProfileState =
+        withContext(Dispatchers.IO) {
+            return@withContext userDataSource.editProfile(data, file)
+        }
 }
