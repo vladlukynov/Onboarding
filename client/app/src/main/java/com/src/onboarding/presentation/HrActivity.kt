@@ -8,6 +8,8 @@ import com.src.onboarding.R
 import com.src.onboarding.app.App
 import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
 import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModelFactory
+import com.src.onboarding.presentation.hr.add_task.viewModel.AddTaskViewModel
+import com.src.onboarding.presentation.hr.add_task.viewModel.AddTaskViewModelFactory
 import com.src.onboarding.presentation.hr.profile.viewModel.HrEmployeeProfileViewModel
 import com.src.onboarding.presentation.hr.profile.viewModel.HrEmployeeProfileViewModelFactory
 import com.src.onboarding.presentation.hr.team.HrTeamFragment
@@ -29,6 +31,9 @@ class HrActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userProfileViewModelFactory: HrUserProfileViewModelFactory
+
+    @Inject
+    lateinit var addTaskViewModelFactory: AddTaskViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,4 +61,7 @@ class HrActivity : AppCompatActivity() {
 
     fun getUserProfileViewModel(): HrUserProfileViewModel =
         ViewModelProvider(this, userProfileViewModelFactory)[HrUserProfileViewModel::class.java]
+
+    fun getAddViewModel(): AddTaskViewModel =
+        ViewModelProvider(this, addTaskViewModelFactory)[AddTaskViewModel::class.java]
 }

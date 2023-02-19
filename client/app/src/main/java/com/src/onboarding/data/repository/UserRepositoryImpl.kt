@@ -1,5 +1,6 @@
 package com.src.onboarding.data.repository
 
+import com.src.onboarding.data.local.repository.LocalUserRepository
 import com.src.onboarding.data.remote.dataSource.user.UserDataSource
 import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
@@ -11,7 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 
-class UserRepositoryImpl(private val userDataSource: UserDataSource) : UserRepository {
+class UserRepositoryImpl(
+    private val userDataSource: UserDataSource,
+    private val userLocalUserRepository: LocalUserRepository
+) : UserRepository {
     override suspend fun getNotifications(): BasicState<List<Notification>> =
         withContext(Dispatchers.IO) {
             return@withContext userDataSource.getNotifications()
@@ -41,4 +45,8 @@ class UserRepositoryImpl(private val userDataSource: UserDataSource) : UserRepos
         withContext(Dispatchers.IO) {
             return@withContext userDataSource.editProfile(data, file)
         }
+
+    override suspend fun getId(): Long = withContext(Dispatchers.IO) {
+        return@withContext userLocalUserRepository.getId()
+    }
 }

@@ -14,8 +14,14 @@ import dagger.Provides
 @Module
 class DataModule {
     @Provides
-    fun provideUserRepository(userDataSource: UserDataSource): UserRepository {
-        return UserRepositoryImpl(userDataSource = userDataSource)
+    fun provideUserRepository(
+        userDataSource: UserDataSource,
+        localUserRepository: LocalUserRepository
+    ): UserRepository {
+        return UserRepositoryImpl(
+            userDataSource = userDataSource,
+            userLocalUserRepository = localUserRepository
+        )
     }
 
     @Provides

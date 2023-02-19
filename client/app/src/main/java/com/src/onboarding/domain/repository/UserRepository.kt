@@ -15,4 +15,5 @@ interface UserRepository {
     suspend fun getActivities(): BasicState<List<Activity>>
     suspend fun logout(): BasicState<Unit>
     suspend fun editProfile(data: String, file: File?): EditProfileState
+    suspend fun getId(): Long
 }

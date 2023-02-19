@@ -72,7 +72,7 @@ class HrEmployeeProfileFragment : Fragment() {
             binding.rvActivity.visibility = View.INVISIBLE
             binding.rvStatistics.visibility = View.INVISIBLE
             binding.rvTasks.visibility = View.INVISIBLE
-            binding.cvAddTask.visibility=View.INVISIBLE
+            binding.cvAddTask.visibility = View.INVISIBLE
 
             binding.tvActivity.setTextColor(
                 ContextCompat.getColor(
@@ -104,7 +104,7 @@ class HrEmployeeProfileFragment : Fragment() {
             binding.rvActivity.visibility = View.VISIBLE
             binding.rvStatistics.visibility = View.INVISIBLE
             binding.rvTasks.visibility = View.INVISIBLE
-            binding.cvAddTask.visibility=View.INVISIBLE
+            binding.cvAddTask.visibility = View.INVISIBLE
 
             binding.tvActivity.setTextColor(
                 ContextCompat.getColor(
@@ -136,7 +136,7 @@ class HrEmployeeProfileFragment : Fragment() {
             binding.rvActivity.visibility = View.INVISIBLE
             binding.rvStatistics.visibility = View.VISIBLE
             binding.rvTasks.visibility = View.INVISIBLE
-            binding.cvAddTask.visibility=View.INVISIBLE
+            binding.cvAddTask.visibility = View.INVISIBLE
 
             binding.tvActivity.setTextColor(
                 ContextCompat.getColor(
@@ -167,7 +167,7 @@ class HrEmployeeProfileFragment : Fragment() {
             binding.rvActivity.visibility = View.INVISIBLE
             binding.rvStatistics.visibility = View.INVISIBLE
             binding.rvTasks.visibility = View.VISIBLE
-            binding.cvAddTask.visibility=View.VISIBLE
+            binding.cvAddTask.visibility = View.VISIBLE
 
             binding.tvActivity.setTextColor(
                 ContextCompat.getColor(
@@ -195,7 +195,11 @@ class HrEmployeeProfileFragment : Fragment() {
             )
         }
         binding.cvAddTask.setOnClickListener {
-            (activity as HrActivity).replaceFragment(AddTaskFragment())
+            val bundle = Bundle()
+            bundle.putLong(AddTaskFragment.USER_ID, userId)
+            val fragment = AddTaskFragment()
+            fragment.arguments = bundle
+            (activity as HrActivity).replaceFragment(fragment)
         }
     }
 
@@ -310,7 +314,6 @@ class HrEmployeeProfileFragment : Fragment() {
     private fun checkGetTasksState(state: BasicState<List<Task>>) {
         when (state) {
             is BasicState.SuccessState -> {
-                Log.d("Checktasks","success ${state.data.size}")
                 setDataDorTasks(state.data)
             }
             is BasicState.LoadingState -> {}

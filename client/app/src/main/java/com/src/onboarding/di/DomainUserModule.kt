@@ -49,4 +49,10 @@ class DomainUserModule {
     fun provideEditProfileUseCase(userRepository: UserRepository): EditProfileUseCase {
         return EditProfileUseCase(userRepository = userRepository)
     }
+
+    @Singleton
+    @Provides
+    fun provideGetIdUseCase(userRepository: UserRepository): GetIdUseCase {
+        return GetIdUseCase(userRepository = userRepository)
+    }
 }

@@ -11,4 +11,8 @@ class LocalUserRepositoryImpl(private val sessionStorage: SessionStorage) : Loca
     override suspend fun getPostId():Long? {
         return sessionStorage.getPostId()
     }
+
+    override suspend fun getId(): Long {
+        return sessionStorage.getId().toLong()
+    }
 }
