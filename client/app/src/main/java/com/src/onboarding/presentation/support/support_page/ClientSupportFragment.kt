@@ -38,8 +38,8 @@ class ClientSupportFragment : Fragment() {
         viewModel.liveDataGetQuestionState.observe(
             this.viewLifecycleOwner, this::checkQuestionsState
         )
-        //эта штука вызывает запрос. Туда нужно передать isCompleted (вызывать этот метод тут)
-        //  viewModel.getQuestions()
+
+        viewModel.getQuestions(false)
     }
 
     private fun setOnAddAppealButtonClick() {
@@ -53,10 +53,15 @@ class ClientSupportFragment : Fragment() {
         binding.rvAppeals.layoutManager = LinearLayoutManager(requireContext())
     }
 
+    private fun setDataForRecycler(list: List<Question>) {
+        val adapter = binding.rvAppeals.adapter as HrAppealAdapter
+        adapter.submitList(list)
+    }
+
     private fun checkQuestionsState(state: BasicState<List<Question>>) {
         when (state) {
             is BasicState.SuccessState -> {
-                //      state.data - получили вопросики, дальше их куда-то передем
+                setDataForRecycler(state.data)
             }
             is BasicState.LoadingState -> {}
             is BasicState.ErrorState -> {
