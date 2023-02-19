@@ -5,17 +5,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.src.onboarding.domain.model.course.colleague.Colleague
 import com.src.onboarding.domain.model.course.course.MainCourse
+import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.course.ColleagueState
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.usecase.course.GetColleaguesUseCase
 import com.src.onboarding.domain.usecase.course.GetCoursesUseCase
+import com.src.onboarding.domain.usecase.user.EditProfileUseCase
 import com.src.onboarding.domain.usecase.user.GetCountNotificationUseCase
+import com.src.onboarding.domain.usecase.user.GetUserProfileUseCase
 import kotlinx.coroutines.launch
 
 class CourseMainViewModel(
     private val getColleaguesUseCase: GetColleaguesUseCase,
     private val getCoursesUseCase: GetCoursesUseCase,
-    private val getCountNotificationsUseCase: GetCountNotificationUseCase
+    private val getCountNotificationsUseCase: GetCountNotificationUseCase,
+    private val getProfileUseCase: GetUserProfileUseCase
 ) : ViewModel() {
     private val _mutableLiveDataColleagueState =
         MutableLiveData<ColleagueState<List<Colleague>>>(ColleagueState.LoadingState())
@@ -25,11 +29,21 @@ class CourseMainViewModel(
         MutableLiveData<BasicState<MainCourse>>(BasicState.LoadingState())
     private val _mutableLiveDataGetCountNotificationsState =
         MutableLiveData<BasicState<Long>>(BasicState.LoadingState())
+    private val _mutableLiveDataGetProfileState =
+        MutableLiveData<BasicState<UserProfile>>(BasicState.LoadingState())
 
     val liveDataColleagueState get() = _mutableLiveDataColleagueState
     val liveDataAllCoursesState get() = _mutableLiveDataAllCoursesState
     val liveDataCoursesCountLimitState get() = _mutableLiveDataCoursesCountLimitState
     val liveDataGetCountNotificationsState get() = _mutableLiveDataGetCountNotificationsState
+    val liveDataGetProfileState get() = _mutableLiveDataGetProfileState
+
+    fun getProfile() {
+        viewModelScope.launch {
+            _mutableLiveDataGetProfileState.value = BasicState.LoadingState()
+            _mutableLiveDataGetProfileState.value = getProfileUseCase.execute()
+        }
+    }
 
     fun getColleagues() {
         viewModelScope.launch {

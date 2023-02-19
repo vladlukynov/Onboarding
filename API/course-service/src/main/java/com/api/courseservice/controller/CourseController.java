@@ -75,7 +75,7 @@ public class CourseController {
         }
         Map<String, Object> map = new HashMap<>();
         List<CourseDTO> list = courseService.getCoursesForUser(userId, postId);
-        if (!list.get(list.size() - 1).isClosed()) {
+        if (list.isEmpty() || !list.get(list.size() - 1).isClosed()) {
             map.put("currentCourse", null);
         } else {
             int i = 0;
