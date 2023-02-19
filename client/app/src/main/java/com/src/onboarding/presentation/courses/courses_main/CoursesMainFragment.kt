@@ -24,6 +24,7 @@ import com.src.onboarding.presentation.courses.courses_main.adapter.MainCourseIt
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.notifications.NotificationsFragment
 import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
+
 //TODO ПРОВЕРКА ЧТО ЭТО НЕ ТЫ!!!!!
 class CoursesMainFragment : Fragment() {
     private lateinit var binding: FragmentCoursesMainBinding
@@ -183,12 +184,17 @@ class CoursesMainFragment : Fragment() {
         when (state) {
             is BasicState.SuccessState -> {
                 val notificationsCount = state.data
-                val notificationsCountString = if (notificationsCount > 9) {
-                    getString(R.string.too_many_notifications)
+                if (notificationsCount == 0L) {
+                    binding.tvNotificationCount.visibility = View.GONE
                 } else {
-                    notificationsCount.toString()
+                    val notificationsCountString = if (notificationsCount > 9) {
+                        getString(R.string.too_many_notifications)
+                    } else {
+                        notificationsCount.toString()
+                    }
+                    binding.tvNotificationCount.visibility = View.VISIBLE
+                    binding.tvNotificationCount.text = notificationsCountString
                 }
-                binding.tvNotificationCount.text = notificationsCountString
             }
             is BasicState.LoadingState -> {}
             is BasicState.ErrorState -> {
