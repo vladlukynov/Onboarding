@@ -1,5 +1,6 @@
 package com.api.courseservice.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,8 +36,6 @@ public class Question {
 
     private String rightAnswer;
 
-    private boolean type;
-
     @ManyToOne
     @JoinColumn(name = "test_id")
     private Test test;
@@ -46,7 +45,7 @@ public class Question {
     private Feedback feedback;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<AnswerVars> answers;
+    private List<AnswerVars> answers;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<FeedbackResults> feedbackResults;

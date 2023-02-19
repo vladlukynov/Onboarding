@@ -1,14 +1,10 @@
 package com.api.courseservice.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -22,7 +18,6 @@ import com.api.courseservice.DTO.ItemInBlock;
 import com.api.courseservice.model.BlockInCourse;
 import com.api.courseservice.model.Course;
 import com.api.courseservice.model.Feedback;
-import com.api.courseservice.model.FeedbackResults;
 import com.api.courseservice.model.Test;
 import com.api.courseservice.model.TestResults;
 import com.api.courseservice.model.TextMaterials;

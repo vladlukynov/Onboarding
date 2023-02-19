@@ -5,10 +5,11 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.api.courseservice.model.Test;
 import com.api.courseservice.model.TestResults;
-
+@Repository
 public interface TestResultsRepository extends JpaRepository<TestResults, Long> {
     @Query("select t from TestResults t where t.userId=:userId")
     Set<TestResults> findByUserIdEquals(Long userId);

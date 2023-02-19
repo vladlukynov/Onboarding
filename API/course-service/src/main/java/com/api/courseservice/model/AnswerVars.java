@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "testresults")
+@Table(name = "answer_variants")
 @Getter
 @Setter
 @NoArgsConstructor
