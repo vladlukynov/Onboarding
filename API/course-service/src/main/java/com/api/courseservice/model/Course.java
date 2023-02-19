@@ -39,13 +39,8 @@ public class Course {
     private String photoSrc;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Test> tests = new HashSet<>();
-
-    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Feedback> feedbacks = new HashSet<>();
-
-    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ProgramCourse> programCourses;
 
-
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<BlockInCourse> blockInCourses = new HashSet<>();
 }

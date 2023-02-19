@@ -20,12 +20,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "feedback")
+@Table(name = "text_materials")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Feedback {
+public class TextMaterials {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,15 +33,15 @@ public class Feedback {
 
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(columnDefinition = "text")
+    private String text;
+
+    @ManyToOne
     @JoinColumn(name = "block_id")
     private BlockInCourse block;
 
-    @OneToMany(mappedBy = "feedback", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Question> questions;
-
-    @OneToMany(mappedBy = "feedback", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<FeedbackResults> results;
-
     private Integer numberInBlock;
+
+    @OneToMany(mappedBy = "textMaterials", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<TextMaterialsResults> textMaterialsResults;
 }

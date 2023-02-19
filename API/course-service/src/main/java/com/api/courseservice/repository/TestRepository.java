@@ -8,9 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import com.api.courseservice.model.Test;
 
 public interface TestRepository extends JpaRepository<Test, Long> {
-    @Query("SELECT t FROM Test t WHERE t.course.id=:courseId")
+    @Query("SELECT t FROM Test t WHERE t.block.course.id=:courseId")
     List<Test> getByCourse(Long courseId);
 
-    @Query("SELECT COALESCE(count(t), 0) FROM Test t WHERE t.course.id=:courseId")
+    @Query("SELECT t FROM Test t WHERE t.block.id=:blockId")
+    List<Test> getByBlock(Long blockId);
+
+    @Query("SELECT COALESCE(count(t), 0) FROM Test t WHERE t.block.course.id=:courseId")
     Integer getCountTestByCourse(Long courseId);
 }

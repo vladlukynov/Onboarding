@@ -1,5 +1,7 @@
 package com.api.courseservice.model;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,28 +22,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "feedback")
+@Table(name = "blocks")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Feedback {
+public class BlockInCourse {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    private String name;
+
+    @OneToMany
+    @JoinColumn(name = "block_id")
+    private List<TextMaterials> textMaterials;
+
+    @OneToMany
+    @JoinColumn(name = "block_id")
+    private List<Test> tests;
+
+    @OneToMany
+    @JoinColumn(name = "block_id")
+    private List<Feedback> feedbacks;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "block_id")
-    private BlockInCourse block;
+    @JoinColumn(name = "course_id")
+    private Course course;
 
-    @OneToMany(mappedBy = "feedback", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Question> questions;
-
-    @OneToMany(mappedBy = "feedback", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<FeedbackResults> results;
-
-    private Integer numberInBlock;
+    private Integer numberInCourse;
 }
