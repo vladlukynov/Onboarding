@@ -22,14 +22,47 @@ import com.src.onboarding.presentation.courses.notifications.viewModel.Notificat
 import com.src.onboarding.presentation.courses.tasks.TasksFragment
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModel
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFactory
+import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
+import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModelFactory
+import com.src.onboarding.presentation.hr.add_task.viewModel.AddTaskViewModel
+import com.src.onboarding.presentation.hr.add_task.viewModel.AddTaskViewModelFactory
+import com.src.onboarding.presentation.hr.profile.viewModel.HrEmployeeProfileViewModel
+import com.src.onboarding.presentation.hr.profile.viewModel.HrEmployeeProfileViewModelFactory
+import com.src.onboarding.presentation.hr.team.viewModel.HrTeamViewModel
+import com.src.onboarding.presentation.hr.team.viewModel.HrTeamViewModelFactory
 import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModelFactory
+import com.src.onboarding.presentation.support.new_appeal.viewModel.NewAppealViewModel
+import com.src.onboarding.presentation.support.new_appeal.viewModel.NewAppealViewModelFactory
 import com.src.onboarding.presentation.support.support_page.ClientSupportFragment
+import com.src.onboarding.presentation.support.support_page.viewModel.ClientSupportViewModel
+import com.src.onboarding.presentation.support.support_page.viewModel.ClientSupportViewModelFactory
 
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var hrTeamViewModelFactory: HrTeamViewModelFactory
+
+    @Inject
+    lateinit var hrEmployeeProfileViewModelFactory: HrEmployeeProfileViewModelFactory
+
+    @Inject
+    lateinit var addEmployeeViewModelFactory: AddEmployeeViewModelFactory
+
+    @Inject
+    lateinit var addTaskViewModelFactory: AddTaskViewModelFactory
+
+    @Inject
+    lateinit var clientSupportViewModelFactory: ClientSupportViewModelFactory
+
+    @Inject
+    lateinit var newAppealViewModelFactory: NewAppealViewModelFactory
+
+
+
+
     @Inject
     lateinit var courseMainViewModelFactory: CourseMainViewModelFactory
 
@@ -123,4 +156,30 @@ class MainActivity : AppCompatActivity() {
 
     fun getCourseDetailsViewModel(): CourseDetailsViewModel =
         ViewModelProvider(this, courseDetailsViewModelFactory)[CourseDetailsViewModel::class.java]
+
+
+
+
+
+
+    fun getHrTeamViewModel(): HrTeamViewModel =
+        ViewModelProvider(this, hrTeamViewModelFactory)[HrTeamViewModel::class.java]
+
+    fun getHrEmployeeProfileViewModel(): HrEmployeeProfileViewModel =
+        ViewModelProvider(
+            this,
+            hrEmployeeProfileViewModelFactory
+        )[HrEmployeeProfileViewModel::class.java]
+
+    fun getAddEmployeeViewModel(): AddEmployeeViewModel =
+        ViewModelProvider(this, addEmployeeViewModelFactory)[AddEmployeeViewModel::class.java]
+
+    fun getAddViewModel(): AddTaskViewModel =
+        ViewModelProvider(this, addTaskViewModelFactory)[AddTaskViewModel::class.java]
+
+    fun getClientSupportViewModel(): ClientSupportViewModel =
+        ViewModelProvider(this, clientSupportViewModelFactory)[ClientSupportViewModel::class.java]
+
+    fun getNewAppealViewModel(): NewAppealViewModel =
+        ViewModelProvider(this, newAppealViewModelFactory)[NewAppealViewModel::class.java]
 }
