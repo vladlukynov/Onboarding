@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/i_chats"
-        android:icon="@drawable/ic_chat"
-        android:title="@string/questions" />
-    <item
         android:id="@+id/i_teams"
         android:icon="@drawable/ic_teams"
         android:title="@string/teams" />
+    <item
+        android:id="@+id/i_chats"
+        android:icon="@drawable/ic_chat"
+        android:title="@string/questions" />
     <item
         android:id="@+id/i_profile"
         android:icon="@drawable/ic_profile"
