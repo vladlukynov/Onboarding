@@ -23,6 +23,7 @@ import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFac
 import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModelFactory
+import com.src.onboarding.presentation.support.ClientSupportFragment
 
 import javax.inject.Inject
 
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         binding.bnvBottomBar.setOnItemSelectedListener {
             clearFragmentBackStack()
             when (it.itemId) {
+                R.id.i_chats -> replaceFragment(ClientSupportFragment())
                 R.id.i_courses -> replaceFragment(CoursesMainFragment())
                 R.id.i_tasks -> replaceFragment(TasksFragment())
                 R.id.i_profile -> replaceFragment(UserProfileFragment())

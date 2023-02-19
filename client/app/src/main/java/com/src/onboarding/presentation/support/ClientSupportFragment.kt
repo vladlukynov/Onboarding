@@ -5,9 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.src.onboarding.R
+import com.src.onboarding.databinding.FragmentClientSupportBinding
 
 class ClientSupportFragment : Fragment() {
+    private lateinit var binding: FragmentClientSupportBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -15,7 +16,8 @@ class ClientSupportFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_client_support, container, false)
+    ): View {
+        binding = FragmentClientSupportBinding.inflate(inflater)
+        return binding.root
     }
 }

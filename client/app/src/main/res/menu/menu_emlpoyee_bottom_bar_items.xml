@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/i_chats"
-        android:icon="@drawable/ic_chat"
-        android:title="@string/support" />
-    <item
         android:id="@+id/i_courses"
         android:icon="@drawable/ic_courses"
         android:title="@string/courses" />
+    <item
+        android:id="@+id/i_chats"
+        android:icon="@drawable/ic_chat"
+        android:title="@string/support" />
     <item
         android:id="@+id/i_tasks"
         android:icon="@drawable/ic_tasks"
