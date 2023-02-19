@@ -23,7 +23,7 @@ import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFac
 import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModelFactory
-import com.src.onboarding.presentation.support.ClientSupportFragment
+import com.src.onboarding.presentation.support.support_page.ClientSupportFragment
 
 import javax.inject.Inject
 

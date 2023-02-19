@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.support.ClientSupportFragment">
+    tools:context=".presentation.support.support_page.ClientSupportFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"
@@ -97,12 +97,37 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_appeals"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/space_2x"
         android:layout_marginTop="@dimen/space_6x"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/vert_line"
+        app:layout_constraintBottom_toTopOf="@id/cv_add_appeal"
         tools:listitem="@layout/view_holder_support_appeal" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_add_appeal"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/space_5x"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/main_purple"
+        app:layout_constraintEnd_toEndOf="@id/gl_end">
+
+        <ImageView
+            android:id="@+id/ib_add_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            app:tint="@color/main_yellow"
+            app:srcCompat="@drawable/ic_plus_button"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

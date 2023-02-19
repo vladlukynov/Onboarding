@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mulish_bold"
-        android:text="Обращение #1514"
+        android:text="@string/new_appeal"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_2x"
             android:fontFamily="@font/mulish_medium"
-            android:text="Алена Рыжова"
+            tools:text="Алена Рыжова"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/cv_client_picture"
@@ -112,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mulish_bold"
-            android:text="15:12"
+            tools:text="15:12"
             android:textColor="@color/white"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -156,7 +156,8 @@
                 android:id="@+id/iv_hr_picture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@color/main_purple" />
+                android:src="@color/main_purple"
+                tools:ignore="ContentDescription" />
 
         </androidx.cardview.widget.CardView>
 
@@ -166,7 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/space_2x"
             android:fontFamily="@font/mulish_medium"
-            android:text="Алена Рыжова"
+            tools:text="Алена Рыжова"
             android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/cv_hr_picture"
@@ -178,12 +179,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mulish_bold"
-            android:text="15:12"
+            tools:text="15:12"
             android:textColor="@color/black"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_field_background"
+        android:textColorHint="@color/neutral_disabled"
+        android:layout_marginEnd="@dimen/space_2x"
+        app:boxStrokeWidth="0dp"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toTopOf="@id/cv_send_message_button"
+        app:layout_constraintBottom_toBottomOf="@id/cv_send_message_button"
+        app:layout_constraintEnd_toStartOf="@id/cv_send_message_button"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:prefixTextColor="@color/white">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:hint="@string/message"
+            android:inputType="text"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="@dimen/space_3x"
+            android:textColor="@color/black"
+            android:textColorHint="@color/neutral_disabled"
+            android:textCursorDrawable="@null"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_send_message_button"
+        android:layout_width="@dimen/space_8x"
+        android:layout_height="@dimen/space_8x"
+        android:layout_marginBottom="@dimen/space_5x"
+        android:backgroundTint="@color/main_purple"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gl_end">
+
+        <ImageView
+            android:id="@+id/iv_send_message_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:padding="@dimen/space_1x"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_send_message"
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
