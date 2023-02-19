@@ -76,6 +76,7 @@
         app:layout_constraintTop_toTopOf="@id/cv_user_picture" />
 
     <TextView
+        android:visibility="invisible"
         android:id="@+id/tv_notification_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
