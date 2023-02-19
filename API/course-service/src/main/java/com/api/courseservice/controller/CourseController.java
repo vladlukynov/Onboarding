@@ -29,8 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.api.courseservice.DTO.CourseDTO;
+import com.api.courseservice.DTO.QuestionForTest;
 import com.api.courseservice.model.Course;
 import com.api.courseservice.service.CourseService;
+import com.api.courseservice.service.QuestionService;
+import com.api.courseservice.service.TestResultsService;
 import com.api.courseservice.service.client.UserRestTemplateClient;
 import com.api.courseservice.utils.AppError;
 
@@ -40,6 +43,12 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private QuestionService questionService;
+
+    @Autowired
+    private TestResultsService testResultsService;
 
     @Autowired
     private UserRestTemplateClient userRestTemplateClient;
@@ -115,6 +124,52 @@ public class CourseController {
         }
         List<CourseDTO> list = courseService.getStartedOrPassedCoursesForUser(id, postId);
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/get-questions-for-test", method = RequestMethod.GET)
+    public ResponseEntity<?> getQuestionsForTest(@RequestParam Long id, HttpServletRequest request) {
+        Long userId = (long) -1;
+        Long postId = (long) -1;
+        try {
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.FORBIDDEN.value(),
+                            "Forbidden"), HttpStatus.FORBIDDEN);
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
+        }
+        List<QuestionForTest> list = questionService.getQuestionsByTestId(id);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/set-results-for-test", method = RequestMethod.GET)
+    public ResponseEntity<?> setResultsForTest(@RequestParam Long id, @RequestParam Integer percents, HttpServletRequest request) {
+        Long userId = (long) -1;
+        Long postId = (long) -1;
+        try {
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.FORBIDDEN.value(),
+                            "Forbidden"), HttpStatus.FORBIDDEN);
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
+        }
+        try {
+            testResultsService.setResultsForTest(id, userId, percents);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (EntityNotFoundException exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.NOT_FOUND.value(),
+                            "This test not exists"), HttpStatus.NOT_FOUND);
+        }
     }
 
 //    @RequestMapping(path = "/next-task", method = RequestMethod.GET)

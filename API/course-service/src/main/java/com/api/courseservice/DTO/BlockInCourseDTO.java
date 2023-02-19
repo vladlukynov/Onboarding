@@ -1,14 +1,6 @@
 package com.api.courseservice.DTO;
 
 import java.util.List;
-import java.util.Set;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-
-import com.api.courseservice.model.Feedback;
-import com.api.courseservice.model.Test;
-import com.api.courseservice.model.TextMaterials;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
