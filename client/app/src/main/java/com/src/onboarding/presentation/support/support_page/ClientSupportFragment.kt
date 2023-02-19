@@ -21,6 +21,8 @@ class ClientSupportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentClientSupportBinding.inflate(inflater)
+        if (activity is HrActivity)
+            binding.cvAddAppeal.visibility = View.GONE
         return binding.root
     }
 

@@ -20,7 +20,7 @@ import com.src.onboarding.presentation.hr.team.viewModel.HrTeamViewModelFactory
 import com.src.onboarding.presentation.hr.your_profile.profile.HrUserProfileFragment
 import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModel
 import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModelFactory
-import com.src.onboarding.presentation.support.appeal_page.AppealPageFragment
+import com.src.onboarding.presentation.support.support_page.ClientSupportFragment
 import javax.inject.Inject
 
 class HrActivity : AppCompatActivity() {
@@ -64,7 +64,7 @@ class HrActivity : AppCompatActivity() {
         binding.bnvBottomBar.setOnItemSelectedListener {
             clearFragmentBackStack()
             when (it.itemId) {
-                R.id.i_chats -> replaceFragmentWithoutBackStack(AppealPageFragment())
+                R.id.i_chats -> replaceFragmentWithoutBackStack(ClientSupportFragment())
                 R.id.i_teams -> replaceFragmentWithoutBackStack(HrTeamFragment())
                 R.id.i_profile -> replaceFragmentWithoutBackStack(HrUserProfileFragment())
             }
