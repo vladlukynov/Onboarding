@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.profile.user_profile.viewModel
+package com.src.onboarding.presentation.profile.edit_profile.viewModel
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData

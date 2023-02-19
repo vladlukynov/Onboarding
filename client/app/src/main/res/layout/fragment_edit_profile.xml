@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.profile.edit_profile.EditProfileFragment">
+    tools:context=".presentation.courses.your_profile.edit_profile.EditProfileFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top"

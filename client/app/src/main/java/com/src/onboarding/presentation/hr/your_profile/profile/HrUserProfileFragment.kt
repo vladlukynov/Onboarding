@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.profile.user_profile
+package com.src.onboarding.presentation.hr.your_profile.profile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -17,22 +17,22 @@ import com.src.onboarding.domain.model.course.course.Course
 import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.login.BasicState
-import com.src.onboarding.presentation.MainActivity
-import com.src.onboarding.presentation.courses.your_profile.edit_profile.EditProfileFragment
-import com.src.onboarding.presentation.profile.user_profile.adapter.StatisticAdapter
-import com.src.onboarding.presentation.profile.edit_profile.viewModel.UserProfileViewModel
+import com.src.onboarding.presentation.HrActivity
+import com.src.onboarding.presentation.hr.your_profile.edit_profile.HrEditProfileFragment
+import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.adapter.ActivityAdapter
+import com.src.onboarding.presentation.profile.user_profile.adapter.StatisticAdapter
 
-class UserProfileFragment : Fragment() {
+class HrUserProfileFragment : Fragment() {
     private lateinit var binding: FragmentUserProfileBinding
-    private lateinit var viewModel: UserProfileViewModel
+    private lateinit var viewModel: HrUserProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUserProfileBinding.inflate(inflater)
-        viewModel = (activity as MainActivity).getUserProfileViewModel()
+        viewModel = (activity as HrActivity).getUserProfileViewModel()
         return binding.root
     }
 
@@ -132,7 +132,7 @@ class UserProfileFragment : Fragment() {
             )
         }
         binding.tvEditProfile.setOnClickListener {
-            (activity as MainActivity).replaceFragment(EditProfileFragment())
+            (activity as HrActivity).replaceFragment(HrEditProfileFragment())
         }
     }
 
@@ -227,10 +227,6 @@ class UserProfileFragment : Fragment() {
     private fun setDataForActivities(activities: List<Activity>) {
         val adapter = binding.rvActivity.adapter as ActivityAdapter
         adapter.submitList(activities)
-    }
-
-    companion object {
-        const val USER_ID = "user_id"
     }
 
 }

@@ -31,9 +31,11 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @JoinColumn(name = "block_id")
+    private BlockInCourse block;
 
     @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Question> questions;
@@ -41,5 +43,5 @@ public class Test {
     @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<TestResults> results;
 
-    private Integer numberInCourse;
+    private Integer numberInBlock;
 }

@@ -52,6 +52,9 @@ public class CourseController {
             userId = userRestTemplateClient.getUserId(request);
             postId = userRestTemplateClient.getUserPostId(userId, request);
         } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.FORBIDDEN.value(),
+                            "Forbidden"), HttpStatus.FORBIDDEN);
         } catch (HttpClientErrorException.Unauthorized exception) {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.UNAUTHORIZED.value(),
@@ -82,6 +85,9 @@ public class CourseController {
             userId = userRestTemplateClient.getUserId(request);
             postId = userRestTemplateClient.getUserPostId(userId, request);
         } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.FORBIDDEN.value(),
+                            "Forbidden"), HttpStatus.FORBIDDEN);
         } catch (HttpClientErrorException.Unauthorized exception) {
             return new ResponseEntity<>(
                     new AppError(HttpStatus.UNAUTHORIZED.value(),
@@ -91,31 +97,79 @@ public class CourseController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/next-task", method = RequestMethod.GET)
-    public ResponseEntity<?> getTask(@RequestParam("CourseId") Long courseId, HttpServletRequest request) {
+    @RequestMapping(path = "/started-courses-by-id", method = RequestMethod.GET)
+    public ResponseEntity<?> getStartedOrPassedCourses(@RequestParam Long id, HttpServletRequest request) {
+        Long userId = (long) -1;
+        Long postId = (long) -1;
         try {
-            Long userId = userRestTemplateClient.getUserId(request);
-            boolean flag = courseService.isNextTest(courseId, userId);
-            if (flag) {
-                return new ResponseEntity<>(courseService.findNextTestInCourseById(courseId, userId), HttpStatus.OK);
-            }
-            return new ResponseEntity<>(courseService.findNextFeedbackInCourseById(courseId, userId), HttpStatus.OK);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.FORBIDDEN.value(),
+                            "Forbidden"), HttpStatus.FORBIDDEN);
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
         }
+        List<CourseDTO> list = courseService.getStartedOrPassedCoursesForUser(id, postId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+//    @RequestMapping(path = "/next-task", method = RequestMethod.GET)
+//    public ResponseEntity<?> getTask(@RequestParam("CourseId") Long courseId, HttpServletRequest request) {
+//        try {
+//            Long userId = userRestTemplateClient.getUserId(request);
+//            boolean flag = courseService.isNextTest(courseId, userId);
+//            if (flag) {
+//                return new ResponseEntity<>(courseService.findNextTestInCourseById(courseId, userId), HttpStatus.OK);
+//            }
+//            return new ResponseEntity<>(courseService.findNextFeedbackInCourseById(courseId, userId), HttpStatus.OK);
+//        } catch (Exception exception) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
-    @RequestMapping(path = "/delete-by-id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<?> getPostByUserId(@PathVariable Long id) {
+    @RequestMapping(path = "/id/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCourseById(@PathVariable Long id, HttpServletRequest request) {
+        Long userId;
+        Long postId = (long) -1;
         try {
-            courseService.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.FORBIDDEN.value(),
+                            "Forbidden"), HttpStatus.FORBIDDEN);
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
+        }
+        try {
+            if (!courseService.checkAccessUserCourse(userId, postId, id)) {
+                return new ResponseEntity<>(
+                        new AppError(HttpStatus.CONFLICT.value(),
+                                "You don't have access for this course"), HttpStatus.CONFLICT);
+            } else {
+                return new ResponseEntity<>(courseService.getCourseForCoursePage(id, userId), HttpStatus.OK);
+            }
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+//    @RequestMapping(path = "/delete-by-id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public ResponseEntity<?> getPostByUserId(@PathVariable Long id) {
+//        try {
+//            courseService.deleteById(id);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @RequestMapping(path = "/image", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
@@ -144,5 +198,4 @@ public class CourseController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
 }

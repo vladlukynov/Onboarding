@@ -28,6 +28,6 @@ public class CourseDTO {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.photoSrc = photoSrc;
+        this.photoSrc = "/course/image?id=" + this.id;
     }
 }

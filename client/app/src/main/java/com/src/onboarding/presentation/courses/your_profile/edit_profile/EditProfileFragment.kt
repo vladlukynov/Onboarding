@@ -1,4 +1,4 @@
-package com.src.onboarding.presentation.profile.edit_profile
+package com.src.onboarding.presentation.courses.your_profile.edit_profile
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -107,7 +107,7 @@ class EditProfileFragment : Fragment() {
                     }
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Log.e(Companion.TAG, "Crop error: ${result.error}")
+                    Log.e(TAG, "Crop error: ${result.error}")
                 }
             }
         }

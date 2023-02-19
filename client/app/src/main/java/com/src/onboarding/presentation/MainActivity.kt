@@ -6,13 +6,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.src.onboarding.R
 import com.src.onboarding.app.App
 import com.src.onboarding.databinding.ActivityMainBinding
-import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
-import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModelFactory
 import com.src.onboarding.presentation.courses.courses_main.CoursesMainFragment
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModelFactory
@@ -22,7 +21,7 @@ import com.src.onboarding.presentation.courses.tasks.TasksFragment
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModel
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFactory
 import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
-import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
+import com.src.onboarding.presentation.profile.edit_profile.viewModel.UserProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModelFactory
 
 import javax.inject.Inject
@@ -76,6 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOnBottomBarItemClickListener() {
         binding.bnvBottomBar.setOnItemSelectedListener {
+            clearFragmentBackStack()
             when (it.itemId) {
                 R.id.i_courses -> replaceFragment(CoursesMainFragment())
                 R.id.i_tasks -> replaceFragment(TasksFragment())
@@ -83,6 +83,13 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
+    }
+
+    private fun clearFragmentBackStack() {
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        // val fm = supportFragmentManager
+        // for (i in 0 until fm.backStackEntryCount)
+        //     fm.popBackStack()
     }
 
     fun replaceFragment(fragment: Fragment) {
