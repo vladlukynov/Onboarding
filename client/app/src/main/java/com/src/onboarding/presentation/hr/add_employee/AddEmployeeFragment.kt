@@ -13,6 +13,7 @@ import com.src.onboarding.presentation.HrActivity
 import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.hr.add_employee.adapter.AddEmployeeSpinnerAdapter
 import com.src.onboarding.presentation.hr.add_employee.viewModel.AddEmployeeViewModel
+import com.src.onboarding.presentation.hr.team.HrTeamFragment
 
 //TODO добавить загрузку
 class AddEmployeeFragment : Fragment() {
@@ -90,6 +91,7 @@ class AddEmployeeFragment : Fragment() {
         when (state) {
             is BasicState.SuccessState -> {
                 //TODO перейти на другой
+                parentFragmentManager.popBackStack()
             }
             is BasicState.LoadingState -> {}
             is BasicState.ErrorState -> {}

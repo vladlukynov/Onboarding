@@ -68,7 +68,6 @@ class UserProfileFragment : Fragment() {
         }
         setAdaptersForStatisticRecyclerView()
         setAdaptersForActivitiesRecyclerView()
-        setBackButtonOnClick()
         setOnClickListeners()
 
     }
@@ -215,12 +214,6 @@ class UserProfileFragment : Fragment() {
     private fun setDataForStatistics(courses: List<Course>) {
         val adapter = binding.rvStatistics.adapter as StatisticAdapter
         adapter.submitList(courses)
-    }
-
-    private fun setBackButtonOnClick() {
-        binding.ivBackButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
     }
 
     private fun checkGetSActivitiesState(state: BasicState<List<Activity>>) {

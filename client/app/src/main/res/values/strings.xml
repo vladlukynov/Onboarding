@@ -55,4 +55,6 @@
     <string name="support">Поддержка</string>
     <string name="questions">Вопросы</string>
     <string name="deadline_date">Дата дедлайна</string>
+    <string name="message">Текст обращениия</string>
+    <string name="new_appeal">Новое обращение</string>
 </resources>

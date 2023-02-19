@@ -97,6 +97,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user, EditUserBean editUserBean) {
         user.setName(editUserBean.getName());
+        user.setDescription(editUserBean.getDescription());
         userRepository.save(user);
     }
 

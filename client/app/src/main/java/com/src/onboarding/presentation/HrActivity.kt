@@ -20,7 +20,7 @@ import com.src.onboarding.presentation.hr.team.viewModel.HrTeamViewModelFactory
 import com.src.onboarding.presentation.hr.your_profile.profile.HrUserProfileFragment
 import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModel
 import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModelFactory
-import com.src.onboarding.presentation.support.AppealPageFragment
+import com.src.onboarding.presentation.support.appeal_page.AppealPageFragment
 import javax.inject.Inject
 
 class HrActivity : AppCompatActivity() {
@@ -45,7 +45,7 @@ class HrActivity : AppCompatActivity() {
         (applicationContext as App).appComponent.inject(this)
         binding = ActivityHrBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(HrTeamFragment())
+        replaceFragmentWithoutBackStack(HrTeamFragment())
 
         setOnBottomBarItemClickListener()
     }
@@ -55,13 +55,18 @@ class HrActivity : AppCompatActivity() {
             .addToBackStack(null).commit()
     }
 
+    private fun replaceFragmentWithoutBackStack(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
     private fun setOnBottomBarItemClickListener() {
         binding.bnvBottomBar.setOnItemSelectedListener {
             clearFragmentBackStack()
             when (it.itemId) {
-                R.id.i_chats -> replaceFragment(AppealPageFragment())
-                R.id.i_teams -> replaceFragment(HrTeamFragment())
-                R.id.i_profile -> replaceFragment(HrUserProfileFragment())
+                R.id.i_chats -> replaceFragmentWithoutBackStack(AppealPageFragment())
+                R.id.i_teams -> replaceFragmentWithoutBackStack(HrTeamFragment())
+                R.id.i_profile -> replaceFragmentWithoutBackStack(HrUserProfileFragment())
             }
             return@setOnItemSelectedListener true
         }
