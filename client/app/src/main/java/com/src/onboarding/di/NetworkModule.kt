@@ -14,6 +14,7 @@ import com.src.onboarding.data.remote.dataSource.user.UserDataSourceImpl
 import com.src.onboarding.data.remote.interceptor.TokenInterceptor
 import com.src.onboarding.data.remote.model.course.colleague.ColleagueMapper
 import com.src.onboarding.data.remote.model.course.course.CourseMapper
+import com.src.onboarding.data.remote.model.course.course_page.course.CourseBlockMapper
 import com.src.onboarding.data.remote.model.course.mainCourse.MainCourseMapper
 import com.src.onboarding.data.remote.model.employee.post.PostMapper
 import com.src.onboarding.data.remote.model.employee.team.TeamMapper
@@ -179,14 +180,16 @@ class NetworkModule {
         colleagueMapper: ColleagueMapper,
         mainCourseMapper: MainCourseMapper,
         sessionController: SessionController,
-        courseMapper: CourseMapper
+        courseMapper: CourseMapper,
+        courseBlockMapper: CourseBlockMapper
     ): CourseDataSource {
         return CourseDataSourceImpl(
             courseService = courseService,
             colleagueMapper = colleagueMapper,
             mainCourseMapper = mainCourseMapper,
             sessionController = sessionController,
-            courseMapper = courseMapper
+            courseMapper = courseMapper,
+            courseBlockMapper=courseBlockMapper
         )
     }
 

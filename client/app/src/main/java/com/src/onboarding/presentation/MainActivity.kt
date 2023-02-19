@@ -15,6 +15,8 @@ import com.src.onboarding.databinding.ActivityMainBinding
 import com.src.onboarding.presentation.courses.courses_main.CoursesMainFragment
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModelFactory
+import com.src.onboarding.presentation.courses.details.viewModel.CourseDetailsViewModel
+import com.src.onboarding.presentation.courses.details.viewModel.CourseDetailsViewModelFactory
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModel
 import com.src.onboarding.presentation.courses.notifications.viewModel.NotificationViewModelFactory
 import com.src.onboarding.presentation.courses.tasks.TasksFragment
@@ -36,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var tasksViewModelFactory: TasksViewModelFactory
+
+    @Inject
+    lateinit var courseDetailsViewModelFactory: CourseDetailsViewModelFactory
 
     @Inject
     lateinit var userProfileViewModelFactory: UserProfileViewModelFactory
@@ -115,4 +120,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getUserProfileViewModel(): UserProfileViewModel =
         ViewModelProvider(this, userProfileViewModelFactory)[UserProfileViewModel::class.java]
+
+    fun getCourseDetailsViewModel(): CourseDetailsViewModel =
+        ViewModelProvider(this, courseDetailsViewModelFactory)[CourseDetailsViewModel::class.java]
 }

@@ -16,7 +16,7 @@ import com.src.onboarding.domain.model.course.course.MainCourse
 import com.src.onboarding.domain.state.course.ColleagueState
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
-import com.src.onboarding.presentation.courses.CourseDetailsFragment
+import com.src.onboarding.presentation.courses.details.CourseDetailsFragment
 import com.src.onboarding.presentation.courses.all_courses.AllCoursesFragment
 import com.src.onboarding.presentation.courses.courses_main.adapter.ColleagueAdapter
 import com.src.onboarding.presentation.courses.courses_main.adapter.CoursesAdapter
@@ -170,7 +170,7 @@ class CoursesMainFragment : Fragment() {
     private fun onClickCourses(course: Course) {
         val bundle = Bundle()
         bundle.putLong(CourseDetailsFragment.COURSE_ID, course.id)
-        val fragment = AllCoursesFragment()
+        val fragment = CourseDetailsFragment()
         fragment.arguments = bundle
         (activity as MainActivity).replaceFragment(fragment)
     }

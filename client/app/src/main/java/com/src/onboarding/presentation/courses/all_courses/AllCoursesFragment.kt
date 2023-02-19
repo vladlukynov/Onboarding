@@ -12,7 +12,7 @@ import com.src.onboarding.domain.model.course.course.Course
 import com.src.onboarding.domain.model.course.course.MainCourse
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
-import com.src.onboarding.presentation.courses.CourseDetailsFragment
+import com.src.onboarding.presentation.courses.details.CourseDetailsFragment
 import com.src.onboarding.presentation.courses.courses_main.adapter.CoursesAdapter
 import com.src.onboarding.presentation.courses.courses_main.viewModel.CourseMainViewModel
 

@@ -2,6 +2,9 @@ package com.src.onboarding.di
 
 import com.src.onboarding.data.remote.model.course.colleague.ColleagueMapper
 import com.src.onboarding.data.remote.model.course.course.CourseMapper
+import com.src.onboarding.data.remote.model.course.course_page.block.BlockMapper
+import com.src.onboarding.data.remote.model.course.course_page.block_item.BlockItemMapper
+import com.src.onboarding.data.remote.model.course.course_page.course.CourseBlockMapper
 import com.src.onboarding.data.remote.model.course.mainCourse.MainCourseMapper
 import com.src.onboarding.data.remote.model.employee.post.PostMapper
 import com.src.onboarding.data.remote.model.employee.team.TeamMapper
@@ -74,5 +77,23 @@ class MapperModule {
     @Provides
     fun provideActivityMapper(): ActivityMapper {
         return ActivityMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideBlockItemMapper(): BlockItemMapper {
+        return BlockItemMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideBlockMapper(blockItemMapper: BlockItemMapper): BlockMapper {
+        return BlockMapper(blockItemMapper = blockItemMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCourseBlockMapper(blockMapper: BlockMapper): CourseBlockMapper {
+        return CourseBlockMapper(blockMapper = blockMapper)
     }
 }

@@ -1,10 +1,7 @@
 package com.src.onboarding.di
 
 import com.src.onboarding.domain.repository.CourseRepository
-import com.src.onboarding.domain.usecase.course.GetColleaguesUseCase
-import com.src.onboarding.domain.usecase.course.GetCoursesUseCase
-import com.src.onboarding.domain.usecase.course.GetStartedCoursesByIdForUserUseCase
-import com.src.onboarding.domain.usecase.course.GetStartedCoursesForUserUseCase
+import com.src.onboarding.domain.usecase.course.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -33,5 +30,11 @@ class DomainCourseModule {
     @Provides
     fun provideGetStartedCoursesByIdForUserUseCase(courseRepository: CourseRepository): GetStartedCoursesByIdForUserUseCase {
         return GetStartedCoursesByIdForUserUseCase(courseRepository = courseRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetCoursesForCoursePageUseCase(courseRepository: CourseRepository): GetCoursesForCoursePageUseCase {
+        return GetCoursesForCoursePageUseCase(courseRepository = courseRepository)
     }
 }
