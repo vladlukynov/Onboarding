@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.src.onboarding.databinding.FragmentNewAppealBinding
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.HrActivity
+import com.src.onboarding.presentation.MainActivity
 import com.src.onboarding.presentation.support.new_appeal.viewModel.NewAppealViewModel
 
 class NewAppealFragment : Fragment() {
@@ -19,7 +20,11 @@ class NewAppealFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNewAppealBinding.inflate(inflater)
-        viewModel = (activity as HrActivity).getNewAppealViewModel()
+        if(activity is MainActivity) {
+            viewModel = (activity as MainActivity).getNewAppealViewModel()
+        } else {
+            viewModel = (activity as HrActivity).getNewAppealViewModel()
+        }
         return binding.root
     }
 
