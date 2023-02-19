@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.src.onboarding.R
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOnBottomBarItemClickListener() {
         binding.bnvBottomBar.setOnItemSelectedListener {
+            clearFragmentBackStack()
             when (it.itemId) {
                 R.id.i_courses -> replaceFragment(CoursesMainFragment())
                 R.id.i_tasks -> replaceFragment(TasksFragment())
@@ -81,6 +83,13 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
+    }
+
+    private fun clearFragmentBackStack() {
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        // val fm = supportFragmentManager
+        // for (i in 0 until fm.backStackEntryCount)
+        //     fm.popBackStack()
     }
 
     fun replaceFragment(fragment: Fragment) {

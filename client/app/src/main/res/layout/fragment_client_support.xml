@@ -95,13 +95,14 @@
         app:layout_constraintTop_toBottomOf="@id/line" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="@dimen/space_6x"
-        app:layout_constraintTop_toBottomOf="@id/vert_line"
+        android:id="@+id/rv_appeals"
         android:layout_width="0dp"
-        tools:listitem="@layout/view_holder_support_appeal"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_6x"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
-        app:layout_constraintStart_toStartOf="@id/gl_start" />
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/vert_line"
+        tools:listitem="@layout/view_holder_support_appeal" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
