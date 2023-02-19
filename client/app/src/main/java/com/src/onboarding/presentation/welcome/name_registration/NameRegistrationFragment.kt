@@ -155,8 +155,6 @@ class NameRegistrationFragment : Fragment() {
                         viewModel.setImage(uri = photo!!)
                     }
                     viewModel.registration(photo)
-
-                    startActivity(Intent(context, MainActivity::class.java).apply {})
                 }
             } else {
                 (activity as LoginActivity).showSnackBar(getString(R.string.fill_all_fields))
