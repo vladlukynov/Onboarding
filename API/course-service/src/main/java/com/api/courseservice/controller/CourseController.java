@@ -34,6 +34,7 @@ import com.api.courseservice.model.Course;
 import com.api.courseservice.service.CourseService;
 import com.api.courseservice.service.QuestionService;
 import com.api.courseservice.service.TestResultsService;
+import com.api.courseservice.service.TextMaterialsService;
 import com.api.courseservice.service.client.UserRestTemplateClient;
 import com.api.courseservice.utils.AppError;
 
@@ -49,6 +50,9 @@ public class CourseController {
 
     @Autowired
     private TestResultsService testResultsService;
+
+    @Autowired
+    private TextMaterialsService textMaterialsService;
 
     @Autowired
     private UserRestTemplateClient userRestTemplateClient;
@@ -71,7 +75,7 @@ public class CourseController {
         }
         Map<String, Object> map = new HashMap<>();
         List<CourseDTO> list = courseService.getCoursesForUser(userId, postId);
-        if (!list.get(list.size() - 1).isClosed()) {
+        if (list.isEmpty() || !list.get(list.size() - 1).isClosed()) {
             map.put("currentCourse", null);
         } else {
             int i = 0;
@@ -146,6 +150,31 @@ public class CourseController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/get-text-material", method = RequestMethod.GET)
+    public ResponseEntity<?> getTextMaterial(@RequestParam Long id, HttpServletRequest request) {
+        Long userId = (long) -1;
+        Long postId = (long) -1;
+        try {
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.FORBIDDEN.value(),
+                            "Forbidden"), HttpStatus.FORBIDDEN);
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
+        }
+        try {
+            return new ResponseEntity<>(textMaterialsService.getTextMaterials(id), HttpStatus.OK);
+        } catch (EntityNotFoundException exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.NOT_FOUND.value(),
+                            "Not found text materials"), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(path = "/set-results-for-test", method = RequestMethod.GET)
     public ResponseEntity<?> setResultsForTest(@RequestParam Long id, @RequestParam Integer percents, HttpServletRequest request) {
         Long userId = (long) -1;
@@ -172,19 +201,31 @@ public class CourseController {
         }
     }
 
-//    @RequestMapping(path = "/next-task", method = RequestMethod.GET)
-//    public ResponseEntity<?> getTask(@RequestParam("CourseId") Long courseId, HttpServletRequest request) {
-//        try {
-//            Long userId = userRestTemplateClient.getUserId(request);
-//            boolean flag = courseService.isNextTest(courseId, userId);
-//            if (flag) {
-//                return new ResponseEntity<>(courseService.findNextTestInCourseById(courseId, userId), HttpStatus.OK);
-//            }
-//            return new ResponseEntity<>(courseService.findNextFeedbackInCourseById(courseId, userId), HttpStatus.OK);
-//        } catch (Exception exception) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @RequestMapping(path = "/set-results-for-text-materials", method = RequestMethod.GET)
+    public ResponseEntity<?> setResultsForTextMaterials(@RequestParam Long id, HttpServletRequest request) {
+        Long userId = (long) -1;
+        Long postId = (long) -1;
+        try {
+            userId = userRestTemplateClient.getUserId(request);
+            postId = userRestTemplateClient.getUserPostId(userId, request);
+        } catch (IllegalStateException | HttpClientErrorException.Forbidden ignored) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.FORBIDDEN.value(),
+                            "Forbidden"), HttpStatus.FORBIDDEN);
+        } catch (HttpClientErrorException.Unauthorized exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(),
+                            "Access token is expired"), HttpStatus.UNAUTHORIZED);
+        }
+        try {
+            textMaterialsService.setResultsForTextMaterial(id, userId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (EntityNotFoundException exception) {
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.NOT_FOUND.value(),
+                            "This test not exists"), HttpStatus.NOT_FOUND);
+        }
+    }
 
     @RequestMapping(path = "/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getCourseById(@PathVariable Long id, HttpServletRequest request) {
@@ -214,17 +255,6 @@ public class CourseController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-//    @RequestMapping(path = "/delete-by-id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public ResponseEntity<?> getPostByUserId(@PathVariable Long id) {
-//        try {
-//            courseService.deleteById(id);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 
     @RequestMapping(path = "/image", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
