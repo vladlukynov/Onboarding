@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         (applicationContext as App).appComponent.inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(CoursesMainFragment())
+        replaceFragmentWithoutBackStack(CoursesMainFragment())
 
         setOnBottomBarItemClickListener()
     }
@@ -78,10 +78,10 @@ class MainActivity : AppCompatActivity() {
         binding.bnvBottomBar.setOnItemSelectedListener {
             clearFragmentBackStack()
             when (it.itemId) {
-                R.id.i_chats -> replaceFragment(ClientSupportFragment())
-                R.id.i_courses -> replaceFragment(CoursesMainFragment())
-                R.id.i_tasks -> replaceFragment(TasksFragment())
-                R.id.i_profile -> replaceFragment(UserProfileFragment())
+                R.id.i_chats -> replaceFragmentWithoutBackStack(ClientSupportFragment())
+                R.id.i_courses -> replaceFragmentWithoutBackStack(CoursesMainFragment())
+                R.id.i_tasks -> replaceFragmentWithoutBackStack(TasksFragment())
+                R.id.i_profile -> replaceFragmentWithoutBackStack(UserProfileFragment())
             }
             return@setOnItemSelectedListener true
         }
@@ -92,6 +92,11 @@ class MainActivity : AppCompatActivity() {
         // val fm = supportFragmentManager
         // for (i in 0 until fm.backStackEntryCount)
         //     fm.popBackStack()
+    }
+
+    private fun replaceFragmentWithoutBackStack(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     fun replaceFragment(fragment: Fragment) {
