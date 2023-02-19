@@ -14,9 +14,11 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.src.onboarding.databinding.FragmentEditProfileBinding
+import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.state.user.EditProfileState
+import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.MainActivity
-import com.src.onboarding.presentation.profile.edit_profile.viewModel.UserProfileViewModel
+import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
 import com.src.onboarding.presentation.utils.PhotoCompression
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -48,8 +50,15 @@ class EditProfileFragment : Fragment() {
             this.viewLifecycleOwner,
             this::checkEditProfileState
         )
+        viewModel.liveDataLogoutState.observe(
+            this.viewLifecycleOwner,
+            this::checkLogoutState
+        )
         setData()
         setOnClickListenerForBackButton()
+        binding.tvSignOut.setOnClickListener {
+            viewModel.logout()
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -174,6 +183,18 @@ class EditProfileFragment : Fragment() {
         binding.ivBackButton.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+    }
+
+    private fun checkLogoutState(state: BasicState<Unit>) {
+        when (state) {
+            is BasicState.SuccessState -> {
+                startActivity(Intent(context, LoginActivity::class.java).apply {
+                })
+            }
+            is BasicState.LoadingState -> {}
+            is BasicState.ErrorState -> {}
+        }
+
     }
 
     companion object {

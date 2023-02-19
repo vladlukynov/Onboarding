@@ -21,7 +21,7 @@ import com.src.onboarding.presentation.courses.tasks.TasksFragment
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModel
 import com.src.onboarding.presentation.courses.tasks.viewModel.TasksViewModelFactory
 import com.src.onboarding.presentation.profile.user_profile.UserProfileFragment
-import com.src.onboarding.presentation.profile.edit_profile.viewModel.UserProfileViewModel
+import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModelFactory
 
 import javax.inject.Inject

@@ -13,13 +13,15 @@ import com.src.onboarding.domain.usecase.course.GetStartedCoursesForUserUseCase
 import com.src.onboarding.domain.usecase.user.EditProfileUseCase
 import com.src.onboarding.domain.usecase.user.GetActivitiesUseCase
 import com.src.onboarding.domain.usecase.user.GetUserProfileUseCase
+import com.src.onboarding.domain.usecase.user.LogoutUseCase
 import kotlinx.coroutines.launch
 
 class UserProfileViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getStartedCoursesForUserUseCase: GetStartedCoursesForUserUseCase,
     private val getActivitiesUseCase: GetActivitiesUseCase,
-    private val editProfileUseCase: EditProfileUseCase
+    private val editProfileUseCase: EditProfileUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
     private val _mutableLiveDataGetProfileState =
         MutableLiveData<BasicState<UserProfile>>(BasicState.LoadingState())
@@ -29,6 +31,8 @@ class UserProfileViewModel(
         MutableLiveData<BasicState<List<Course>>>(BasicState.LoadingState())
     private val _mutableLiveDataGetActivitiesState =
         MutableLiveData<BasicState<List<Activity>>>(BasicState.LoadingState())
+    private val _mutableLiveDataLogoutState =
+        MutableLiveData<BasicState<Unit>>(BasicState.DefaultState())
 
     private val _mutableLiveDataName = MutableLiveData<String?>(null)
     private val _mutableLiveDataDescription = MutableLiveData<String?>(null)
@@ -39,6 +43,7 @@ class UserProfileViewModel(
     val liveDataGetStartedCourseState get() = _mutableLiveDataGetStartedCoursesForUserState
     val liveDataGetActivitiesState get() = _mutableLiveDataGetActivitiesState
     val liveDataEditProfileState get() = _mutableLiveDataEditProfileState
+    val liveDataLogoutState get() = _mutableLiveDataLogoutState
     fun getProfile() {
         viewModelScope.launch {
             _mutableLiveDataGetProfileState.value = BasicState.LoadingState()
@@ -110,5 +115,12 @@ class UserProfileViewModel(
 
     fun setEditProfileState() {
         _mutableLiveDataEditProfileState.value = EditProfileState.DefaultState
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            _mutableLiveDataLogoutState.value = BasicState.LoadingState()
+            _mutableLiveDataLogoutState.value = logoutUseCase.execute()
+        }
     }
 }

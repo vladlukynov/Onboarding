@@ -18,10 +18,10 @@ import com.src.onboarding.domain.model.user.Activity
 import com.src.onboarding.domain.model.user.UserProfile
 import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.presentation.MainActivity
-import com.src.onboarding.presentation.courses.your_profile.edit_profile.EditProfileFragment
+import com.src.onboarding.presentation.profile.edit_profile.EditProfileFragment
 import com.src.onboarding.presentation.profile.user_profile.adapter.StatisticAdapter
-import com.src.onboarding.presentation.profile.edit_profile.viewModel.UserProfileViewModel
 import com.src.onboarding.presentation.profile.user_profile.adapter.ActivityAdapter
+import com.src.onboarding.presentation.profile.user_profile.viewModel.UserProfileViewModel
 
 class UserProfileFragment : Fragment() {
     private lateinit var binding: FragmentUserProfileBinding

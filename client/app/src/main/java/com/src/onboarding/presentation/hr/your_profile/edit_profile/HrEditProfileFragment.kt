@@ -14,8 +14,10 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.src.onboarding.databinding.FragmentEditProfileBinding
+import com.src.onboarding.domain.state.login.BasicState
 import com.src.onboarding.domain.state.user.EditProfileState
 import com.src.onboarding.presentation.HrActivity
+import com.src.onboarding.presentation.LoginActivity
 import com.src.onboarding.presentation.hr.your_profile.profile.viewModel.HrUserProfileViewModel
 import com.src.onboarding.presentation.utils.PhotoCompression
 import com.theartofdev.edmodo.cropper.CropImage
@@ -48,6 +50,13 @@ class HrEditProfileFragment : Fragment() {
             this.viewLifecycleOwner,
             this::checkEditProfileState
         )
+        viewModel.liveDataLogoutState.observe(
+            this.viewLifecycleOwner,
+            this::checkLogoutState
+        )
+        binding.tvSignOut.setOnClickListener {
+            viewModel.logout()
+        }
         setData()
         setOnClickListenerForBackButton()
     }
@@ -174,6 +183,18 @@ class HrEditProfileFragment : Fragment() {
         binding.ivBackButton.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+    }
+
+    private fun checkLogoutState(state: BasicState<Unit>) {
+        when (state) {
+            is BasicState.SuccessState -> {
+                startActivity(Intent(context, LoginActivity::class.java).apply {
+                })
+            }
+            is BasicState.LoadingState -> {}
+            is BasicState.ErrorState -> {}
+        }
+
     }
 
     companion object {
